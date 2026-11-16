@@ -43,7 +43,7 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
 <body>
 <header><div class="nav">
  <div><div class="brand">📘 STUDY HUB</div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="gold" data-go="admin">Admin / Content Manager</button></div>
+ <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 <section class="card" id="studentAuth" style="max-width:1200px;margin:16px auto;padding:18px">
@@ -111,7 +111,7 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
  <div class="card" style="margin-top:14px"><h3>🤖 Doubt Assistant</h3><p class="notice">Is offline version mein real AI connected nahi hai. API key ko browser code mein rakhna unsafe hota hai. Real AI ke liye secure backend/API connection zaroori hai.</p><label>Your question</label><textarea id="doubtQuestion" rows="3" style="width:100%" placeholder="Apna sawal likhein..."></textarea><button class="green" id="doubtBtn">Show guidance</button><p id="doubtAnswer"></p></div>
 </section>
 <section class="page" id="page-admin">
- <div class="card"><h2>⚙️ Content Manager</h2><p class="notice"><b>Important:</b> Yeh single-device demo hai. Admin panel par koi real secure login nahi hai; browser LocalStorage ko student edit kar sakta hai. Public website par publish karne se pehle server-side login, database, file storage aur permissions lagana zaroori hai.</p>
+ <div class="card"><h2>⚙️ Admin Dashboard</h2><p class="notice">Admin access Supabase ke protected admin_users table se verify hota hai. Is version mein content abhi isi browser/device par save hota hai; sab students ke liye publish karne ke liye agle step mein shared database aur file storage connect karenge.</p>
  <div class="formgrid" style="margin-top:12px">
   <div><label>Content type</label><select id="newType"><option value="book">Textbook / PDF</option><option value="note">Notes / Capsule</option><option value="video">Recorded Video</option><option value="live">Live Class</option><option value="paper">PYQ / Model Paper</option></select></div>
   <div><label>Class</label><select id="newClass"><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></div>
@@ -154,7 +154,7 @@ function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,
 function cardHTML(x){const url=safeURL(x.url);return `<article class="card"><span class="pill">${escapeHTML(x.sub||"General")}</span><span class="pill">${escapeHTML(x.board)} • ${escapeHTML(x.med)}</span><h3>${escapeHTML(x.title)}</h3><p class="muted">${escapeHTML(x.summary||"")}</p><div class="actions">${x.type==="video"&&url?`<button class="green" data-watch="${x.id}">▶ Watch</button>`:""}${x.type==="live"&&url?`<a class="btn green" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Join class ↗</a>`:""}${url&&x.type!=="video"&&x.type!=="live"?`<a class="btn gold" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Open resource ↗</a>`:""}<button class="gold" data-detail="${x.id}">Read details</button><button class="outline" style="color:var(--text);border-color:var(--line)" data-bookmark="${x.id}">☆ Save</button></div></article>`}
 function renderList(type,id){const a=filtered(type);$(id).innerHTML=a.length?a.map(cardHTML).join(""):`<div class="empty">Is filter ke liye content nahi mila. Admin section se verified content add karein.</div>`}
 function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");$("bookCount").textContent=filtered("book").length;$("noteCount").textContent=filtered("note").length;$("videoCount").textContent=filtered("video").length;$("paperCount").textContent=filtered("paper").length;$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
-function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
+function showPage(p){if(p==="admin"&&!isAdmin){authMessage("Admin permission nahi hai. Sirf authorized admin dashboard khol sakta hai.",true);return;}document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
 ["classFilter","boardFilter","mediumFilter","streamFilter","search"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
 document.body.addEventListener("click",e=>{const d=e.target.closest("[data-detail]"),w=e.target.closest("[data-watch]"),bm=e.target.closest("[data-bookmark]");if(d){const x=items.find(a=>a.id===Number(d.dataset.detail));if(x)openDetails(x)}if(w){const x=items.find(a=>a.id===Number(w.dataset.watch));if(x)openVideo(x)}if(bm){const x=items.find(a=>a.id===Number(bm.dataset.bookmark));if(x){bookmarks=bookmarks.filter(a=>a.id!==x.id);bookmarks.push({id:x.id,title:x.title});localStorage.setItem("studyhub_v2_bookmarks",JSON.stringify(bookmarks));render()}}});
@@ -185,6 +185,7 @@ $("clearMistakes").onclick=()=>{if(confirm("Mistakes clear karein?")){mistakes=[
 const SUPABASE_URL = "https://zwzuhtscqlmqvczhvvln.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BHhN5NP6ZRFOljNrteA3CA_a7P8oSMN";
 let authClient = null;
+let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
 function showAuthState(user){
  const logged=!!user;
@@ -205,7 +206,17 @@ async function ensureStudentProfile(user){
   if(insertError) throw insertError;
  }
 }
-async function initStudentAuth(){
+async function refreshAdminAccess(user){
+  isAdmin=false;
+  $("adminNav").hidden=true;
+  if(!user||!authClient)return;
+  const {data,error}=await authClient.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();
+  if(error){authMessage("Admin permission check nahi ho saka: "+error.message,true);return;}
+  isAdmin=!!data;
+  $("adminNav").hidden=!isAdmin;
+  if(isAdmin)authMessage("Admin access verified. Admin Dashboard available.");
+ }
+ async function initStudentAuth(){
  if(!window.supabase?.createClient){authMessage("Login library load nahi hui. Internet connection check karein.",true);return;}
  authClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
  const {data:{session},error}=await authClient.auth.getSession();
