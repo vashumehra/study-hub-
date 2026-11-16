@@ -111,20 +111,22 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
  <div class="card" style="margin-top:14px"><h3>🤖 Doubt Assistant</h3><p class="notice">Is offline version mein real AI connected nahi hai. API key ko browser code mein rakhna unsafe hota hai. Real AI ke liye secure backend/API connection zaroori hai.</p><label>Your question</label><textarea id="doubtQuestion" rows="3" style="width:100%" placeholder="Apna sawal likhein..."></textarea><button class="green" id="doubtBtn">Show guidance</button><p id="doubtAnswer"></p></div>
 </section>
 <section class="page" id="page-admin">
- <div class="card"><h2>⚙️ Admin Dashboard</h2><p class="notice">Admin access Supabase ke protected admin_users table se verify hota hai. Is version mein content abhi isi browser/device par save hota hai; sab students ke liye publish karne ke liye agle step mein shared database aur file storage connect karenge.</p>
+ <div class="card"><h2>⚙️ Admin Dashboard</h2><p class="notice">Yahan se PDF, Notes aur Video links publish honge. Publish hone ke baad students apni Class, Board, Medium aur Subject filter se content dekh sakenge.</p>
  <div class="formgrid" style="margin-top:12px">
-  <div><label>Content type</label><select id="newType"><option value="book">Textbook / PDF</option><option value="note">Notes / Capsule</option><option value="video">Recorded Video</option><option value="live">Live Class</option><option value="paper">PYQ / Model Paper</option></select></div>
+  <div><label>Upload type</label><select id="newType"><option value="pdf">PDF Upload</option><option value="note">Notes Upload</option><option value="video">Video Link Add</option></select></div>
   <div><label>Class</label><select id="newClass"><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></div>
   <div><label>Board</label><select id="newBoard"><option>CBSE</option><option>MP Board</option><option>Other</option></select></div>
   <div><label>Medium</label><select id="newMedium"><option>Hindi</option><option>English</option></select></div>
+  <div><label>Subject</label><input id="newSubject" required placeholder="e.g. Science / गणित"></div>
   <div><label>Stream (Class 11/12)</label><select id="newStream"><option>All</option><option>Science</option><option>Commerce</option><option>Arts</option></select></div>
-  <div><label>Subject</label><input id="newSubject" placeholder="e.g. Science / गणित"></div>
-  <div class="full"><label>Title / Chapter</label><input id="newTitle" style="width:100%" placeholder="Content title"></div>
-  <div class="full"><label>URL (optional; only https:// or http://)</label><input id="newUrl" style="width:100%" placeholder="https://..."></div>
-  <div class="full"><label>Details / Notes / Date & Time</label><textarea id="newSummary" rows="4" style="width:100%" placeholder="Description, note text, live class date/time..."></textarea></div>
- </div><div class="actions"><button class="gold" id="addContent">＋ Publish content on this device</button><button class="green" id="exportData">Export backup</button><label class="btn green" for="importFile">Import backup</label><input id="importFile" type="file" accept="application/json" hidden></div>
+  <div class="full"><label>Title / Chapter</label><input id="newTitle" required style="width:100%" placeholder="Content title"></div>
+  <div class="full" id="fileUploadWrap"><label>Choose PDF / Notes file (max 20 MB; PDF, DOC, DOCX)</label><input id="newFile" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="width:100%"></div>
+  <div class="full" id="videoUrlWrap" hidden><label>YouTube / Video URL</label><input id="newUrl" style="width:100%" placeholder="https://www.youtube.com/watch?v=..."></div>
+  <div class="full"><label>Description (optional)</label><textarea id="newSummary" rows="3" style="width:100%" placeholder="Chapter details..."></textarea></div>
+ </div><div class="actions"><button class="gold" id="addContent">⬆ Upload and Publish</button><span id="uploadStatus" class="muted" role="status" aria-live="polite"></span></div>
+ <p class="muted">File limit: 20 MB. Sirf apne adhikar wale study materials upload karein.</p>
  </div>
- <div class="card" style="margin-top:14px"><h3>Manage existing content</h3><div id="manageList"></div></div>
+ <div class="card" style="margin-top:14px"><h3>Published content</h3><div id="manageList">Loading...</div></div>
 </section>
 </main>
 <footer>STUDY HUB • Learning portal demo • Content and official links must be verified before publishing.</footer>
@@ -137,7 +139,7 @@ const $=id=>document.getElementById(id);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>{try{const u=new URL(String(s));return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return ""}};
 const CLASS_LABEL=c=>c==="college"?"College":`Class ${c}`;
-const KEY="studyhub_v2_items";
+const KEY="studyhub_v2_items";\nlet cloudItems=[];\nfunction allItems(){return items.concat(cloudItems)}
 const starter=[
 {id:1,type:"book",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"NCERT कक्षा 9 विज्ञान — आधिकारिक पुस्तक",url:"https://ncert.nic.in/textbook.php",summary:"NCERT की आधिकारिक पाठ्यपुस्तक वेबसाइट। सही कक्षा और पुस्तक चुनें।"},
 {id:2,type:"book",cls:"10",board:"MP Board",med:"Hindi",stream:"All",sub:"गणित",title:"MP Board कक्षा 10 गणित संसाधन",url:"https://mpbse.nic.in/",summary:"MPBSE की आधिकारिक वेबसाइट पर पाठ्यक्रम और शैक्षणिक जानकारी देखें।"},
@@ -150,20 +152,51 @@ const starter=[
 let items=loadItems(),bookmarks=JSON.parse(localStorage.getItem("studyhub_v2_bookmarks")||"[]"),mistakes=JSON.parse(localStorage.getItem("studyhub_v2_mistakes")||"[]");
 function loadItems(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)?x:starter.slice()}catch{return starter.slice()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(items))}
-function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,m=$("mediumFilter").value,s=$("streamFilter").value,q=$("search").value.trim().toLowerCase();return items.filter(x=>x.type===type&&String(x.cls)===c&&x.board===b&&x.med===m&&(s==="All"||x.stream==="All"||x.stream===s)&&(!q||[x.title,x.sub,x.summary].some(v=>String(v||"").toLowerCase().includes(q))))}
+function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,m=$("mediumFilter").value,s=$("streamFilter").value,q=$("search").value.trim().toLowerCase();return allItems().filter(x=>x.type===type&&String(x.cls)===c&&x.board===b&&x.med===m&&(s==="All"||x.stream==="All"||x.stream===s)&&(!q||[x.title,x.sub,x.summary].some(v=>String(v||"").toLowerCase().includes(q))))}
 function cardHTML(x){const url=safeURL(x.url);return `<article class="card"><span class="pill">${escapeHTML(x.sub||"General")}</span><span class="pill">${escapeHTML(x.board)} • ${escapeHTML(x.med)}</span><h3>${escapeHTML(x.title)}</h3><p class="muted">${escapeHTML(x.summary||"")}</p><div class="actions">${x.type==="video"&&url?`<button class="green" data-watch="${x.id}">▶ Watch</button>`:""}${x.type==="live"&&url?`<a class="btn green" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Join class ↗</a>`:""}${url&&x.type!=="video"&&x.type!=="live"?`<a class="btn gold" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Open resource ↗</a>`:""}<button class="gold" data-detail="${x.id}">Read details</button><button class="outline" style="color:var(--text);border-color:var(--line)" data-bookmark="${x.id}">☆ Save</button></div></article>`}
 function renderList(type,id){const a=filtered(type);$(id).innerHTML=a.length?a.map(cardHTML).join(""):`<div class="empty">Is filter ke liye content nahi mila. Admin section se verified content add karein.</div>`}
 function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");$("bookCount").textContent=filtered("book").length;$("noteCount").textContent=filtered("note").length;$("videoCount").textContent=filtered("video").length;$("paperCount").textContent=filtered("paper").length;$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
 function showPage(p){if(p==="admin"&&!isAdmin){authMessage("Admin permission nahi hai. Sirf authorized admin dashboard khol sakta hai.",true);return;}document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
 ["classFilter","boardFilter","mediumFilter","streamFilter","search"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
-document.body.addEventListener("click",e=>{const d=e.target.closest("[data-detail]"),w=e.target.closest("[data-watch]"),bm=e.target.closest("[data-bookmark]");if(d){const x=items.find(a=>a.id===Number(d.dataset.detail));if(x)openDetails(x)}if(w){const x=items.find(a=>a.id===Number(w.dataset.watch));if(x)openVideo(x)}if(bm){const x=items.find(a=>a.id===Number(bm.dataset.bookmark));if(x){bookmarks=bookmarks.filter(a=>a.id!==x.id);bookmarks.push({id:x.id,title:x.title});localStorage.setItem("studyhub_v2_bookmarks",JSON.stringify(bookmarks));render()}}});
+document.body.addEventListener("click",e=>{const d=e.target.closest("[data-detail]"),w=e.target.closest("[data-watch]"),bm=e.target.closest("[data-bookmark]");if(d){const x=allItems().find(a=>String(a.id)===String(d.dataset.detail));if(x)openDetails(x)}if(w){const x=allItems().find(a=>String(a.id)===String(w.dataset.watch));if(x)openVideo(x)}if(bm){const x=allItems().find(a=>String(a.id)===String(bm.dataset.bookmark));if(x){bookmarks=bookmarks.filter(a=>a.id!==x.id);bookmarks.push({id:x.id,title:x.title});localStorage.setItem("studyhub_v2_bookmarks",JSON.stringify(bookmarks));render()}}});
 function openDetails(x){$("modalTitle").textContent=x.title;$("modalContent").innerHTML=`<p><b>Subject:</b> ${escapeHTML(x.sub)} | <b>Class:</b> ${escapeHTML(CLASS_LABEL(x.cls))}</p><p style="white-space:pre-wrap">${escapeHTML(x.summary)}</p>${safeURL(x.url)?`<p><a class="btn gold" href="${escapeHTML(safeURL(x.url))}" target="_blank" rel="noopener noreferrer">Open link ↗</a></p>`:""}`;$("modal").classList.add("open")}
 function openVideo(x){const u=safeURL(x.url);if(!u){openDetails(x);return}let id="";try{const p=new URL(u);if(p.hostname.includes("youtu.be"))id=p.pathname.slice(1);else if(p.hostname.includes("youtube.com"))id=p.searchParams.get("v")||p.pathname.split("/").pop()}catch{}const embed=id&&/^[\w-]{6,}$/.test(id)?`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}`:"";$("modalTitle").textContent=x.title;$("modalContent").innerHTML=(embed?`<iframe src="${embed}" title="${escapeHTML(x.title)}" allowfullscreen loading="lazy"></iframe>`:`<p>Video embed nahi ho saka. <a href="${escapeHTML(u)}" target="_blank" rel="noopener noreferrer">YouTube par kholein</a></p>`)+`<p>${escapeHTML(x.summary)}</p>`;$("modal").classList.add("open")}
 $("closeModal").onclick=()=>$("modal").classList.remove("open");$("modal").addEventListener("click",e=>{if(e.target===$("modal"))$("modal").classList.remove("open")});
-function renderManage(){$("manageList").innerHTML=items.length?items.map(x=>`<div style="padding:9px 0;border-bottom:1px solid var(--line)"><b>${escapeHTML(x.title)}</b> <span class="muted">(${escapeHTML(x.type)} • ${escapeHTML(CLASS_LABEL(x.cls))})</span> <button class="gold" data-delete="${x.id}">Delete</button></div>`).join(""):"No content"}
-$("manageList").addEventListener("click",e=>{const b=e.target.closest("[data-delete]");if(b&&confirm("Is content ko delete karein?")){items=items.filter(x=>x.id!==Number(b.dataset.delete));save();render()}});
-$("addContent").onclick=()=>{const title=$("newTitle").value.trim(),url=$("newUrl").value.trim();if(!title){alert("Title likhein.");return}if(url&&!safeURL(url)){alert("Valid http:// ya https:// URL dalein.");return}const x={id:Date.now(),type:$("newType").value,cls:$("newClass").value,board:$("newBoard").value,med:$("newMedium").value,stream:$("newStream").value,sub:$("newSubject").value.trim()||"General",title,url,summary:$("newSummary").value.trim()};items.unshift(x);save();["newTitle","newUrl","newSubject","newSummary"].forEach(id=>$(id).value="");render();alert("Content is browser/device par save ho gaya. Shared website par publish nahi hua.")};
+function renderManage(){
+ const local=items.map(x=>`<div style="padding:9px 0;border-bottom:1px solid var(--line)"><b>${escapeHTML(x.title)}</b> <span class="muted">(local • ${escapeHTML(CLASS_LABEL(x.cls))})</span> <button class="gold" data-delete="${x.id}">Delete</button></div>`).join("");
+ const cloud=cloudItems.map(x=>`<div style="padding:9px 0;border-bottom:1px solid var(--line)"><b>${escapeHTML(x.title)}</b> <span class="muted">(published • ${escapeHTML(CLASS_LABEL(x.cls))} • ${escapeHTML(x.sub)})</span> <button class="gold" data-cloud-delete="${escapeHTML(x.id)}">Delete</button></div>`).join("");
+ $("manageList").innerHTML=local+cloud||"Abhi koi content publish nahi hua.";
+}
+$("manageList").addEventListener("click",async e=>{
+ const b=e.target.closest("[data-delete]");if(b&&confirm("Is local content ko delete karein?")){items=items.filter(x=>x.id!==Number(b.dataset.delete));save();render();return}
+ const c=e.target.closest("[data-cloud-delete]");if(c&&confirm("Published content delete karein?")){const x=cloudItems.find(a=>a.id===c.dataset.cloudDelete);if(!x)return;const {error}=await authClient.from("study_content").delete().eq("id",x.id);if(error){alert("Delete nahi hua: "+error.message);return}if(x.file_path)await authClient.storage.from("study-content").remove([x.file_path]);await loadCloudContent();render()}
+});
+async function loadCloudContent(){
+ if(!authClient)return;
+ const {data,error}=await authClient.from("study_content").select("*").order("created_at",{ascending:false});
+ if(error){console.warn("Cloud content load:",error.message);return}
+ cloudItems=(data||[]).map(r=>{const fileUrl=r.file_path?authClient.storage.from("study-content").getPublicUrl(r.file_path).data.publicUrl:"";return {id:r.id,type:r.content_type==="pdf"?"book":r.content_type,cls:r.class_name,board:r.board,med:r.medium,stream:r.stream,sub:r.subject,title:r.title,url:r.video_url||fileUrl,summary:r.description||"",file_path:r.file_path,cloud:true}});
+ render();
+}
+$("newType").addEventListener("change",()=>{const video=$("newType").value==="video";$("fileUploadWrap").hidden=video;$("videoUrlWrap").hidden=!video});
+$("addContent").onclick=async()=>{
+ const title=$("newTitle").value.trim(),subject=$("newSubject").value.trim(),type=$("newType").value;
+ if(!isAdmin||!authClient){alert("Pehle admin account se login karein.");return}
+ if(!title||!subject){alert("Title aur Subject dono bharein.");return}
+ let file=null,videoUrl="";
+ if(type==="video"){videoUrl=safeURL($("newUrl").value.trim());if(!videoUrl){alert("Valid https:// ya http:// video link dalein.");return}}
+ else{file=$("newFile").files[0];if(!file){alert("PDF ya Notes file select karein.");return}if(file.size>20*1024*1024){alert("File 20 MB se chhoti honi chahiye.");return}if(!/\.(pdf|doc|docx)$/i.test(file.name)){alert("Sirf PDF, DOC ya DOCX file upload karein.");return}}
+ const status=$("uploadStatus");status.textContent="Upload ho raha hai...";
+ let filePath=null;
+ if(file){const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");filePath=`${authClient.auth.getSession? "":""}${crypto.randomUUID()}-${clean}`;const up=await authClient.storage.from("study-content").upload(filePath,file,{contentType:file.type||"application/octet-stream",upsert:false});if(up.error){status.textContent="Upload error: "+up.error.message;return}}
+ const payload={content_type:type,class_name:$("newClass").value,board:$("newBoard").value,medium:$("newMedium").value,stream:$("newStream").value,subject,title,description:$("newSummary").value.trim(),file_path:filePath,video_url:videoUrl||null,mime_type:file?.type||null,file_size:file?.size||null};
+ const ins=await authClient.from("study_content").insert(payload);
+ if(ins.error){if(filePath)await authClient.storage.from("study-content").remove([filePath]);status.textContent="Database error: "+ins.error.message;return}
+ status.textContent="Successfully publish ho gaya! Students ke liye live hai.";
+ ["newTitle","newSubject","newSummary","newUrl","newFile"].forEach(id=>{if($(id))$(id).value=""});
+ await loadCloudContent();
+};
 $("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(items,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="study-hub-backup.json";a.click();URL.revokeObjectURL(u)};
 $("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data)||data.some(x=>!x||!["book","note","video","live","paper"].includes(x.type)||!x.title||!["5","6","7","8","9","10","11","12","college"].includes(String(x.cls))))throw Error("Invalid format");items=data.map(x=>({...x,id:Number(x.id)||Date.now()+Math.random(),title:String(x.title).slice(0,200),summary:String(x.summary||"").slice(0,10000),url:safeURL(x.url)}));save();render();alert("Backup import ho gaya.")}catch(err){alert("Backup file sahi format mein nahi hai.")}e.target.value=""};
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("studyhub_dark",document.body.classList.contains("dark")?"1":"0")};if(localStorage.getItem("studyhub_dark")==="1")document.body.classList.add("dark");
