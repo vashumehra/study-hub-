@@ -139,7 +139,9 @@ const $=id=>document.getElementById(id);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>{try{const u=new URL(String(s));return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return ""}};
 const CLASS_LABEL=c=>c==="college"?"College":`Class ${c}`;
-const KEY="studyhub_v2_items";\nlet cloudItems=[];\nfunction allItems(){return items.concat(cloudItems)}
+const KEY="studyhub_v2_items";
+let cloudItems=[];
+function allItems(){return items.concat(cloudItems)}
 const starter=[
 {id:1,type:"book",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"NCERT कक्षा 9 विज्ञान — आधिकारिक पुस्तक",url:"https://ncert.nic.in/textbook.php",summary:"NCERT की आधिकारिक पाठ्यपुस्तक वेबसाइट। सही कक्षा और पुस्तक चुनें।"},
 {id:2,type:"book",cls:"10",board:"MP Board",med:"Hindi",stream:"All",sub:"गणित",title:"MP Board कक्षा 10 गणित संसाधन",url:"https://mpbse.nic.in/",summary:"MPBSE की आधिकारिक वेबसाइट पर पाठ्यक्रम और शैक्षणिक जानकारी देखें।"},
@@ -197,8 +199,7 @@ $("addContent").onclick=async()=>{
  ["newTitle","newSubject","newSummary","newUrl","newFile"].forEach(id=>{if($(id))$(id).value=""});
  await loadCloudContent();
 };
-$("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(items,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="study-hub-backup.json";a.click();URL.revokeObjectURL(u)};
-$("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data)||data.some(x=>!x||!["book","note","video","live","paper"].includes(x.type)||!x.title||!["5","6","7","8","9","10","11","12","college"].includes(String(x.cls))))throw Error("Invalid format");items=data.map(x=>({...x,id:Number(x.id)||Date.now()+Math.random(),title:String(x.title).slice(0,200),summary:String(x.summary||"").slice(0,10000),url:safeURL(x.url)}));save();render();alert("Backup import ho gaya.")}catch(err){alert("Backup file sahi format mein nahi hai.")}e.target.value=""};
+// Backup import/export controls are not present in this version, so no handlers are attached.
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("studyhub_dark",document.body.classList.contains("dark")?"1":"0")};if(localStorage.getItem("studyhub_dark")==="1")document.body.classList.add("dark");
 $("profileBtn").onclick=()=>{$("profileModal").classList.add("open");$("studentName").value=localStorage.getItem("studyhub_name")||"Student";$("studentSchool").value=localStorage.getItem("studyhub_school")||""};$("closeProfile").onclick=()=>$("profileModal").classList.remove("open");$("saveProfile").onclick=()=>{const n=$("studentName").value.trim()||"Student";localStorage.setItem("studyhub_name",n);localStorage.setItem("studyhub_school",$("studentSchool").value.trim());$("welcome").textContent=`Welcome, ${n}!`; $("profileModal").classList.remove("open")};$("welcome").textContent=`Welcome, ${localStorage.getItem("studyhub_name")||"Student"}!`;
 let seconds=1500,timer=null;function drawTimer(){$("timer").textContent=`${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`}$("startTimer").onclick=()=>{if(timer)return;timer=setInterval(()=>{seconds--;drawTimer();if(seconds<=0){clearInterval(timer);timer=null;alert("25 minute complete! Chhota break lein.")}},1000)};$("resetTimer").onclick=()=>{clearInterval(timer);timer=null;seconds=1500;drawTimer()};
