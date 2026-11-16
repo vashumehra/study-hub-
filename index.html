@@ -256,6 +256,7 @@ async function refreshAdminAccess(user){
  const {data:{session},error}=await authClient.auth.getSession();
  if(error) authMessage(error.message,true);
  showAuthState(session?.user||null);
+ await refreshAdminAccess(session?.user||null);
  if(session?.user){try{await ensureStudentProfile(session.user)}catch(e){authMessage("Profile save nahi hua: "+e.message,true)}}
  authClient.auth.onAuthStateChange((_event,newSession)=>{showAuthState(newSession?.user||null)});
  $("signupForm").addEventListener("submit",async e=>{
@@ -271,11 +272,11 @@ async function refreshAdminAccess(user){
   e.preventDefault();authMessage("Login ho raha hai...");
   const {data,error}=await authClient.auth.signInWithPassword({email:$("loginEmail").value.trim(),password:$("loginPassword").value});
   if(error){authMessage(error.message,true);return;}
-  try{await ensureStudentProfile(data.user);authMessage("Login successful!");}catch(err){authMessage("Login ho gaya, lekin profile save nahi hua: "+err.message,true)}
+  try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage(isAdmin?"Login successful! Admin access verified.":"Login successful! Lekin is account ko Admin permission nahi mili.");}catch(err){authMessage("Login ho gaya, lekin profile save nahi hua: "+err.message,true)}
  });
  $("signOutBtn").addEventListener("click",async()=>{
   const {error}=await authClient.auth.signOut();
-  if(error) authMessage(error.message,true); else {showAuthState(null);authMessage("Logout ho gaya.")}
+  if(error) authMessage(error.message,true); else {isAdmin=false;$("adminNav").hidden=true;showAuthState(null);authMessage("Logout ho gaya.")}
  });
 }
 
