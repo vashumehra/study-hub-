@@ -1,6 +1,4 @@
-from pathlib import Path
-
-html = r'''<!doctype html>
+<!doctype html>
 <html lang="hi">
 <head>
 <meta charset="utf-8">
@@ -156,7 +154,4 @@ function renderMistakes(){$("mistakesList").innerHTML=mistakes.length?mistakes.m
 $("clearMistakes").onclick=()=>{if(confirm("Mistakes clear karein?")){mistakes=[];localStorage.setItem("studyhub_v2_mistakes","[]");renderMistakes()}}
 render();
 </script>
-</body></html>'''
-path = Path("/mnt/data/study_hub_improved.html")
-path.write_text(html, encoding="utf-8")
-print(f"Created: {path} ({path.stat().st_size:,} bytes)")
+</body></html>
