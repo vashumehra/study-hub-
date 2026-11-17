@@ -425,7 +425,7 @@ body.dark .welcome-tag,body.dark .welcome-points span{background:#294354;color:#
 body.dark .welcome-float{background:#edf5fa;color:#29475a}
 @media(max-width:850px){body .tabs{background:#fff}body.dark .tabs{background:#1c3342}}
 
-</style>
+\n/* THREE-STEP STUDENT ENTRY: WELCOME -> AUTH -> DASHBOARD */\nbody:not(.student-authenticated)>header,\nbody:not(.student-authenticated)>#studentAuth,\nbody:not(.student-authenticated)>.filters,\nbody:not(.student-authenticated)>nav.tabs,\nbody:not(.student-authenticated)>main{display:none!important}\nbody.student-authenticated>#welcomeScreen{display:none!important}\nbody.student-authenticated>#loginPopup{display:none}\n#welcomeScreen{z-index:2000}\n#loginPopup{z-index:2100}\n</style>
 </head>
 <body>
 
@@ -437,7 +437,7 @@ body.dark .welcome-float{background:#edf5fa;color:#29475a}
    <h1>सपने बड़े देखो,<br><em>शुरुआत आज से करो!</em></h1>
    <p class="welcome-lead">हर दिन कुछ नया सीखो। अपनी कक्षा और बोर्ड के अनुसार Notes, Books, Videos और Practice Tests — सब एक ही जगह।</p>
    <div class="welcome-points"><span>✓ MP Board</span><span>✓ UP Board</span><span>✓ CBSE</span></div>
-   <button class="welcome-cta" id="welcomeStart">अपनी पढ़ाई शुरू करें <b>→</b></button>
+   <button class="welcome-cta" id="welcomeStart">START STUDY <b>→</b></button>
    <div class="welcome-note">आपका लक्ष्य • आपकी मेहनत • आपकी सफलता</div>
   </div>
   <div class="welcome-visual">
@@ -683,11 +683,13 @@ let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
 function showAuthState(user){
  const logged=!!user;
+ document.body.classList.toggle("student-authenticated",logged);
  $("authStatus").textContent=logged?"Logged in":"Not logged in";
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcomeScreen").style.display="none";showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
+ if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
+ else {$("welcomeScreen").style.display="flex";$("loginPopup").classList.remove("open");}
 }
 async function ensureStudentProfile(user){
  const {data,error}=await authClient.from("profiles").select("id").eq("id",user.id).maybeSingle();
