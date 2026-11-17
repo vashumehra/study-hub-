@@ -973,7 +973,7 @@ async function loadTestBook(){
 function getSelectedChapterText(){
  const ix=$("testChapterSelect").value,custom=$("testChapterCustom").value.trim();
  if(ix!==""&&testPdfHeadings[Number(ix)]){const cur=testPdfHeadings[Number(ix)],next=testPdfHeadings[Number(ix)+1],parts=[];
-  for(let p=cur.page;p<testPdfPages.length&&(next?p<=next.page:true);p++){let lines=testPdfPages[p];if(p===cur.page)lines=lines.slice(cur.line);if(next&&p===next.page)lines=lines.slice(0,next.line);parts.push(lines.join("\n"))}
+  for(let p=cur.page;p<testPdfPages.length&&(next?p<=next.page:true);p++){let lines=testPdfPages[p];if(p===cur.page&&next&&p===next.page)lines=lines.slice(cur.line,next.line);else if(p===cur.page)lines=lines.slice(cur.line);else if(next&&p===next.page)lines=lines.slice(0,next.line);parts.push(lines.join("\n"))}
   return {chapter:custom||cur.title,sourceText:parts.join("\n").slice(0,28000)};
  }
  return {chapter:custom,sourceText:testPdfPages.map(p=>p.join("\n")).join("\n").slice(0,28000)};
