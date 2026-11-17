@@ -826,8 +826,8 @@ body{top:0!important}
   <div><label>Medium</label><select id="newMedium"><option>Hindi</option><option>English</option></select></div>
   <div><label>Subject</label><input id="newSubject" required placeholder="e.g. Science / गणित"></div>
   <div><label>Stream (Class 11/12)</label><select id="newStream"><option>All</option><option>Science</option><option>Commerce</option><option>Arts</option></select></div>
-  <div class="full"><label>Title / Chapter</label><input id="newTitle" required style="width:100%" placeholder="Content title"></div>
-  <div class="full" id="fileUploadWrap"><label>Choose PDF / Notes file (max 20 MB; PDF, DOC, DOCX)</label><input id="newFile" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="width:100%"></div>
+  <div class="full"><label>Title / Chapter (optional; ek PDF ke liye)</label><input id="newTitle" style="width:100%" placeholder="Khali chhodein: file name chapter title banega"></div>
+  <div class="full" id="fileUploadWrap"><label>PDF / Notes files चुनें (एक साथ कई files; हर file max 20 MB)</label><input id="newFile" type="file" multiple accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="width:100%"><small class="muted">एक बार में अधिकतम 50 files चुन सकते हैं। हर file अलग content के रूप में publish होगी।</small></div>
   <div class="full" id="videoUrlWrap" hidden><label>YouTube / Video URL</label><input id="newUrl" style="width:100%" placeholder="https://www.youtube.com/watch?v=..."></div>
   <div class="full"><label>Description (optional)</label><textarea id="newSummary" rows="3" style="width:100%" placeholder="Chapter details..."></textarea></div>
  </div><div class="actions"><button class="gold" id="addContent">⬆ Upload and Publish</button><span id="uploadStatus" class="muted" role="status" aria-live="polite"></span></div>
@@ -918,21 +918,54 @@ async function loadCloudContent(){
 }
 $("newType").addEventListener("change",()=>{const video=$("newType").value==="video";$("fileUploadWrap").hidden=video;$("videoUrlWrap").hidden=!video});
 $("addContent").onclick=async()=>{
- const title=$("newTitle").value.trim(),subject=$("newSubject").value.trim(),type=$("newType").value;
+ const typedTitle=$("newTitle").value.trim(),subject=$("newSubject").value.trim(),type=$("newType").value;
+ const status=$("uploadStatus"),button=$("addContent");
  if(!isAdmin||!authClient){alert("Pehle admin account se login karein.");return}
- if(!title||!subject){alert("Title aur Subject dono bharein.");return}
- let file=null,videoUrl="";
- if(type==="video"){videoUrl=safeURL($("newUrl").value.trim());if(!videoUrl){alert("Valid https:// ya http:// video link dalein.");return}}
- else{file=$("newFile").files[0];if(!file){alert("PDF ya Notes file select karein.");return}if(file.size>20*1024*1024){alert("File 20 MB se chhoti honi chahiye.");return}if(!/\.(pdf|doc|docx)$/i.test(file.name)){alert("Sirf PDF, DOC ya DOCX file upload karein.");return}}
- const status=$("uploadStatus");status.textContent="Upload ho raha hai...";
- let filePath=null;
- if(file){const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");filePath=`${authClient.auth.getSession? "":""}${crypto.randomUUID()}-${clean}`;const up=await authClient.storage.from("study-content").upload(filePath,file,{contentType:file.type||"application/octet-stream",upsert:false});if(up.error){status.textContent="Upload error: "+up.error.message;return}}
- const payload={content_type:type,class_name:$("newClass").value,board:$("newBoard").value,medium:$("newMedium").value,stream:$("newStream").value,subject,title,description:$("newSummary").value.trim(),file_path:filePath,video_url:videoUrl||null,mime_type:file?.type||null,file_size:file?.size||null};
- const ins=await authClient.from("study_content").insert(payload);
- if(ins.error){if(filePath)await authClient.storage.from("study-content").remove([filePath]);status.textContent="Database error: "+ins.error.message;return}
- status.textContent="Successfully publish ho gaya! Students ke liye live hai.";
- ["newTitle","newSubject","newSummary","newUrl","newFile"].forEach(id=>{if($(id))$(id).value=""});
- await loadCloudContent();
+ if(!subject){alert("Subject zaroor bharein.");return}
+ let videoUrl="";
+ if(type==="video"){
+  videoUrl=safeURL($("newUrl").value.trim());
+  if(!videoUrl){alert("Valid https:// ya http:// video link dalein.");return}
+ }else{
+  const files=Array.from($("newFile").files||[]);
+  if(!files.length){alert("Ek ya adhik PDF / Notes files select karein.");return}
+  if(files.length>50){alert("Ek baar mein adhiktam 50 files select karein.");return}
+  const invalid=files.find(f=>f.size>20*1024*1024||! /\.(pdf|doc|docx)$/i.test(f.name));
+  if(invalid){alert(invalid.size>20*1024*1024?"Har file 20 MB se chhoti honi chahiye.":"Sirf PDF, DOC ya DOCX file upload karein: "+invalid.name);return}
+  if(files.length===1&&!typedTitle){/* file name will be used as chapter title */}
+ }
+ button.disabled=true;
+ let success=0,failed=0;
+ const className=$("newClass").value,board=$("newBoard").value,medium=$("newMedium").value,stream=$("newStream").value,description=$("newSummary").value.trim();
+ try{
+  if(type==="video"){
+   status.textContent="Video publish ho raha hai...";
+   const payload={content_type:"video",class_name:className,board,medium,stream,subject,title:typedTitle||"Video lesson",description,file_path:null,video_url:videoUrl,mime_type:null,file_size:null};
+   const ins=await authClient.from("study_content").insert(payload);
+   if(ins.error)throw ins.error;
+   success=1;
+  }else{
+   const files=Array.from($("newFile").files||[]);
+   for(let i=0;i<files.length;i++){
+    const file=files[i],baseName=file.name.replace(/\.(pdf|docx?)$/i,"").replace(/[_-]+/g," ").trim();
+    const title=files.length===1&&typedTitle?typedTitle:(baseName||"Study material");
+    status.textContent=`Uploading ${i+1}/${files.length}: ${file.name}`;
+    const clean=file.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100)||"document.pdf";
+    const folder=[className,board,medium,subject].map(v=>String(v).replace(/[^a-zA-Z0-9_-]/g,"_")).join("/");
+    const filePath=`${folder}/${crypto.randomUUID()}-${clean}`;
+    const up=await authClient.storage.from("study-content").upload(filePath,file,{contentType:file.type||(file.name.toLowerCase().endsWith(".pdf")?"application/pdf":"application/octet-stream"),upsert:false});
+    if(up.error){failed++;status.textContent=`Failed ${i+1}/${files.length}: ${file.name} — ${up.error.message}`;continue}
+    const payload={content_type:type,class_name:className,board,medium,stream,subject,title,description,file_path:filePath,video_url:null,mime_type:file.type||null,file_size:file.size};
+    const ins=await authClient.from("study_content").insert(payload);
+    if(ins.error){await authClient.storage.from("study-content").remove([filePath]);failed++;status.textContent=`Database error: ${file.name} — ${ins.error.message}`;continue}
+    success++;
+   }
+  }
+  await loadCloudContent();
+  if(success){["newTitle","newSummary","newUrl","newFile"].forEach(id=>{if($(id))$(id).value=""});}
+  status.textContent=`काम पूरा: ${success} सफलतापूर्वक publish, ${failed} असफल।`;
+ }catch(err){status.textContent="Upload mein dikkat: "+(err?.message||String(err));}
+ finally{button.disabled=false;}
 };
 // Backup import/export controls are not present in this version, so no handlers are attached.
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("studyhub_dark",document.body.classList.contains("dark")?"1":"0")};if(localStorage.getItem("studyhub_dark")==="1")document.body.classList.add("dark");
