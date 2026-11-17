@@ -509,7 +509,14 @@ body.student-authenticated.dashboard-view #page-dashboard .hub-learning-grid{fle
 @media(max-width:850px){body.student-authenticated.dashboard-view{overflow:auto}body.student-authenticated.dashboard-view main{height:auto;overflow:visible;padding:18px 14px 42px}body.student-authenticated.dashboard-view #page-dashboard{height:auto;overflow:visible;display:block!important}body.student-authenticated.dashboard-view #page-dashboard .hub-plan,body.student-authenticated.dashboard-view #page-dashboard .hub-motivation{display:block}.hub-dash-hero{grid-template-columns:1fr}.hub-dash-side{grid-template-columns:minmax(100px,.65fr) minmax(0,1.35fr)}.hub-dash-photo img{height:165px}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.hub-dash-side{grid-template-columns:1fr}.hub-dash-photo img{height:160px}.hub-stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-learning-card{min-height:120px}}
 
-\n.site-footer{max-width:1200px;margin:10px auto 8px;padding:12px 22px;text-align:center;border:1px solid #c8deeb;border-radius:16px;background:linear-gradient(100deg,#eaf5fb,#f8fbfd);color:#29475b;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 4px 14px #234b6410}.site-footer strong{font-size:1.15rem;letter-spacing:2px;color:#347ca7}.site-tagline{font-size:1.05rem;font-weight:800}.site-description{font-size:.92rem;line-height:1.45}.site-motto{font-size:.82rem;font-weight:700;color:#5485a2}@media(max-width:850px){.site-footer{margin:8px 14px;padding:10px 14px}.site-description{font-size:.84rem}}\n</style>
+\n.site-footer{max-width:1200px;margin:10px auto 8px;padding:12px 22px;text-align:center;border:1px solid #c8deeb;border-radius:16px;background:linear-gradient(100deg,#eaf5fb,#f8fbfd);color:#29475b;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 4px 14px #234b6410}.site-footer strong{font-size:1.15rem;letter-spacing:2px;color:#347ca7}.site-tagline{font-size:1.05rem;font-weight:800}.site-description{font-size:.92rem;line-height:1.45}.site-motto{font-size:.82rem;font-weight:700;color:#5485a2}@media(max-width:850px){.site-footer{margin:8px 14px;padding:10px 14px}.site-description{font-size:.84rem}}\n
+/* Allow students to scroll through the complete dashboard on every screen. */
+body.student-authenticated.dashboard-view{overflow-y:auto!important;overflow-x:hidden!important}
+body.student-authenticated.dashboard-view main{height:auto!important;min-height:calc(100vh - 74px);overflow:visible!important;padding-bottom:32px!important}
+body.student-authenticated.dashboard-view #page-dashboard{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}
+body.student-authenticated.dashboard-view #page-dashboard .hub-plan,body.student-authenticated.dashboard-view #page-dashboard .hub-motivation{display:block!important}
+body.student-authenticated.dashboard-view #page-dashboard .hub-dash-hero{max-height:none!important;flex:none}
+</style>
 </head>
 <body>
 
