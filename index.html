@@ -575,6 +575,17 @@ body.dark .progress-overview .card{background:#1d303c;border-color:#405765}
 @media(max-width:850px){.topbar-actions{width:100%;justify-content:flex-start;margin-top:10px}.top-search{width:min(100%,360px)}body.menu-open #mainNavigation{position:relative!important;top:auto;left:auto;bottom:auto;width:100%;max-width:none;height:auto;flex-direction:column;margin:8px 12px;padding:12px;border:1px solid #dce8f0;border-radius:14px;box-shadow:0 8px 24px #23475c10}.progress-overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.progress-overview{grid-template-columns:1fr 1fr}.topbar-actions .outline{padding:8px 10px}}
 
+
+/* Correct the default layout when the collapsible sidebar is closed. */
+@media(min-width:851px){
+ main{margin-left:0!important}
+ footer{margin-left:0!important}
+ .filters{margin-left:0!important}
+ #studentAuth{margin:14px 24px!important}
+ body.menu-open main{margin-left:270px!important}
+ body.menu-open footer{margin-left:270px!important}
+}
+
 </style>
 </head>
 <body>
