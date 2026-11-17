@@ -436,6 +436,8 @@ body:not(.student-authenticated)>nav.tabs,
 body:not(.student-authenticated)>main{display:none!important}
 body.student-authenticated>#welcomeScreen{display:none!important}
 body.student-authenticated>#loginPopup{display:none}
+/* Students use the class saved in their account; no manual class dropdown. */
+body.student-authenticated #classFilter{display:none!important}
 #welcomeScreen{z-index:2000}
 #loginPopup{z-index:2100}
 </style>
