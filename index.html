@@ -1127,7 +1127,6 @@ document.addEventListener("click",async(e)=>{
 },true);
 
 initStudentAuth();
-render();
 
 const signupFormHomeAnchor=document.createElement("span");signupFormHomeAnchor.id="signupFormHomeAnchor";
  $("signupForm").parentNode.insertBefore(signupFormHomeAnchor,$("signupForm"));
@@ -1165,5 +1164,7 @@ $("popupLoginTab").addEventListener("click",()=>{
 $("loginPopup").addEventListener("click",e=>{if(e.target===$("loginPopup"))closeLoginPopup()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("loginPopup").classList.contains("open"))closeLoginPopup()});
 
+// Render only after the START STUDY and popup handlers are ready.
+render();
 </script>
 </body></html>
