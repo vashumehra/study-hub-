@@ -545,6 +545,8 @@ body.menu-open #mainNavigation{display:flex!important}
 
 
 /* PREMIUM LMS SHELL — light blue and off-white */
+.topbar-actions .menu-toggle{margin:0 4px 0 0;white-space:nowrap;}
+
 header{background:#fff!important;border-bottom:1px solid #dce9f1!important;box-shadow:0 5px 22px #31566b0b}
 .topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
 .top-search{display:flex;align-items:center;gap:8px;width:min(310px,28vw);padding:0 13px;border:1px solid #d8e6ef;border-radius:12px;background:#f5f9fc;color:#6d8ba0}
@@ -636,7 +638,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="topbar-actions"><label class="top-search">⌕ <input id="topSearch" type="search" placeholder="Search books, notes, videos..." aria-label="Search all study content"></label><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><button type="button" id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNavigation">☰ Menu</button><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -691,7 +693,6 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
  <select id="streamFilter"><option value="All">All Streams</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select>
  <div class="search-wrap"><input id="search" list="chapterSuggestions" placeholder="🔎 Search subject, chapter, notes, paper..." aria-label="Search content"><datalist id="chapterSuggestions"></datalist><span class="search-shortcut">Ctrl + K /</span></div>
 </div></div>
-<button type="button" id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNavigation">☰ Menu</button>
 <nav class="tabs" id="mainNavigation" aria-label="Main navigation">
  <div class="sidebar-label">LEARNING MENU</div><button class="tab active" data-page="dashboard">⌂ &nbsp; Dashboard</button><button class="tab" data-page="books">▣ &nbsp; My Courses</button><button class="tab" data-page="books">📚 &nbsp; Textbooks</button><button class="tab" data-page="notes">▤ &nbsp; Notes</button><button class="tab" data-page="videos">▷ &nbsp; Video Lectures</button><button class="tab" data-page="live">◉ &nbsp; Live Classes</button><button class="tab" data-page="papers">▧ &nbsp; PYQ / Previous Papers</button><button class="tab" data-page="tests">✎ &nbsp; Mock Tests</button><button class="tab" data-page="studytime">◷ &nbsp; Study Timer</button><button class="tab" data-page="myprogress">▥ &nbsp; My Progress</button><button class="tab" data-page="tools">⌘ &nbsp; Study Tools</button><button class="tab" data-page="settings">⚙ &nbsp; Settings</button><button class="tab sidebar-logout" id="sidebarLogout" type="button">⇥ &nbsp; Logout</button>
 </nav>
@@ -795,7 +796,6 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 const menuToggle=document.getElementById("menuToggle"),mainNavigation=document.getElementById("mainNavigation");
 menuToggle.addEventListener("click",()=>{const opened=document.body.classList.toggle("menu-open");menuToggle.setAttribute("aria-expanded",String(opened));menuToggle.textContent=opened?"✕ Close Menu":"☰ Menu"});
 mainNavigation.addEventListener("click",e=>{if(e.target.closest(".tab")||e.target.closest("[data-page]")){document.body.classList.remove("menu-open");menuToggle.setAttribute("aria-expanded","false");menuToggle.textContent="☰ Menu"}});
-document.getElementById("topSearch").addEventListener("input",e=>{document.getElementById("search").value=e.target.value;document.getElementById("search").dispatchEvent(new Event("input",{bubbles:true}))});
 document.getElementById("notificationBtn").addEventListener("click",()=>alert("अभी कोई नई notification नहीं है।"));
 document.getElementById("sidebarLogout").addEventListener("click",()=>document.getElementById("headerLogout").click());
 document.getElementById("settingsProfileBtn").addEventListener("click",()=>document.getElementById("profileBtn").click());
