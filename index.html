@@ -64,6 +64,16 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
    <label>Email</label><input id="loginEmail" type="email" required autocomplete="email" placeholder="you@example.com">
    <label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Your password">
    <button class="gold" type="submit">Login</button>
+   <button class="outline" id="forgotPasswordBtn" type="button" style="margin-left:6px;color:var(--text);border-color:var(--line)">Forgot Password?</button>
+  </form>
+ </div>
+ <div id="passwordResetPanel" class="card" hidden style="margin-top:12px;box-shadow:none">
+  <h3>Set a new password</h3>
+  <p class="muted">Reset email ke link se yahan aane ke baad naya password set karein.</p>
+  <form id="passwordResetForm">
+   <label>New password</label><input id="newStudentPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+   <label>Confirm new password</label><input id="confirmStudentPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="Repeat new password">
+   <button class="green" type="submit">Update password</button>
   </form>
  </div>
  <div id="authMessage" class="muted" role="status" aria-live="polite" style="margin-top:10px"></div>
@@ -258,7 +268,36 @@ async function refreshAdminAccess(user){
  showAuthState(session?.user||null);
  await refreshAdminAccess(session?.user||null);
  if(session?.user){try{await ensureStudentProfile(session.user)}catch(e){authMessage("Profile save nahi hua: "+e.message,true)}}
- authClient.auth.onAuthStateChange((_event,newSession)=>{showAuthState(newSession?.user||null)});
+ authClient.auth.onAuthStateChange((event,newSession)=>{
+  showAuthState(newSession?.user||null);
+  if(event==="PASSWORD_RECOVERY"||new URLSearchParams(location.search).get("reset-password")==="1"){
+   $("authForms").hidden=true;
+   $("passwordResetPanel").hidden=false;
+   authMessage("Naya password set karein.");
+  }
+ });
+ $("forgotPasswordBtn").addEventListener("click",async()=>{
+  const email=$("loginEmail").value.trim();
+  if(!email){authMessage("Pehle Student login ke Email box mein apna Gmail likhein.",true);$("loginEmail").focus();return;}
+  authMessage("Password reset email bheja ja raha hai...");
+  const redirectTo=location.origin+location.pathname+"?reset-password=1";
+  const {error}=await authClient.auth.resetPasswordForEmail(email,{redirectTo});
+  if(error){authMessage("Reset email nahi bheja gaya: "+error.message,true);return;}
+  authMessage("Reset link bhej diya gaya hai. Gmail Inbox aur Spam folder check karein.");
+ });
+ $("passwordResetForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const password=$("newStudentPassword").value,confirmPassword=$("confirmStudentPassword").value;
+  if(password.length<8){authMessage("Password kam se kam 8 characters ka hona chahiye.",true);return;}
+  if(password!==confirmPassword){authMessage("Dono password match nahi karte.",true);return;}
+  authMessage("Password update ho raha hai...");
+  const {error}=await authClient.auth.updateUser({password});
+  if(error){authMessage("Password update nahi hua: "+error.message,true);return;}
+  $("passwordResetPanel").hidden=true;
+  $("passwordResetForm").reset();
+  history.replaceState({},document.title,location.pathname);
+  authMessage("Password successfully update ho gaya. Ab naye password se login kar sakte hain.");
+ });
  $("signupForm").addEventListener("submit",async e=>{
   e.preventDefault();authMessage("Account ban raha hai...");
   const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value;
