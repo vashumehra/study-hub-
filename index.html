@@ -586,6 +586,7 @@ body.dark .progress-overview .card{background:#1d303c;border-color:#405765}
  body.menu-open footer{margin-left:270px!important}
 }
 
+.dashboard-focus{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin:20px 0;padding:23px 26px;border-radius:21px;background:linear-gradient(110deg,#173d55,#285e7d);color:#fff;box-shadow:0 12px 28px #244f681c}.dashboard-focus h2{margin:5px 0 6px;color:#fff;font-size:1.35rem}.dashboard-focus p{margin:0;color:#d5e7f1;font-size:.9rem}.dashboard-focus .hub-eyebrow{color:#b9d9eb}.focus-controls{text-align:center;min-width:290px}.focus-controls #dashboardTimerClock{font-size:2.5rem;font-weight:900;letter-spacing:2px;font-variant-numeric:tabular-nums}.focus-actions{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:10px 0 5px}.focus-actions button{border:0;border-radius:9px;padding:9px 12px;font-weight:800;cursor:pointer}.focus-actions button:disabled{opacity:.45}.focus-actions button:first-child{background:#f4c66b;color:#243b4a}.focus-actions button:nth-child(2){background:#e8f3f9;color:#244e67}.focus-actions button:last-child{background:#d9eee4;color:#245b43}.focus-controls small{color:#d5e7f1}.homework-panel{margin:23px 0;padding:23px;border:1px solid #d8e6ee;border-radius:21px;background:#fff;box-shadow:0 9px 26px #315d780b}.homework-heading{display:flex;justify-content:space-between;align-items:center;gap:15px}.homework-heading h2{margin:4px 0;color:#29485d;font-size:1.35rem}.homework-heading p{margin:0;color:#718394;font-size:.9rem}.task-counts{display:flex;gap:8px;flex-wrap:wrap}.task-counts span{padding:9px 12px;border-radius:11px;background:#edf6fb;color:#416a83;font-size:.8rem;font-weight:750}.task-entry{display:grid;grid-template-columns:1fr 155px auto;gap:9px;margin:19px 0 13px}.task-entry input{min-width:0;padding:12px 13px;border:1px solid #d6e3eb;border-radius:10px;background:#fbfdfe;color:#29485d}.task-entry button{border:0;border-radius:10px;padding:10px 16px;background:#285e7d;color:#fff;font-weight:800;cursor:pointer}.task-filters{display:flex;gap:7px;margin-bottom:10px}.task-filter{border:1px solid #d9e6ed;border-radius:20px;padding:7px 13px;background:#fff;color:#60798a;font-weight:750;cursor:pointer}.task-filter.active{background:#e5f2f9;border-color:#9dc6dd;color:#285e7d}.homework-list{display:grid;gap:8px}.homework-item{display:flex;align-items:center;gap:12px;padding:12px 13px;border:1px solid #e3ebf0;border-radius:12px;background:#fcfdfe}.homework-item.done{background:#f3faf6}.homework-check{width:19px;height:19px;accent-color:#398765}.homework-task{flex:1;min-width:0;color:#344d5e;font-weight:700;overflow-wrap:anywhere}.homework-item.done .homework-task{text-decoration:line-through;color:#84939b}.homework-meta{display:block;margin-top:3px;color:#82919b;font-size:.75rem;font-weight:500}.task-delete{border:0;background:transparent;color:#a46a6a;cursor:pointer;padding:6px}.task-empty{text-align:center;padding:22px;color:#83929b;background:#f8fbfd;border-radius:12px}body.dark .homework-panel{background:#20323e;border-color:#405765}body.dark .homework-heading h2{color:#eaf3f8}body.dark .homework-heading p{color:#b4c7d2}body.dark .homework-item{background:#263b48;border-color:#405765}body.dark .homework-item.done{background:#263e39}body.dark .homework-task{color:#eaf3f8}body.dark .task-entry input,body.dark .task-filter{background:#263b48;color:#eaf3f8;border-color:#405765}body.dark .task-filter.active{background:#35566a}@media(max-width:700px){.dashboard-focus{grid-template-columns:1fr;padding:20px}.focus-controls{min-width:0}.homework-heading{align-items:flex-start;flex-direction:column}.task-entry{grid-template-columns:1fr 125px}.task-entry button{grid-column:1/-1}.homework-panel{padding:17px}}
 </style>
 </head>
 <body>
@@ -698,16 +699,7 @@ body.dark .progress-overview .card{background:#1d303c;border-color:#405765}
   </div>
   <div class="hub-dash-side">
    <div class="hub-dash-photo"><img src="https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1000&q=85" alt="पढ़ाई करता हुआ विद्यार्थी"></div>
-   <div class="hub-stat-panel">
-    <span class="hub-stat-heading">आपकी पढ़ाई की प्रगति</span>
-    <div class="hub-stat-row">
-     <div class="hub-stat hub-stat-books"><div class="hub-stat-top"><span>📚</span><b id="bookCount">5</b></div><small>Books उपलब्ध</small><div class="hub-progress"><i id="bookProgress" style="width:50%"></i></div></div>
-     <div class="hub-stat hub-stat-notes"><div class="hub-stat-top"><span>📝</span><b id="noteCount">12</b></div><small>Notes उपलब्ध</small><div class="hub-progress"><i id="noteProgress" style="width:60%"></i></div></div>
-     <div class="hub-stat hub-stat-videos"><div class="hub-stat-top"><span>🎬</span><b id="videoCount">8</b></div><small>Videos उपलब्ध</small><div class="hub-progress"><i id="videoProgress" style="width:67%"></i></div></div>
-     <div class="hub-stat hub-stat-papers"><div class="hub-stat-top"><span>🧠</span><b id="paperCount">3</b></div><small>Practice Papers उपलब्ध</small><div class="hub-progress"><i id="paperProgress" style="width:60%"></i></div></div>
-    </div>
-   </div>
-  </div>
+     </div>
  </div>
  <div class="hub-section-title"><div><span class="hub-eyebrow">CHOOSE YOUR NEXT STEP</span><h2>आज क्या पढ़ना चाहोगे?</h2><p>अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
  <div class="hub-learning-grid">
@@ -890,8 +882,8 @@ let studyUserKey = null;
 let studyState = {totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};
 let studyTickHandle = null;
 const studyDateKey = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-function studyStorageKey(){return studyUserKey?"studyhub_time_v1_"+studyUserKey:null}
-function saveStudyState(){const k=studyStorageKey();if(k)localStorage.setItem(k,JSON.stringify(studyState))}
+function studyStorageKey(){return "studyhub_time_v1_"+(studyUserKey||"guest")}
+function saveStudyState(){try{localStorage.setItem(studyStorageKey(),JSON.stringify(studyState))}catch(e){}}
 function formatStudyTime(ms){const sec=Math.max(0,Math.floor(ms/1000)),h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return [h,m,s].map(v=>String(v).padStart(2,"0")).join(":")}
 function formatStudyShort(ms){const min=Math.floor(ms/60000);if(min<60)return min+" min";return Math.floor(min/60)+" hr "+(min%60)+" min"}
 function checkpointStudyTimer(){
@@ -924,11 +916,23 @@ function setStudyUser(user){
  try{const saved=JSON.parse(localStorage.getItem(studyStorageKey())||"null");studyState=saved&&typeof saved==="object"?{totalMs:saved.totalMs||0,daily:saved.daily||{},sessions:saved.sessions||{},sessionMs:saved.sessionMs||0,running:false,lastTick:0}:{totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}catch{studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}
  renderStudyTimer();
 }
-$("studyStartBtn").addEventListener("click",()=>{if(!studyUserKey){alert("Pehle student account mein login karein.");return}if(studyState.running)return;studyState.running=true;studyState.lastTick=Date.now();saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);studyTickHandle=setInterval(checkpointStudyTimer,1000);renderStudyTimer()});
+$("dashboardTimerStart").addEventListener("click",()=>$("studyStartBtn").click());$("dashboardTimerPause").addEventListener("click",()=>$("studyPauseBtn").click());$("dashboardTimerFinish").addEventListener("click",()=>$("studyFinishBtn").click());
+ $("studyStartBtn").addEventListener("click",()=>{if(studyState.running)return;studyState.running=true;studyState.lastTick=Date.now();saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);studyTickHandle=setInterval(checkpointStudyTimer,1000);renderStudyTimer()});
 $("studyPauseBtn").addEventListener("click",()=>{checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()});
 $("studyFinishBtn").addEventListener("click",()=>{if(studyState.running)checkpointStudyTimer();if(studyState.sessionMs>0){const k=studyDateKey();studyState.sessions[k]=(studyState.sessions[k]||0)+1}studyState.running=false;studyState.lastTick=0;studyState.sessionMs=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()});
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()}});
 window.addEventListener("beforeunload",()=>{if(studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}});
+let homeworkItems=[],homeworkFilter="all";
+function homeworkStorageKey(){return "studyhub_tasks_v1_"+(studyUserKey||"guest")}
+function loadHomework(){try{const x=JSON.parse(localStorage.getItem(homeworkStorageKey())||"[]");homeworkItems=Array.isArray(x)?x:[]}catch(e){homeworkItems=[]}renderHomework()}
+function saveHomework(){try{localStorage.setItem(homeworkStorageKey(),JSON.stringify(homeworkItems))}catch(e){}}
+function safeTaskText(v){return String(v).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function renderHomework(){const list=$("homeworkList");if(!list)return;const p=homeworkItems.filter(t=>!t.done).length;$("pendingTaskCount").textContent=p;$("completedTaskCount").textContent=homeworkItems.length-p;const shown=homeworkItems.filter(t=>homeworkFilter==="all"||(homeworkFilter==="pending"?!t.done:t.done));list.innerHTML=shown.length?shown.map(t=>'<div class="homework-item '+(t.done?"done":"")+'"><input class="homework-check" type="checkbox" data-task-check="'+t.id+'" '+(t.done?"checked":"")+'><div class="homework-task">'+safeTaskText(t.text)+'<small class="homework-meta">'+(t.due?"Due: "+t.due:"No due date")+" · "+(t.done?"Completed":"Pending")+'</small></div><button class="task-delete" data-task-delete="'+t.id+'" type="button">✕</button></div>').join(""):'<div class="task-empty">'+(homeworkFilter==="pending"?"कोई Pending Task नहीं है।":homeworkFilter==="completed"?"अभी कोई Task Complete नहीं हुआ है।":"अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।")+"</div>";document.querySelectorAll("[data-task-filter]").forEach(b=>b.classList.toggle("active",b.dataset.taskFilter===homeworkFilter))}
+$("addHomeworkBtn").addEventListener("click",()=>{const input=$("homeworkInput"),v=input.value.trim();if(!v){input.focus();return}homeworkItems.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:v,due:$("homeworkDate").value,done:false});saveHomework();renderHomework();input.value="";$("homeworkDate").value=""});
+$("homeworkInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("addHomeworkBtn").click()});
+document.querySelectorAll("[data-task-filter]").forEach(b=>b.addEventListener("click",()=>{homeworkFilter=b.dataset.taskFilter;renderHomework()}));
+$("homeworkList").addEventListener("change",e=>{const id=e.target.dataset.taskCheck;if(!id)return;const t=homeworkItems.find(x=>x.id===id);if(t)t.done=e.target.checked;saveHomework();renderHomework()});
+$("homeworkList").addEventListener("click",e=>{const id=e.target.dataset.taskDelete;if(!id)return;homeworkItems=homeworkItems.filter(x=>x.id!==id);saveHomework();renderHomework()});
 let currentStudentUser = null;
 let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
