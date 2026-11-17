@@ -657,7 +657,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -713,7 +713,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
  <div class="search-wrap"><input id="search" list="chapterSuggestions" placeholder="🔎 Search subject, chapter, notes, paper..." aria-label="Search content"><datalist id="chapterSuggestions"></datalist><span class="search-shortcut">Ctrl + K /</span></div>
 </div></div>
 <nav class="tabs" id="mainNavigation" aria-label="Main navigation">
- <div class="sidebar-label">LEARNING MENU</div><button class="tab active" data-page="dashboard">⌂ &nbsp; Dashboard</button><button class="tab" data-page="books">▣ &nbsp; My Courses</button><button class="tab" data-page="books">📚 &nbsp; Textbooks</button><button class="tab" data-page="notes">▤ &nbsp; Notes</button><button class="tab" data-page="videos">▷ &nbsp; Video Lectures</button><button class="tab" data-page="live">◉ &nbsp; Live Classes</button><button class="tab" data-page="papers">▧ &nbsp; PYQ / Previous Papers</button><button class="tab" data-page="tests">✎ &nbsp; Mock Tests</button><button class="tab" data-page="studytime">◷ &nbsp; Study Timer</button><button class="tab" data-page="myprogress">▥ &nbsp; My Progress</button><button class="tab" data-page="tools">⌘ &nbsp; Study Tools</button><button class="tab" data-page="settings">⚙ &nbsp; Settings</button><button class="tab sidebar-logout" id="sidebarLogout" type="button">⇥ &nbsp; Logout</button>
+ <div class="sidebar-label">LEARNING MENU</div><button class="tab active" data-page="dashboard">⌂ &nbsp; Dashboard</button><button class="tab" data-page="books">▣ &nbsp; My Courses</button><button class="tab" data-page="books">📚 &nbsp; Textbooks</button><button class="tab" data-page="notes">▤ &nbsp; Notes</button><button class="tab" data-page="videos">▷ &nbsp; Video Lectures</button><button class="tab" data-page="live">◉ &nbsp; Live Classes</button><button class="tab" data-page="papers">▧ &nbsp; PYQ / Previous Papers</button><button class="tab" data-page="tests">✎ &nbsp; Mock Tests</button><button class="tab" data-page="studytime">◷ &nbsp; Study Timer</button><button class="tab" data-page="myprogress">▥ &nbsp; My Progress</button><button class="tab" data-page="tools">⌘ &nbsp; Study Tools</button><button class="tab" data-page="settings">⚙ &nbsp; Settings</button>
 </nav>
 <main>
 <section class="page active" id="page-dashboard">
@@ -813,7 +813,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 "use strict";
 
 document.getElementById("notificationBtn").addEventListener("click",()=>alert("अभी कोई नई notification नहीं है।"));
-document.getElementById("sidebarLogout").addEventListener("click",()=>document.getElementById("signOutBtn").click());
+
 document.getElementById("settingsProfileBtn").addEventListener("click",()=>document.getElementById("profileBtn").click());
 document.getElementById("settingsThemeBtn").addEventListener("click",()=>document.getElementById("themeBtn").click());
 
@@ -968,6 +968,7 @@ function showAuthState(user){
  setStudyUser(user||null);
  const logged=!!user;
  document.body.classList.toggle("student-authenticated",logged);
+ $("headerLogout").hidden=!logged;
  $("authStatus").textContent=logged?"Logged in":"Not logged in";
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
@@ -1058,6 +1059,7 @@ async function refreshAdminAccess(user){
   showAuthState(data.user);
   try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage("Login successful! Dashboard khul gaya.");}catch(err){authMessage("Login ho gaya. Dashboard khul gaya, lekin profile save nahi hua: "+err.message,true)}
  });
+ $("headerLogout").addEventListener("click",()=>$("signOutBtn").click());
  $("signOutBtn").addEventListener("click",async()=>{
   const {error}=await authClient.auth.signOut();
   if(error) authMessage(error.message,true); else {isAdmin=false;$("adminNav").hidden=true;showAuthState(null);authMessage("Logout ho gaya.")}
