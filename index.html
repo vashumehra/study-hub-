@@ -788,9 +788,15 @@ body.dark .hub-library-head{background:linear-gradient(130deg,var(--card),#1c392
   <p class="muted">कक्षा 1–12 और कॉलेज के विद्यार्थियों के लिए किताबें, वीडियो, इंटरैक्टिव पाठ, कोर्स और अभ्यास सामग्री खोजें।</p>
   <div class="hub-library-search">
    <div><label for="libraryClass">अपनी कक्षा चुनें</label><select id="libraryClass"><option value="all">सभी कक्षाएँ</option><option value="1">कक्षा 1</option><option value="2">कक्षा 2</option><option value="3">कक्षा 3</option><option value="4">कक्षा 4</option><option value="5">कक्षा 5</option><option value="6">कक्षा 6</option><option value="7">कक्षा 7</option><option value="8">कक्षा 8</option><option value="9">कक्षा 9</option><option value="10">कक्षा 10</option><option value="11">कक्षा 11</option><option value="12">कक्षा 12</option><option value="college">कॉलेज</option></select></div>
-   <div><label for="libraryBoard">बोर्ड चुनें</label><select id="libraryBoard"><option value="all">सभी बोर्ड</option><option>MP Board</option><option>CBSE / NCERT</option><option>अन्य राज्य बोर्ड</option></select></div>
-   <div><label for="libraryMedium">माध्यम</label><select id="libraryMedium"><option value="all">सभी माध्यम</option><option>हिंदी</option><option>English</option></select></div>
+   <div><label for="libraryBoard">बोर्ड चुनें</label><select id="libraryBoard"><option value="all">सभी बोर्ड</option><option value="mp">MP Board</option><option value="ncert">NCERT / CBSE</option></select></div>
+   <div><label for="libraryMedium">माध्यम</label><select id="libraryMedium"><option value="Hindi">हिंदी</option><option value="English">English</option></select></div>
   </div>
+  <div class="hub-library-actions" style="margin-top:16px;flex-wrap:wrap">
+   <a id="libraryDikshaLink" class="btn gold" href="https://diksha.gov.in/explore" target="_blank" rel="noopener noreferrer">चुनी हुई कक्षा की किताबें खोजें ↗</a>
+   <a id="libraryMpLink" class="btn outline" href="https://mptbc.mp.gov.in/web04/BookDetails.aspx" target="_blank" rel="noopener noreferrer">MP Board की PDF किताबें ↗</a>
+   <a id="libraryNcertLink" class="btn outline" href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener noreferrer">NCERT की PDF किताबें ↗</a>
+  </div>
+  <p id="librarySelectionHint" class="muted" style="margin-top:10px">कक्षा, बोर्ड और माध्यम चुनें। संबंधित सरकारी पुस्तकालय उसी चयन के अनुसार खुलेगा।</p>
  </div>
  <div class="hub-library-grid">
   <article class="hub-library-card hub-library-feature">
@@ -1354,5 +1360,35 @@ window.googleTranslateElementInit=function(){
 render();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async>
+// STUDY HUB official textbook library filters
+(function(){
+ const cls=document.getElementById('libraryClass'), board=document.getElementById('libraryBoard'), medium=document.getElementById('libraryMedium');
+ const diksha=document.getElementById('libraryDikshaLink'), mp=document.getElementById('libraryMpLink'), ncert=document.getElementById('libraryNcertLink'), hint=document.getElementById('librarySelectionHint');
+ if(!cls||!board||!medium||!diksha||!mp||!ncert)return;
+ function updateLibraryLinks(){
+  const c=cls.value,b=board.value,m=medium.value;
+  const grade=c==='all'?'':c==='college'?'':('Class '+c);
+  const boardName=b==='mp'?'State (Madhya Pradesh)':b==='ncert'?'NCERT':'';
+  const params=new URLSearchParams();
+  if(grade)params.set('gradeLevel',grade);
+  params.set('medium',m);
+  if(boardName)params.set('board',boardName);
+  params.set('selectedTab','textbook');
+  diksha.href='https://diksha.gov.in/explore?'+params.toString();
+  mp.style.display=(b==='all'||b==='mp')?'':'none';
+  ncert.style.display=(b==='all'||b==='ncert')?'':'none';
+  if(c==='college'){
+   diksha.href='https://diksha.gov.in/explore?medium='+encodeURIComponent(m);
+   hint.textContent='कॉलेज के लिए DIKSHA पर स्कूल-पाठ्यपुस्तक फ़िल्टर लागू नहीं होगा। MP Board/NCERT की स्कूल किताबें कक्षा 1–12 के लिए हैं।';
+  }else{
+   const label=c==='all'?'सभी कक्षाएँ':'कक्षा '+c;
+   const boardLabel=b==='mp'?'MP Board':b==='ncert'?'NCERT / CBSE':'सभी बोर्ड';
+   hint.textContent=label+' • '+boardLabel+' • '+(m==='Hindi'?'हिंदी':'English')+' के अनुसार DIKSHA पुस्तकालय खोजने के लिए पहला बटन दबाएँ।';
+  }
+ }
+ [cls,board,medium].forEach(el=>el.addEventListener('change',updateLibraryLinks));
+ updateLibraryLinks();
+})();
+</script>
 </body></html>
