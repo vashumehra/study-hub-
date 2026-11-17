@@ -46,6 +46,61 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px}
 footer{text-align:center;color:var(--muted);padding:25px;font-size:.85rem;border-top:1px solid var(--line);margin-top:25px}
 @media(max-width:700px){header{position:relative}.brand{font-size:1.3rem}.hero{padding:20px}.tabs{margin-top:10px}.tabs .tab{padding:9px 13px}main{padding:15px 12px 40px}.grid{grid-template-columns:1fr}#studentAuth{margin:12px!important}.stat{flex:1;min-width:72px}}
+
+/* STUDY HUB PROFESSIONAL DASHBOARD LAYOUT */
+:root{--green:#123d2c;--green2:#1d6547;--gold:#e7bd69;--bg:#f4f7f5;--card:#fff;--text:#1b2b23;--muted:#718078;--line:#e2eae4}
+body{background:#f4f7f5}
+header{position:sticky;top:0;padding:13px 3%;z-index:20}
+.nav{max-width:none}
+.brand{font-size:1.45rem;letter-spacing:1.1px}
+.sub{font-size:.78rem;opacity:.9}
+#studentAuth{max-width:none!important;margin:14px 24px 14px 284px!important;padding:16px 20px!important;border-top:0;border-left:4px solid var(--gold);border-radius:15px}
+.filters{margin-left:260px;padding:10px 24px;background:transparent;border:0;box-shadow:none}
+.filterinner{max-width:none}
+.filterinner select,.filterinner input{background:#fff;border-color:#e0e9e2}
+.tabs{position:fixed;z-index:15;left:0;top:76px;bottom:0;width:250px;max-width:250px;margin:0;padding:22px 14px;display:flex;flex-direction:column;gap:7px;overflow-y:auto;overflow-x:hidden;background:#fff;border-right:1px solid #e2eae4;box-shadow:5px 0 24px #173d2b08}
+.tab{width:100%;text-align:left;border-radius:11px;padding:12px 15px;background:transparent;border:1px solid transparent;color:#617168;font-weight:700}
+.tab:hover{background:#f0f6f1;transform:none;box-shadow:none}
+.tab.active{background:linear-gradient(110deg,#123d2c,#26734d);color:#fff;border-color:transparent;box-shadow:0 6px 15px #174b3222}
+main{max-width:none;margin:0 0 0 260px;padding:22px 26px 55px}
+.hero{min-height:185px;padding:30px 32px;align-items:center}
+.hero h1,.hero h2{font-size:clamp(1.6rem,2.7vw,2.25rem)}
+.stats{gap:12px}
+.stat{min-width:105px;padding:14px 18px;border-radius:15px}
+.grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{border:1px solid #e3ebe5;border-top:3px solid #d7b66e;border-radius:17px;box-shadow:0 7px 24px #173d2b0a}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px #173d2b12}
+.card h3{font-size:1.08rem}
+.page{animation:hubFade .22s ease}
+@keyframes hubFade{from{opacity:.55;transform:translateY(5px)}to{opacity:1;transform:none}}
+footer{margin-left:260px}
+body.dark{background:#0d1712}
+body.dark .tabs{background:#14231a;border-color:#2c4034}
+body.dark .tab{color:#b7c7bb}
+body.dark .tab:hover{background:#20382a}
+body.dark #studentAuth{background:#17251d}
+body.dark .filters{background:transparent}
+body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
+@media(max-width:850px){
+ #studentAuth{margin:12px 14px!important}
+ .filters{margin-left:0;padding:8px 14px}
+ .tabs{position:sticky;top:0;bottom:auto;width:auto;max-width:none;height:auto;margin:0;padding:10px 12px;display:flex;flex-direction:row;gap:7px;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);box-shadow:0 5px 15px #173d2b08}
+ .tab{width:auto;flex:0 0 auto;text-align:center;padding:10px 13px}
+ main{margin:0;padding:18px 14px 42px}
+ footer{margin-left:0}
+}
+@media(max-width:560px){
+ header{padding:12px}
+ .nav{align-items:flex-start}
+ .nav>.actions{width:100%;justify-content:flex-start}
+ .nav>.actions button{padding:8px 10px;font-size:.8rem}
+ #studentAuth{padding:14px!important}
+ .hero{padding:22px 18px}
+ .stats{width:100%}
+ .stat{flex:1;min-width:70px;padding:10px 8px}
+ .grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
