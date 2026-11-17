@@ -626,7 +626,7 @@ body.student-authenticated.dashboard-view #page-dashboard>*{flex-shrink:0}
 body.student-authenticated.dashboard-view .site-footer{position:relative!important}
 
 .task-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.task-actions button{border:0;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:750;cursor:pointer}.task-complete{background:#e1f4e9;color:#216844}.task-edit{background:#e7f1f8;color:#285e7d}.task-delete{background:#fff0f0;color:#a33b3b}.task-history-label{font-size:.75rem;color:#278054;font-weight:800}.homework-item{align-items:flex-start;flex-wrap:wrap}.homework-task{flex:1 1 220px}.task-actions{flex:0 1 auto}body.dark .task-complete{background:#254b39;color:#b8f0cf}body.dark .task-edit{background:#29485a;color:#c9e8fa}body.dark .task-delete{background:#563434;color:#ffd0d0}@media(max-width:650px){.task-actions{width:100%;padding-left:0}.homework-item{gap:8px}}/* FULL WEBSITE LANGUAGE TRANSLATOR */
-.translate-control{display:inline-flex;align-items:center;min-height:38px;padding:3px 8px;background:#fffdf8;border:1px solid #b9cbd4;border-radius:10px;color:#344653;max-width:190px;overflow:hidden}
+.translate-control{position:fixed;right:20px;bottom:20px;z-index:9999;display:inline-flex;align-items:center;min-height:44px;padding:5px 10px;background:#fffdf8;border:1px solid #9bb8ca;border-radius:13px;color:#344653;max-width:190px;overflow:hidden;box-shadow:0 6px 22px #26374630}
 .translate-control .goog-te-gadget{font:700 12px system-ui,sans-serif!important;color:#344653!important;white-space:nowrap}
 .translate-control .goog-te-gadget span{display:none!important}
 .translate-control .goog-te-combo{max-width:165px;margin:0!important;padding:7px 24px 7px 8px;border:0;border-radius:7px;background:#fffdf8;color:#344653;font:700 12px system-ui,sans-serif;cursor:pointer}
@@ -634,7 +634,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 body{top:0!important}
 .goog-tooltip,.goog-tooltip:hover{display:none!important}
 .goog-text-highlight{background:transparent!important;box-shadow:none!important}
-@media(max-width:560px){.translate-control{max-width:145px}.translate-control .goog-te-combo{max-width:125px;font-size:11px}}
+@media(max-width:560px){.translate-control{right:12px;bottom:12px;max-width:145px;min-height:40px}.translate-control .goog-te-combo{max-width:125px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -675,7 +675,7 @@ body{top:0!important}
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="topbar-actions"><div id="google_translate_element" class="translate-control" aria-label="Translate website"></div><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" type="button" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" type="button" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -823,6 +823,7 @@ body{top:0!important}
  <div class="card" style="margin-top:14px"><h3>Published content</h3><div id="manageList">Loading...</div></div>
 </section>
 </main>
+<div id="google_translate_element" class="translate-control" aria-label="Translate website" title="Choose Hindi or English"></div>
 
 <div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Details</h3><button class="gold" id="closeModal">Close ✕</button></div><div id="modalContent"></div></div></div>
 <div class="modal" id="profileModal"><div class="modalbox profile-box"><div class="modalhead"><div><h3>👤 Student Profile</h3><p class="muted" style="margin:2px 0 0">Apni account details dekhein aur edit karein</p></div><button class="gold" id="closeProfile">Close ✕</button></div><form id="profileEditForm"><div class="profile-grid"><label class="profile-item">Full Name<input id="editProfileName" required maxlength="80"></label><label class="profile-item">Email / Gmail<input id="editProfileEmail" type="email" readonly disabled></label><label class="profile-item">Class<select id="editProfileClass" required><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></label><label class="profile-item">Board<select id="editProfileBoard" required><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select></label><label class="profile-item">Medium<select id="editProfileMedium" required><option value="Hindi">Hindi Medium</option><option value="English">English Medium</option></select></label><label class="profile-item" id="profileStreamField" hidden>Stream<select id="editProfileStream"><option value="">Select Stream</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select></label></div><div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px"><button class="green" id="saveProfileBtn" type="submit">Save Changes</button></div><p id="profileEditMessage" class="muted" role="status"></p></form></div></div>
