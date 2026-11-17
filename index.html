@@ -625,7 +625,7 @@ body.student-authenticated.dashboard-view #page-dashboard{height:auto!important;
 body.student-authenticated.dashboard-view #page-dashboard>*{flex-shrink:0}
 body.student-authenticated.dashboard-view .site-footer{position:relative!important}
 
-</style>
+.task-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.task-actions button{border:0;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:750;cursor:pointer}.task-complete{background:#e1f4e9;color:#216844}.task-edit{background:#e7f1f8;color:#285e7d}.task-delete{background:#fff0f0;color:#a33b3b}.task-history-label{font-size:.75rem;color:#278054;font-weight:800}.homework-item{align-items:flex-start;flex-wrap:wrap}.homework-task{flex:1 1 220px}.task-actions{flex:0 1 auto}body.dark .task-complete{background:#254b39;color:#b8f0cf}body.dark .task-edit{background:#29485a;color:#c9e8fa}body.dark .task-delete{background:#563434;color:#ffd0d0}@media(max-width:650px){.task-actions{width:100%;padding-left:0}.homework-item{gap:8px}}</style>
 </head>
 <body>
 
@@ -739,7 +739,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
      </div>
  </div>
  <section class="dashboard-focus"><div><span class="hub-eyebrow">YOUR FOCUS TIME</span><h2>आज की पढ़ाई यहीं से शुरू करें</h2><p>पढ़ना शुरू करते ही Timer चालू करें। आपका समय अपने आप जुड़ता रहेगा।</p></div><div class="focus-controls"><div id="dashboardTimerClock">00:00:00</div><div class="focus-actions"><button id="dashboardTimerStart" type="button">▶ Start Study</button><button id="dashboardTimerPause" type="button">Ⅱ Pause</button><button id="dashboardTimerFinish" type="button">✓ Finish</button></div><small id="dashboardTimerHint">Timer तैयार है</small></div></section>
- <section class="homework-panel"><div class="homework-heading"><div><span class="hub-eyebrow">PLAN • LEARN • COMPLETE</span><h2>📋 मेरा Homework & Tasks</h2><p>स्कूल से मिला Homework या अपना पढ़ाई का काम यहाँ जोड़ें।</p></div><div class="task-counts"><span><b id="pendingTaskCount">0</b> Pending</span><span><b id="completedTaskCount">0</b> Completed</span></div></div><div class="task-entry"><input id="homeworkInput" maxlength="140" placeholder="जैसे: Science Chapter 3 के प्रश्न पूरे करने हैं..."><input id="homeworkDate" type="date"><button id="addHomeworkBtn" type="button">＋ Add Task</button></div><div class="task-filters"><button class="task-filter active" data-task-filter="all" type="button">All Tasks</button><button class="task-filter" data-task-filter="pending" type="button">Pending</button><button class="task-filter" data-task-filter="completed" type="button">Completed</button></div><div id="homeworkList" class="homework-list"><div class="task-empty">अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।</div></div></section>
+ <section class="homework-panel"><div class="homework-heading"><div><span class="hub-eyebrow">PLAN • LEARN • COMPLETE</span><h2>📋 मेरा Homework & Tasks</h2><p>स्कूल से मिला Homework या अपना पढ़ाई का काम यहाँ जोड़ें।</p></div><div class="task-counts"><span><b id="pendingTaskCount">0</b> Pending</span><span><b id="completedTaskCount">0</b> Completed</span></div></div><div class="task-entry"><input id="homeworkInput" maxlength="140" placeholder="जैसे: Science Chapter 3 के प्रश्न पूरे करने हैं..."><input id="homeworkDate" type="date" required aria-label="Task due date"><button id="addHomeworkBtn" type="button">＋ Add Task</button></div><div class="task-filters"><button class="task-filter active" data-task-filter="all" type="button">All Tasks</button><button class="task-filter" data-task-filter="pending" type="button">Pending</button><button class="task-filter" data-task-filter="completed" type="button">Completed</button><button class="task-filter" data-task-filter="history" type="button">History</button></div><div id="homeworkList" class="homework-list"><div class="task-empty">अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।</div></div></section>
  <div class="hub-section-title"><div><span class="hub-eyebrow">CHOOSE YOUR NEXT STEP</span><h2>आज क्या पढ़ना चाहोगे?</h2><p>अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
  <div class="hub-learning-grid">
   <button class="hub-learning-card hub-books" data-page="books"><span>📚</span><b>Textbooks</b><small>अपनी किताबें पढ़ें</small><i>किताबें खोलें →</i></button>
@@ -962,12 +962,31 @@ function homeworkStorageKey(){return "studyhub_tasks_v1_"+(studyUserKey||"guest"
 function loadHomework(){try{const x=JSON.parse(localStorage.getItem(homeworkStorageKey())||"[]");homeworkItems=Array.isArray(x)?x:[]}catch(e){homeworkItems=[]}renderHomework()}
 function saveHomework(){try{localStorage.setItem(homeworkStorageKey(),JSON.stringify(homeworkItems))}catch(e){}}
 function safeTaskText(v){return String(v).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
-function renderHomework(){const list=$("homeworkList");if(!list)return;const p=homeworkItems.filter(t=>!t.done).length;$("pendingTaskCount").textContent=p;$("completedTaskCount").textContent=homeworkItems.length-p;const shown=homeworkItems.filter(t=>homeworkFilter==="all"||(homeworkFilter==="pending"?!t.done:t.done));list.innerHTML=shown.length?shown.map(t=>'<div class="homework-item '+(t.done?"done":"")+'"><input class="homework-check" type="checkbox" data-task-check="'+t.id+'" '+(t.done?"checked":"")+'><div class="homework-task">'+safeTaskText(t.text)+'<small class="homework-meta">'+(t.due?"Due: "+t.due:"No due date")+" · "+(t.done?"Completed":"Pending")+'</small></div><button class="task-delete" data-task-delete="'+t.id+'" type="button">✕</button></div>').join(""):'<div class="task-empty">'+(homeworkFilter==="pending"?"कोई Pending Task नहीं है।":homeworkFilter==="completed"?"अभी कोई Task Complete नहीं हुआ है।":"अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।")+"</div>";document.querySelectorAll("[data-task-filter]").forEach(b=>b.classList.toggle("active",b.dataset.taskFilter===homeworkFilter))}
-$("addHomeworkBtn").addEventListener("click",()=>{const input=$("homeworkInput"),v=input.value.trim();if(!v){input.focus();return}homeworkItems.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:v,due:$("homeworkDate").value,done:false});saveHomework();renderHomework();input.value="";$("homeworkDate").value=""});
+function renderHomework(){
+ const list=$("homeworkList");if(!list)return;
+ const p=homeworkItems.filter(t=>!t.done).length,c=homeworkItems.length-p;
+ $("pendingTaskCount").textContent=p;$("completedTaskCount").textContent=c;
+ const shown=homeworkItems.filter(t=>homeworkFilter==="all"||(homeworkFilter==="pending"?!t.done:homeworkFilter==="completed"?t.done:t.done));
+ list.innerHTML=shown.length?shown.map(t=>'<div class="homework-item '+(t.done?"done":"")+'"><div class="homework-task">'+safeTaskText(t.text)+'<small class="homework-meta">Due: '+safeTaskText(t.due||"Date not set")+' · '+(t.done?"Completed":"Pending")+(t.completedAt?" · Completed on "+safeTaskText(t.completedAt):"")+'</small></div><div class="task-actions">'+(!t.done?'<button class="task-complete" data-task-complete="'+t.id+'" type="button">✓ Complete</button>':'<span class="task-history-label">✓ Saved in History</span>')+'<button class="task-edit" data-task-edit="'+t.id+'" type="button">✎ Edit</button><button class="task-delete" data-task-delete="'+t.id+'" type="button">Delete</button></div></div>').join(""):'<div class="task-empty">'+(homeworkFilter==="pending"?"कोई Pending Task नहीं है।":homeworkFilter==="completed"||homeworkFilter==="history"?"अभी History में कोई completed Task नहीं है।":"अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।")+"</div>";
+ document.querySelectorAll("[data-task-filter]").forEach(b=>b.classList.toggle("active",b.dataset.taskFilter===homeworkFilter));
+}
+$("addHomeworkBtn").addEventListener("click",()=>{
+ const input=$("homeworkInput"),v=input.value.trim(),due=$("homeworkDate").value;
+ if(!v){input.focus();return}
+ if(!due){$("homeworkDate").focus();alert("Task जोड़ने से पहले उसकी तारीख चुनें।");return}
+ homeworkItems.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:v,due,done:false,createdAt:new Date().toISOString()});
+ saveHomework();renderHomework();input.value="";$("homeworkDate").value="";
+});
 $("homeworkInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("addHomeworkBtn").click()});
 document.querySelectorAll("[data-task-filter]").forEach(b=>b.addEventListener("click",()=>{homeworkFilter=b.dataset.taskFilter;renderHomework()}));
-$("homeworkList").addEventListener("change",e=>{const id=e.target.dataset.taskCheck;if(!id)return;const t=homeworkItems.find(x=>x.id===id);if(t)t.done=e.target.checked;saveHomework();renderHomework()});
-$("homeworkList").addEventListener("click",e=>{const id=e.target.dataset.taskDelete;if(!id)return;homeworkItems=homeworkItems.filter(x=>x.id!==id);saveHomework();renderHomework()});
+$("homeworkList").addEventListener("click",e=>{
+ const complete=e.target.closest("[data-task-complete]")?.dataset.taskComplete;
+ const edit=e.target.closest("[data-task-edit]")?.dataset.taskEdit;
+ const del=e.target.closest("[data-task-delete]")?.dataset.taskDelete;
+ if(complete){const t=homeworkItems.find(x=>x.id===complete);if(t){t.done=true;t.completedAt=new Date().toLocaleString("en-IN");saveHomework();renderHomework()}return}
+ if(edit){const t=homeworkItems.find(x=>x.id===edit);if(!t)return;const nextText=prompt("Task ka naam badlein:",t.text);if(nextText===null)return;if(!nextText.trim()){alert("Task ka naam khaali nahi ho sakta.");return}const nextDate=prompt("Task ki date badlein (YYYY-MM-DD):",t.due||"");if(nextDate===null)return;if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(nextDate)){alert("Sahi date YYYY-MM-DD format mein daalein.");return}t.text=nextText.trim();t.due=nextDate;saveHomework();renderHomework();return}
+ if(del){if(!confirm("Kya aap is Task ko hamesha ke liye delete karna chahte hain?"))return;homeworkItems=homeworkItems.filter(x=>x.id!==del);saveHomework();renderHomework()}
+});
 let currentStudentUser = null;
 let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
