@@ -362,6 +362,69 @@ body.dark .hub-motivation{background:#3b3529;border-color:#645538;color:#f4e6c8}
 @media(max-width:900px){.hub-dash-hero{grid-template-columns:1fr}.hub-dash-photo{min-height:220px}.hub-dash-photo img{height:250px}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-tools-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.hub-stat-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hub-stat{padding:12px}.hub-learning-grid,.hub-tools-grid{grid-template-columns:1fr}.hub-section-title{align-items:flex-start;flex-direction:column}.hub-plan{padding:14px}.hub-dash-hero{padding:18px}.hub-dash-photo img{height:220px}}
 
+
+/* FINAL STUDY HUB BLUEPRINT THEME: LIGHT BLUE + OFF-WHITE */
+:root{
+ --green:#eaf4fb;--green2:#4e91bb;--gold:#8fc4e3;
+ --bg:#f5f9fc;--card:#fff;--text:#243746;--muted:#718596;--line:#dce8f0;
+}
+body{background:linear-gradient(135deg,#f7fbfe 0%,#edf5fa 55%,#f8fbfd 100%);color:#243746}
+header{background:#e8f3fa;color:#243746;border-bottom:3px solid #8fc4e3;box-shadow:0 6px 22px #416b8314}
+.brand{color:#397da7}.sub{color:#627e91}
+.tabs{background:#fff;border-right:1px solid #dce8f0}
+.tab{color:#607789}.tab:hover{background:#eef6fb}
+.tab.active{background:linear-gradient(110deg,#397da7,#69acd2);color:#fff}
+main{background:transparent}
+.hero,.hub-dash-hero{background:linear-gradient(115deg,#e4f1f9,#d5eaf6 68%,#f4f8fb);border:1px solid #c7deec;color:#29475b}
+.hero h1,.hero h2,.hub-dash-copy h2,.hub-dash-copy h3{color:#29475b}
+.stat{background:#fff;border-color:#d4e5ef}.stat b{color:#438bb6}
+.card,.hub-stat,.hub-plan,.hub-learning-card,.hub-tool{background:#fff;border-color:#dce8f0;box-shadow:0 7px 24px #416b830c}
+.card h3{color:#397da7}
+.gold{background:#d8ebf7;color:#29475b}
+.green,.hub-main-cta{background:linear-gradient(135deg,#579dc5,#79b7d8);color:#fff}
+.outline{border-color:#a9c9dc;color:#31566f}
+input,select,textarea{background:#fff;border-color:#d5e3ec;color:#243746}
+.pill{background:#e8f3fa;color:#397da7}
+.filters{background:transparent}
+.filterinner select,.filterinner input{background:#fff;border-color:#d5e3ec}
+#welcomeScreen{background:linear-gradient(125deg,#eaf4fa 0%,#dceef8 58%,#f6f9fc 100%);color:#29475b}
+.welcome-nav,.welcome-bottom{color:#607b8e}
+.welcome-brand{color:#397da7}
+.welcome-tag,.welcome-points span{background:#fff;border-color:#c9dfed;color:#52758c}
+.welcome-copy h1{color:#243746!important}
+.welcome-copy h1 em{color:#438fba!important}
+.welcome-lead{color:#536f82}
+.welcome-cta{background:#579dc5;color:#fff;border-color:#579dc5}
+.welcome-cta:hover{background:#438bb6;color:#fff}
+.welcome-note{color:#607b8e}
+.welcome-photo{border-color:#fff;box-shadow:0 18px 42px #527f9b24}
+.welcome-float{background:#fff;color:#31566f}
+.welcome-float-bottom strong{color:#438fba}
+.welcome-bottom{border-color:#c9dfed}
+.hub-eyebrow{color:#5795b9}
+.hub-dash-hero{background:linear-gradient(115deg,#eaf4fa,#d9edf8 68%,#f7fafc);border-color:#c9dfed}
+.hub-dash-copy p,.hub-hero-sub{color:#536f82}
+.hub-stat-row .hub-stat{border:1px solid #dce8f0}
+.hub-learning-card{color:#29475b}
+.hub-learning-card:hover{border-color:#9bc9e2}
+.hub-plan{border:1px solid #dce8f0}
+body.dark{--bg:#14232d;--card:#1d303c;--text:#edf5fa;--muted:#afc1cc;--line:#354d5d;background:#14232d;color:#edf5fa}
+body.dark header,body.dark .tabs{background:#1c3342;color:#edf5fa}
+body.dark .brand{color:#a8d2ed}body.dark .sub{color:#c0d2de}
+body.dark .tab{color:#c0d2de}body.dark .tab:hover{background:#294354}
+body.dark .tab.active{background:#4b8db4;color:#fff}
+body.dark .card,body.dark .hub-stat,body.dark .hub-plan,body.dark .hub-learning-card,body.dark .hub-tool,body.dark #studentAuth{background:#1d303c;border-color:#354d5d;color:#edf5fa}
+body.dark .hero,body.dark .hub-dash-hero{background:linear-gradient(115deg,#243f50,#31596f);border-color:#52758a;color:#edf5fa}
+body.dark .hero h1,body.dark .hero h2,body.dark .hub-dash-copy h2,body.dark .hub-dash-copy h3{color:#edf5fa}
+body.dark input,body.dark select,body.dark textarea{background:#1d303c;color:#edf5fa;border-color:#405b6c}
+body.dark .filterinner select,body.dark .filterinner input{background:#1d303c;color:#edf5fa}
+body.dark #welcomeScreen{background:linear-gradient(125deg,#1c3342,#243f50 60%,#263b48);color:#edf5fa}
+body.dark .welcome-copy h1{color:#edf5fa!important}
+body.dark .welcome-lead,body.dark .welcome-bottom,body.dark .welcome-note{color:#c0d2de}
+body.dark .welcome-tag,body.dark .welcome-points span{background:#294354;color:#e6f2f9;border-color:#47677b}
+body.dark .welcome-float{background:#edf5fa;color:#29475a}
+@media(max-width:850px){body .tabs{background:#fff}body.dark .tabs{background:#1c3342}}
+
 </style>
 </head>
 <body>
@@ -512,7 +575,7 @@ body.dark .hub-motivation{background:#3b3529;border-color:#645538;color:#f4e6c8}
  <div class="formgrid" style="margin-top:12px">
   <div><label>Upload type</label><select id="newType"><option value="pdf">PDF Upload</option><option value="note">Notes Upload</option><option value="video">Video Link Add</option></select></div>
   <div><label>Class</label><select id="newClass"><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></div>
-  <div><label>Board</label><select id="newBoard"><option>CBSE</option><option>MP Board</option><option>Other</option></select></div>
+  <div><label>Board</label><select id="newBoard"><option>MP Board</option><option>UP Board</option><option>CBSE</option><option>Other</option></select></div>
   <div><label>Medium</label><select id="newMedium"><option>Hindi</option><option>English</option></select></div>
   <div><label>Subject</label><input id="newSubject" required placeholder="e.g. Science / गणित"></div>
   <div><label>Stream (Class 11/12)</label><select id="newStream"><option>All</option><option>Science</option><option>Commerce</option><option>Arts</option></select></div>
