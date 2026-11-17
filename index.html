@@ -1097,15 +1097,34 @@ async function refreshAdminAccess(user){
   showAuthState(null);
   authMessage("Logout ho gaya.");
  }
- $("headerLogout").addEventListener("click",performStudentLogout);
- $("signOutBtn").addEventListener("click",performStudentLogout);
- $("adminNav").addEventListener("click",async()=>{
-  if(!currentStudentUser){authMessage("Admin dashboard ke liye pehle login karein.",true);return;}
-  await refreshAdminAccess(currentStudentUser);
-  if(isAdmin)showPage("admin");
-  else authMessage("Is account ko Admin permission nahi mili hai. admin_users table mein is user ki entry check karein.",true);
- });
+ // Header button actions are attached globally below so slow auth startup cannot block them.
 }
+
+document.addEventListener("click",async(e)=>{
+ const logout=e.target.closest("#headerLogout,#signOutBtn");
+ const admin=e.target.closest("#adminNav");
+ if(logout){
+  e.preventDefault();
+  if(!authClient){authMessage("Login service abhi load ho rahi hai. 2 second baad dobara try karein.",true);return;}
+  const btn=logout;btn.disabled=true;
+  try{
+   const {error}=await authClient.auth.signOut();
+   if(error)throw error;
+   isAdmin=false;$("adminNav").hidden=true;showAuthState(null);authMessage("Logout ho gaya.");
+  }catch(err){authMessage("Logout nahi ho saka: "+(err.message||err),true)}
+  finally{btn.disabled=false}
+  return;
+ }
+ if(admin){
+  e.preventDefault();
+  if(!currentStudentUser){authMessage("Admin Dashboard ke liye pehle login karein.",true);return;}
+  try{
+   await refreshAdminAccess(currentStudentUser);
+   if(isAdmin)showPage("admin");
+   else authMessage("Admin permission nahi mili. Supabase ke admin_users table mein apne account ka user_id add karein.",true);
+  }catch(err){authMessage("Admin check mein dikkat: "+(err.message||err),true)}
+ }
+},true);
 
 initStudentAuth();
 render();
