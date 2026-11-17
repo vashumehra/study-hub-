@@ -38,6 +38,47 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
 #studentAuth label{display:block;margin:7px 0 3px;font-weight:650}
 #studentAuth input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:5px}
 #studentAuth form button{margin-top:10px}
+
+/* STUDY HUB modern visual refresh — keeps the existing Supabase/auth features */
+:root{--green:#173b75;--green2:#2456a6;--gold:#55c7e8;--bg:#f4f7fc;--card:#fff;--text:#17243b;--muted:#64748b;--line:#e1e8f2;--red:#b42318;--blue:#245b91}
+body.dark{--green:#12284d;--green2:#2e65b7;--gold:#55c7e8;--bg:#0b1424;--card:#121f33;--text:#e8f0fb;--muted:#a8b7cc;--line:#263954}
+body{background:radial-gradient(ellipse at 10% 0%,#e6f4ff 0,transparent 35%),var(--bg);letter-spacing:.005em}
+body.dark{background:radial-gradient(ellipse at 10% 0%,#142c4a 0,transparent 35%),var(--bg)}
+header{background:linear-gradient(115deg,#0b1c38,#173b75 65%,#2456a6);border-bottom:3px solid #55c7e8;box-shadow:0 8px 28px #102b501f}
+.brand{font-size:1.55rem;letter-spacing:1.5px;color:#8ce4fa}
+.sub{font-size:.82rem;color:#d8eaff}
+button,.btn{border-radius:11px;padding:10px 15px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+button:hover,.btn:hover{transform:translateY(-1px);box-shadow:0 7px 18px #102b5020}
+.gold{background:linear-gradient(135deg,#62d5ed,#38a9d2);color:#09243b}
+.green{background:linear-gradient(135deg,#2456a6,#3479cb);color:#fff}
+.outline{border-color:#7bdcf3;color:#eafaff}
+.filters{background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);box-shadow:0 5px 20px #102b5008}
+.filterinner select,.filterinner input{border-radius:11px;padding:11px 13px}
+.tabs{padding-top:4px;padding-bottom:4px;scrollbar-width:thin}
+.tab{border-radius:999px;padding:10px 16px;font-size:.9rem}
+.tab.active{background:linear-gradient(135deg,#173b75,#3479cb);color:#fff;border-color:transparent;box-shadow:0 5px 15px #2456a633}
+main{padding-top:22px}
+.hero{background:linear-gradient(115deg,#102b55,#1d5599 65%,#2582b4);border:1px solid #6bd8ef;border-radius:20px;padding:27px;box-shadow:0 14px 35px #173b7522}
+.hero h2{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.025em}
+.stat{background:#ffffff16;border:1px solid #ffffff35;border-radius:13px;padding:10px 15px}
+.stat b{color:#8ce4fa}
+.grid{gap:17px}
+.card{border:1px solid var(--line);border-top:3px solid #55c7e8;border-radius:16px;padding:19px;box-shadow:0 6px 22px #1a37600a;transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{box-shadow:0 12px 28px #1a376014}
+.card h3{color:var(--green2);letter-spacing:-.01em}
+body.dark .card h3{color:#8ce4fa}
+#studentAuth{box-shadow:0 12px 32px #173b7510!important;border-top:3px solid #55c7e8}
+#studentAuth .card{background:linear-gradient(160deg,var(--card),color-mix(in srgb,var(--card) 92%,#dff5ff));}
+input,select,textarea{border-radius:10px;padding:10px 12px}
+input:focus,select:focus,textarea:focus{border-color:#43b9df;box-shadow:0 0 0 3px #43b9df20}
+.pill{background:#e5f6fc;color:#15517b;font-weight:650}
+body.dark .pill{background:#173d59;color:#bdeeff}
+.modalbox{border:1px solid #55c7e8;border-radius:18px;box-shadow:0 24px 70px #0005}
+.notice{background:#eaf7ff;border-left-color:#38a9d2;color:#17466d}
+body.dark .notice{background:#18324b;color:#d2ecff}
+footer{border-top:1px solid var(--line);margin-top:25px}
+@media(max-width:600px){.brand{font-size:1.25rem}.hero{padding:18px;border-radius:15px}.stat{flex:1;min-width:75px}.tabs{padding-left:12px;padding-right:12px}.tab{padding:9px 13px}}
+
 </style>
 </head>
 <body>
