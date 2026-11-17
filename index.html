@@ -861,7 +861,7 @@ const officialTextbookLinks=(()=>{
  ];
  const out=[];
  links.forEach(group=>group.classes.forEach(cls=>["Hindi","English"].forEach(med=>out.push({
-  id:"official-book-"+group.board.replace(/\\s/g,"-")+"-"+cls+"-"+med,
+  id:"official-book-"+group.board.replaceAll(" ","-")+"-"+cls+"-"+med,
   type:"book",cls:String(cls),board:group.board,med,stream:"All",sub:"All",
   title:"कक्षा "+cls+" — आधिकारिक पाठ्यपुस्तकें ("+group.board+")",
   url:group.url,summary:group.summary+" यह लिंक PDF को मूल सरकारी/प्रकाशक पोर्टल से खोलता है।"
