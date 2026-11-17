@@ -241,6 +241,9 @@ body.dark #welcomeScreen .welcome-copy h1 em{color:#F59E0B}
 body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 
 
+/* KEEP ONLY THE SELECTED DASHBOARD PAGE VISIBLE */
+.page{display:none!important}
+.page.active{display:block!important}
 /* LOGIN-ONLY POPUP */
 #loginPopup{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:18px;background:#14253699;backdrop-filter:blur(5px)}
 #loginPopup.open{display:flex}
@@ -489,7 +492,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcomeScreen").style.display="none";$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
+ if(logged){$("welcomeScreen").style.display="none";showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
 }
 async function ensureStudentProfile(user){
  const {data,error}=await authClient.from("profiles").select("id").eq("id",user.id).maybeSingle();
