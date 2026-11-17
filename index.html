@@ -701,6 +701,8 @@ body.dark .progress-overview .card{background:#1d303c;border-color:#405765}
    <div class="hub-dash-photo"><img src="https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1000&q=85" alt="पढ़ाई करता हुआ विद्यार्थी"></div>
      </div>
  </div>
+ <section class="dashboard-focus"><div><span class="hub-eyebrow">YOUR FOCUS TIME</span><h2>आज की पढ़ाई यहीं से शुरू करें</h2><p>पढ़ना शुरू करते ही Timer चालू करें। आपका समय अपने आप जुड़ता रहेगा।</p></div><div class="focus-controls"><div id="dashboardTimerClock">00:00:00</div><div class="focus-actions"><button id="dashboardTimerStart" type="button">▶ Start Study</button><button id="dashboardTimerPause" type="button">Ⅱ Pause</button><button id="dashboardTimerFinish" type="button">✓ Finish</button></div><small id="dashboardTimerHint">Timer तैयार है</small></div></section>
+ <section class="homework-panel"><div class="homework-heading"><div><span class="hub-eyebrow">PLAN • LEARN • COMPLETE</span><h2>📋 मेरा Homework & Tasks</h2><p>स्कूल से मिला Homework या अपना पढ़ाई का काम यहाँ जोड़ें।</p></div><div class="task-counts"><span><b id="pendingTaskCount">0</b> Pending</span><span><b id="completedTaskCount">0</b> Completed</span></div></div><div class="task-entry"><input id="homeworkInput" maxlength="140" placeholder="जैसे: Science Chapter 3 के प्रश्न पूरे करने हैं..."><input id="homeworkDate" type="date"><button id="addHomeworkBtn" type="button">＋ Add Task</button></div><div class="task-filters"><button class="task-filter active" data-task-filter="all" type="button">All Tasks</button><button class="task-filter" data-task-filter="pending" type="button">Pending</button><button class="task-filter" data-task-filter="completed" type="button">Completed</button></div><div id="homeworkList" class="homework-list"><div class="task-empty">अभी कोई Task नहीं है। अपना पहला Homework जोड़ें।</div></div></section>
  <div class="hub-section-title"><div><span class="hub-eyebrow">CHOOSE YOUR NEXT STEP</span><h2>आज क्या पढ़ना चाहोगे?</h2><p>अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
  <div class="hub-learning-grid">
   <button class="hub-learning-card hub-books" data-page="books"><span>📚</span><b>Textbooks</b><small>अपनी किताबें पढ़ें</small><i>किताबें खोलें →</i></button>
@@ -909,12 +911,12 @@ function renderStudyTimer(){
 }
 function setStudyUser(user){
  const nextKey=user?.id||null;
- if(nextKey===studyUserKey){renderStudyTimer();return}
+ if(nextKey===studyUserKey){renderStudyTimer();loadHomework();return}
  if(studyUserKey&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}
  studyUserKey=nextKey;
  if(!studyUserKey){studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};renderStudyTimer();return}
  try{const saved=JSON.parse(localStorage.getItem(studyStorageKey())||"null");studyState=saved&&typeof saved==="object"?{totalMs:saved.totalMs||0,daily:saved.daily||{},sessions:saved.sessions||{},sessionMs:saved.sessionMs||0,running:false,lastTick:0}:{totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}catch{studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}
- renderStudyTimer();
+ renderStudyTimer();loadHomework();
 }
 $("dashboardTimerStart").addEventListener("click",()=>$("studyStartBtn").click());$("dashboardTimerPause").addEventListener("click",()=>$("studyPauseBtn").click());$("dashboardTimerFinish").addEventListener("click",()=>$("studyFinishBtn").click());
  $("studyStartBtn").addEventListener("click",()=>{if(studyState.running)return;studyState.running=true;studyState.lastTick=Date.now();saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);studyTickHandle=setInterval(checkpointStudyTimer,1000);renderStudyTimer()});
