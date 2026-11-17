@@ -308,6 +308,60 @@ body.dark .dashboard-encouragement p{color:#b2c0c6}
 body.dark .dashboard-welcome{background:linear-gradient(115deg,#203d4e,#29495a 58%,#3b3b35);border-color:#526d7c}.dark .dashboard-welcome-copy h2{color:#edf5fa}.dark .dashboard-welcome-copy #profileSummary,.dark .dashboard-welcome-copy>p{color:#d4e3eb}.dark .dashboard-stat,.dark .dashboard-tool-card{background:#22333c;border-color:#40515a}.dark .dashboard-stat b,.dark .dashboard-shortcut strong{color:#b9dced}.dark .dashboard-stat>span{background:#304653}.dark .art-note{background:#edf3f5;color:#344e5d}
 @media(max-width:850px){.dashboard-welcome{grid-template-columns:1fr .75fr;padding:24px}.dashboard-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-tools{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.dashboard-welcome{grid-template-columns:1fr;padding:22px;gap:16px}.dashboard-student-art{width:100%;height:185px;justify-self:stretch}.art-note{left:10px}.dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.dashboard-stat{padding:13px}.dashboard-shortcuts,.dashboard-tools{grid-template-columns:1fr}.dashboard-shortcut{min-height:145px}.dashboard-section-head h2{font-size:1.15rem}}
+
+/* STUDY HUB HOME AND DASHBOARD FINISHING DESIGN */
+#welcomeScreen{background:linear-gradient(135deg,#f2f8fc 0%,#e3f1fa 58%,#f8f5ee 100%)}
+.welcome-layout{max-width:1320px;gap:clamp(24px,5vw,76px)}
+.welcome-copy h1{font-size:clamp(2.6rem,5.6vw,5.1rem);letter-spacing:-1.8px}
+.welcome-copy h1 em{color:#e6a52d}
+.welcome-tag{background:#fff;border:1px solid #c9dfed;color:#47718c}
+.welcome-lead{color:#526e80}
+.welcome-points span{background:#fff;border-color:#c9dfed;color:#42647b}
+.welcome-photo{background-image:linear-gradient(0deg,#142d3b33,#142d3b00 55%),url('https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1400&q=85');border:8px solid #fff;box-shadow:0 24px 60px #42677d28}
+.welcome-cta{background:#f3bd55;color:#142d3b}
+#loginPopup .login-popup-card{border:1px solid #c7ddea;box-shadow:0 25px 80px #18394d35}
+.login-popup-sub{color:#647b8a}
+#signupForm,#loginForm{background:#fff;border-radius:16px;padding:20px}
+#signupForm button[type=submit],#loginForm button[type=submit]{background:#6faed4;color:#fff}
+.hub-dash-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding:clamp(22px,3vw,38px);border-radius:26px;background:linear-gradient(115deg,#e8f4fb,#d7eaf5 62%,#f5eee2);border:1px solid #c8ddea;box-shadow:0 15px 40px #476c8315}
+.hub-dash-copy h2{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.2;margin:12px 0;color:#1c3b50}
+.hub-eyebrow{font-size:.72rem;letter-spacing:1.7px;font-weight:900;color:#6395b2}
+.hub-dash-copy>p{color:#536f81;margin:8px 0}
+.hub-dash-copy h3{font-size:1.25rem;color:#315d78;margin:17px 0 5px}
+.hub-hero-sub{max-width:490px}
+.hub-main-cta{background:#173d55;color:#fff;padding:13px 19px;margin-top:12px;border-radius:12px}
+.hub-main-cta span{margin-left:14px;color:#f5c76e}
+.hub-dash-photo{position:relative;min-height:280px}
+.hub-dash-photo img{width:100%;height:300px;object-fit:cover;border-radius:21px;box-shadow:0 14px 34px #315d7825}
+.hub-photo-chip{position:absolute;left:14px;bottom:14px;background:#fff;color:#31566f;border-radius:12px;padding:10px 14px;font-weight:800;box-shadow:0 7px 20px #173d2b20}
+.hub-stat-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0 30px}
+.hub-stat{display:flex;align-items:center;gap:13px;padding:16px;background:#fff;border:1px solid #dce8ef;border-radius:17px;box-shadow:0 6px 20px #476c830b}
+.hub-stat>span{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#eaf4fa;font-size:1.35rem}
+.hub-stat b{display:block;font-size:1.45rem;color:#234d68;line-height:1.2}.hub-stat small{color:#718394}
+.hub-section-title{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:18px 0 14px}
+.hub-section-title h2{font-size:1.45rem;margin:3px 0;color:#263f50}
+.hub-section-title p{margin:0;color:#718394;font-size:.9rem}
+.hub-learning-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.hub-learning-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:9px;min-height:175px;padding:20px;border-radius:18px;background:#fff;border:1px solid #dce8ef;box-shadow:0 7px 22px #476c830d;color:#29495e}
+.hub-learning-card>span{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#edf6fb;font-size:1.5rem}
+.hub-learning-card b{font-size:1.05rem}.hub-learning-card small{color:#748795}.hub-learning-card i{font-style:normal;font-size:.82rem;font-weight:850;color:#4d8bb2;margin-top:auto}
+.hub-learning-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px #476c8320;border-color:#a9cde1}
+.hub-plan{margin-top:27px;padding:20px;border:1px solid #e2e8e8;border-radius:21px;background:#fffefa}
+.hub-view-tools{background:#e7f2f9;color:#315c76}
+.hub-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.hub-tool{display:flex;gap:12px;padding:16px;border:1px solid #e1e9eb;border-radius:15px;background:#fff}
+.hub-tool>span{font-size:1.5rem}.hub-tool h3{margin:0 0 4px;color:#315d78}.hub-tool p{margin:4px 0;color:#748795;font-size:.87rem}
+.hub-tool .timer-display{font-size:1.6rem;font-weight:900;color:#315d78}
+.hub-motivation{display:flex;align-items:center;gap:15px;margin-top:20px;padding:18px 21px;border-radius:17px;background:#fff4dc;border:1px solid #f0d8a6;color:#5d4b2e}
+.hub-motivation>span{font-size:2rem}.hub-motivation b{font-size:1.08rem}.hub-motivation p{margin:3px 0 0;color:#806d4e}
+body.dark .hub-dash-hero,body.dark .hub-plan,body.dark .hub-stat,body.dark .hub-learning-card,body.dark .hub-tool{background:#20323e;border-color:#405765;color:#eaf3f8}
+body.dark .hub-dash-copy h2,body.dark .hub-dash-copy h3,body.dark .hub-section-title h2,body.dark .hub-tool h3,body.dark .hub-stat b{color:#eaf3f8}
+body.dark .hub-dash-copy>p,body.dark .hub-section-title p,body.dark .hub-learning-card small,body.dark .hub-tool p{color:#b4c7d2}
+body.dark .hub-stat>span,body.dark .hub-learning-card>span{background:#304a5a}
+body.dark .hub-motivation{background:#3b3529;border-color:#645538;color:#f4e6c8}
+@media(max-width:900px){.hub-dash-hero{grid-template-columns:1fr}.hub-dash-photo{min-height:220px}.hub-dash-photo img{height:250px}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-tools-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.hub-stat-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hub-stat{padding:12px}.hub-learning-grid,.hub-tools-grid{grid-template-columns:1fr}.hub-section-title{align-items:flex-start;flex-direction:column}.hub-plan{padding:14px}.hub-dash-hero{padding:18px}.hub-dash-photo img{height:220px}}
+
 </style>
 </head>
 <body>
@@ -358,13 +412,13 @@ body.dark .dashboard-welcome{background:linear-gradient(115deg,#203d4e,#29495a 5
  </div>
  <div id="authForms" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
   <form id="signupForm" class="card" style="box-shadow:none">
-   <h3>Create account</h3>
-   <label>Full name</label><input id="signupName" required maxlength="80" autocomplete="name" placeholder="Your name">
+   <h3>अपना Student Account बनाएं</h3>
+   <label>पूरा नाम</label><input id="signupName" required maxlength="80" autocomplete="name" placeholder="Your name">
    <label>Gmail / Email</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
    <label>अपनी कक्षा चुनें</label><select id="signupClass" required><option value="">Select Class</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select>
    <label>अपना Board चुनें</label><select id="signupBoard" required><option value="">Select Board</option><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select>
-   <label>Password बनाएं</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
-   <button class="green" type="submit">Create account</button>
+   <label>अपना Password बनाएं</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+   <button class="green" type="submit">मेरा Account बनाएं</button>
   </form>
   <form id="loginForm" class="card" style="box-shadow:none">
    <h3>Student login</h3>
@@ -401,36 +455,39 @@ body.dark .dashboard-welcome{background:linear-gradient(115deg,#203d4e,#29495a 5
 </nav>
 <main>
 <section class="page active" id="page-dashboard">
- <div class="dashboard-welcome">
-  <div class="dashboard-welcome-copy">
-   <span class="dashboard-kicker">WELCOME TO YOUR LEARNING SPACE</span>
+ <div class="hub-dash-hero">
+  <div class="hub-dash-copy">
+   <span class="hub-eyebrow">✦ YOUR PERSONAL LEARNING SPACE</span>
    <h2 id="welcome">Welcome to STUDY HUB!</h2>
-   <div id="profileSummary">Aaj ka target: thoda-thoda roz padhna.</div>
-   <p>हर दिन की छोटी मेहनत, कल की बड़ी सफलता।</p>
-   <button class="dashboard-primary" type="button" data-page="books">पढ़ाई शुरू करें <span>→</span></button>
+   <p id="profileSummary">Aaj ka target: thoda-thoda roz padhna.</p>
+   <h3>आज की मेहनत, कल की सफलता।</h3>
+   <p class="hub-hero-sub">अपनी पसंद का विषय चुनो, सीखो और हर दिन एक कदम आगे बढ़ो।</p>
+   <button class="hub-main-cta" type="button" data-page="books">अपनी पढ़ाई जारी रखें <span>→</span></button>
   </div>
-  <div class="dashboard-student-art"><img src="https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=900&q=85" alt="Indian student studying at a desk"><div class="art-note"><span>✦</span><div><b>Keep learning!</b><small>One step at a time</small></div></div></div>
+  <div class="hub-dash-photo"><img src="https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1000&q=85" alt="Indian student studying with books"><div class="hub-photo-chip">📖 आज कुछ नया सीखें</div></div>
  </div>
- <div class="dashboard-stats">
-  <div class="dashboard-stat"><span>📚</span><div><b id="bookCount">0</b><small>Books</small></div></div>
-  <div class="dashboard-stat"><span>📝</span><div><b id="noteCount">0</b><small>Notes</small></div></div>
-  <div class="dashboard-stat"><span>🎬</span><div><b id="videoCount">0</b><small>Videos</small></div></div>
-  <div class="dashboard-stat"><span>📄</span><div><b id="paperCount">0</b><small>Practice Papers</small></div></div>
+ <div class="hub-stat-row">
+  <div class="hub-stat"><span>📚</span><div><b id="bookCount">0</b><small>Books</small></div></div>
+  <div class="hub-stat"><span>📝</span><div><b id="noteCount">0</b><small>Notes</small></div></div>
+  <div class="hub-stat"><span>🎬</span><div><b id="videoCount">0</b><small>Videos</small></div></div>
+  <div class="hub-stat"><span>🧠</span><div><b id="paperCount">0</b><small>Practice Papers</small></div></div>
  </div>
- <div class="dashboard-section-head"><div><span class="dashboard-kicker">YOUR STUDY CORNER</span><h2>आज क्या पढ़ना चाहोगे?</h2><p class="muted">अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
- <div class="grid dashboard-shortcuts">
-  <button class="card dashboard-shortcut" data-page="books"><span class="shortcut-icon">📚</span><strong>Textbooks</strong><small>अपनी किताबें पढ़ें</small><span class="shortcut-link">किताबें खोलें <b>→</b></span></button>
-  <button class="card dashboard-shortcut" data-page="notes"><span class="shortcut-icon">📝</span><strong>Smart Notes</strong><small>जल्दी revision करें</small><span class="shortcut-link">Notes देखें <b>→</b></span></button>
-  <button class="card dashboard-shortcut" data-page="videos"><span class="shortcut-icon">🎬</span><strong>Video Classes</strong><small>देखकर और समझकर सीखें</small><span class="shortcut-link">Videos देखें <b>→</b></span></button>
-  <button class="card dashboard-shortcut" data-page="tests"><span class="shortcut-icon">✍️</span><strong>Practice Tests</strong><small>अपनी तैयारी जाँचें</small><span class="shortcut-link">Test शुरू करें <b>→</b></span></button>
+ <div class="hub-section-title"><div><span class="hub-eyebrow">CHOOSE YOUR NEXT STEP</span><h2>आज क्या पढ़ना चाहोगे?</h2><p>अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
+ <div class="hub-learning-grid">
+  <button class="hub-learning-card hub-books" data-page="books"><span>📚</span><b>Textbooks</b><small>अपनी किताबें पढ़ें</small><i>किताबें खोलें →</i></button>
+  <button class="hub-learning-card hub-notes" data-page="notes"><span>✍️</span><b>Smart Notes</b><small>आसान भाषा में Revision</small><i>Notes देखें →</i></button>
+  <button class="hub-learning-card hub-videos" data-page="videos"><span>▶️</span><b>Video Classes</b><small>देखकर और समझकर सीखें</small><i>Videos देखें →</i></button>
+  <button class="hub-learning-card hub-tests" data-page="tests"><span>🏆</span><b>Practice Tests</b><small>अपनी तैयारी जाँचें</small><i>Test शुरू करें →</i></button>
  </div>
- <div class="dashboard-section-head dashboard-tools-head"><div><span class="dashboard-kicker">STUDY SMARTER</span><h2>आपके Study Tools</h2></div><button class="dashboard-text-link" type="button" data-page="tools">सभी टूल्स देखें →</button></div>
- <div class="grid dashboard-tools">
-  <div class="card dashboard-tool-card"><div class="tool-icon">⏱️</div><div><h3>Focus Timer</h3><p class="muted">25 मिनट ध्यान से पढ़ो, फिर छोटा break लो।</p><div id="timer" class="timer-display">25:00</div><div class="actions"><button class="green" id="startTimer">Start Study</button><button class="gold" id="resetTimer">Reset</button></div></div></div>
-  <div class="card dashboard-tool-card"><div class="tool-icon">📅</div><div><h3>Exam Countdown</h3><p class="muted">अपनी परीक्षा की तारीख चुनो।</p><label for="examDate">Exam date</label><input type="date" id="examDate"><p id="countdown" class="countdown-result">Exam date select karein.</p></div></div>
-  <div class="card dashboard-tool-card"><div class="tool-icon">⭐</div><div><h3>Saved Bookmarks</h3><p class="muted">आपकी पसंद की study सामग्री।</p><div id="bookmarkList" class="muted">Abhi koi bookmark nahi.</div></div></div>
+ <div class="hub-plan">
+  <div class="hub-section-title"><div><span class="hub-eyebrow">SMALL STEPS, BIG RESULTS</span><h2>आपका Study Corner</h2><p>एक छोटा लक्ष्य चुनें और आज ही पूरा करें।</p></div><button class="hub-view-tools" type="button" data-page="tools">सभी Study Tools →</button></div>
+  <div class="hub-tools-grid">
+   <div class="hub-tool"><span>⏱️</span><div><h3>Focus Timer</h3><p>25 मिनट ध्यान से पढ़ो, फिर छोटा break लो।</p><div id="timer" class="timer-display">25:00</div><div class="actions"><button class="green" id="startTimer">Start Study</button><button class="gold" id="resetTimer">Reset</button></div></div></div>
+   <div class="hub-tool"><span>📅</span><div><h3>Exam Countdown</h3><p>अपनी परीक्षा की तारीख चुनो।</p><label for="examDate">Exam date</label><input type="date" id="examDate"><p id="countdown">Exam date select karein.</p></div></div>
+   <div class="hub-tool"><span>⭐</span><div><h3>Saved Bookmarks</h3><p>आपकी पसंद की study सामग्री।</p><div id="bookmarkList" class="muted">Abhi koi bookmark nahi.</div></div></div>
+  </div>
  </div>
- <div class="dashboard-encouragement"><span>🌱</span><div><strong>याद रखो: रोज़ थोड़ा पढ़ना भी बहुत बड़ी शुरुआत है!</strong><p>अपना लक्ष्य तय करो, ध्यान से पढ़ो और हर दिन खुद को बेहतर बनाओ।</p></div></div>
+ <div class="hub-motivation"><span>🌟</span><div><b>तुम कर सकते हो!</b><p>हर दिन थोड़ा सीखो, खुद पर भरोसा रखो और अपने सपनों की ओर बढ़ते रहो।</p></div></div>
 </section>
 <section class="page" id="page-books"><h2>📚 Textbooks & Official Resources</h2><p class="muted">Official textbook link admin ke dwara add karein. Sample entries sirf portal ka demo dikhati hain.</p><div id="booksList" class="grid"></div></section>
 <section class="page" id="page-notes"><h2>📝 Chapter Notes & Revision Capsules</h2><div id="notesList" class="grid"></div></section>
@@ -666,11 +723,12 @@ $("authMessage").parentNode.insertBefore(authMessageHomeAnchor,$("authMessage"))
 function openLoginPopup(){
  $("loginPopupFormSlot").appendChild($("loginForm"));
  $("signupPopupFormSlot").appendChild($("signupForm"));
- $("loginPopupFormSlot").hidden=false;$("signupPopupFormSlot").hidden=true;
- $("popupLoginTab").className="gold";$("popupSignupTab").className="outline";
+ $("loginPopupFormSlot").hidden=true;$("signupPopupFormSlot").hidden=false;
+ $("popupLoginTab").className="outline";$("popupSignupTab").className="gold";
+ $("loginPopupTitle").textContent="अपना Student Account बनाएं";
  $("loginPopupMessageSlot").appendChild($("authMessage"));
  $("loginPopup").classList.add("open");
- $("loginEmail").focus();
+ $("signupName").focus();
 }
 function closeLoginPopup(){
  $("loginPopup").classList.remove("open");
