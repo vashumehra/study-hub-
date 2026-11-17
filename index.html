@@ -279,7 +279,12 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
   <button type="button" class="login-popup-close" id="closeLoginPopup" aria-label="Close">×</button>
   <h2 id="loginPopupTitle">Student Login</h2>
   <p class="login-popup-sub">Apni padhai jaari rakhne ke liye login karein.</p>
-  <div id="loginPopupFormSlot"></div>
+  <div style="display:flex;gap:8px;margin:0 0 16px">
+  <button type="button" id="popupLoginTab" class="gold" style="flex:1">Login</button>
+  <button type="button" id="popupSignupTab" class="outline" style="flex:1">Create Account</button>
+ </div>
+ <div id="loginPopupFormSlot"></div>
+ <div id="signupPopupFormSlot" hidden></div>
   <div id="loginPopupMessageSlot"></div>
  </div>
 </div>
@@ -568,24 +573,38 @@ async function refreshAdminAccess(user){
 initStudentAuth();
 render();
 
-const loginFormHome=$("loginForm").parentNode;
+const signupFormHomeAnchor=document.createElement("span");signupFormHomeAnchor.id="signupFormHomeAnchor";
+ $("signupForm").parentNode.insertBefore(signupFormHomeAnchor,$("signupForm"));
+ const loginFormHome=$("loginForm").parentNode;
 const loginFormHomeAnchor=document.createElement("span");loginFormHomeAnchor.id="loginFormHomeAnchor";
 $("loginForm").parentNode.insertBefore(loginFormHomeAnchor,$("loginForm"));
 const authMessageHomeAnchor=document.createElement("span");authMessageHomeAnchor.id="authMessageHomeAnchor";
 $("authMessage").parentNode.insertBefore(authMessageHomeAnchor,$("authMessage"));
 function openLoginPopup(){
  $("loginPopupFormSlot").appendChild($("loginForm"));
+ $("signupPopupFormSlot").appendChild($("signupForm"));
+ $("loginPopupFormSlot").hidden=false;$("signupPopupFormSlot").hidden=true;
+ $("popupLoginTab").className="gold";$("popupSignupTab").className="outline";
  $("loginPopupMessageSlot").appendChild($("authMessage"));
  $("loginPopup").classList.add("open");
  $("loginEmail").focus();
 }
 function closeLoginPopup(){
  $("loginPopup").classList.remove("open");
+ signupFormHomeAnchor.parentNode.insertBefore($("signupForm"),signupFormHomeAnchor.nextSibling);
  loginFormHomeAnchor.parentNode.insertBefore($("loginForm"),loginFormHomeAnchor.nextSibling);
  authMessageHomeAnchor.parentNode.insertBefore($("authMessage"),authMessageHomeAnchor.nextSibling);
 }
 $("welcomeStart").addEventListener("click",openLoginPopup);
-$("closeLoginPopup").addEventListener("click",closeLoginPopup);
+$("popupLoginTab").addEventListener("click",()=>{
+ $("loginPopupFormSlot").hidden=false;$("signupPopupFormSlot").hidden=true;
+ $("popupLoginTab").className="gold";$("popupSignupTab").className="outline";
+ });
+ $("popupSignupTab").addEventListener("click",()=>{
+ $("loginPopupFormSlot").hidden=true;$("signupPopupFormSlot").hidden=false;
+ $("popupLoginTab").className="outline";$("popupSignupTab").className="gold";
+ });
+ $("closeLoginPopup").addEventListener("click",closeLoginPopup);
 $("loginPopup").addEventListener("click",e=>{if(e.target===$("loginPopup"))closeLoginPopup()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("loginPopup").classList.contains("open"))closeLoginPopup()});
 
