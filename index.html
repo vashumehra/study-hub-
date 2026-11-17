@@ -1177,7 +1177,19 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("loginPopup").cla
 // Google Translate: translates the visible website into the selected language.
 window.googleTranslateElementInit=function(){
  if(!window.google?.translate?.TranslateElement)return;
- new google.translate.TranslateElement({pageLanguage:"hi",autoDisplay:false,multilanguagePage:true},"google_translate_element");
+ new google.translate.TranslateElement({pageLanguage:"hi",includedLanguages:"hi,en",autoDisplay:false,multilanguagePage:true},"google_translate_element");
+ const box=document.getElementById("google_translate_element");
+ const keepOnlyHindiEnglish=()=>{
+  const select=box?.querySelector("select.goog-te-combo");
+  if(!select)return;
+  Array.from(select.options).forEach(option=>{
+   if(option.value!==""&&option.value!=="hi"&&option.value!=="en")option.remove();
+  });
+ };
+ if(box){
+  new MutationObserver(keepOnlyHindiEnglish).observe(box,{childList:true,subtree:true});
+  keepOnlyHindiEnglish();
+ }
 };
 
 // Render only after the START STUDY and popup handlers are ready.
