@@ -425,7 +425,19 @@ body.dark .welcome-tag,body.dark .welcome-points span{background:#294354;color:#
 body.dark .welcome-float{background:#edf5fa;color:#29475a}
 @media(max-width:850px){body .tabs{background:#fff}body.dark .tabs{background:#1c3342}}
 
-\n/* THREE-STEP STUDENT ENTRY: WELCOME -> AUTH -> DASHBOARD */\n#studentAuth{display:none!important}\nbody:not(.student-authenticated)>header,\nbody:not(.student-authenticated)>#studentAuth,\nbody:not(.student-authenticated)>.filters,\nbody:not(.student-authenticated)>nav.tabs,\nbody:not(.student-authenticated)>main{display:none!important}\nbody.student-authenticated>#welcomeScreen{display:none!important}\nbody.student-authenticated>#loginPopup{display:none}\n#welcomeScreen{z-index:2000}\n#loginPopup{z-index:2100}\n</style>
+
+/* THREE-STEP STUDENT ENTRY: WELCOME -> AUTH -> DASHBOARD */
+#studentAuth{display:none!important}
+body:not(.student-authenticated)>header,
+body:not(.student-authenticated)>#studentAuth,
+body:not(.student-authenticated)>.filters,
+body:not(.student-authenticated)>nav.tabs,
+body:not(.student-authenticated)>main{display:none!important}
+body.student-authenticated>#welcomeScreen{display:none!important}
+body.student-authenticated>#loginPopup{display:none}
+#welcomeScreen{z-index:2000}
+#loginPopup{z-index:2100}
+</style>
 </head>
 <body>
 
@@ -683,7 +695,8 @@ let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
 function showAuthState(user){
  const logged=!!user;
- document.body.classList.toggle("student-authenticated",logged);\n $("headerLogout").hidden=!logged;
+ document.body.classList.toggle("student-authenticated",logged);
+ $("headerLogout").hidden=!logged;
  $("authStatus").textContent=logged?"Logged in":"Not logged in";
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
@@ -769,7 +782,8 @@ async function refreshAdminAccess(user){
   showAuthState(data.user);
   try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage("Login successful! Dashboard khul gaya.");}catch(err){authMessage("Login ho gaya. Dashboard khul gaya, lekin profile save nahi hua: "+err.message,true)}
  });
- $("headerLogout").addEventListener("click",()=>$("signOutBtn").click());\n $("signOutBtn").addEventListener("click",async()=>{
+ $("headerLogout").addEventListener("click",()=>$("signOutBtn").click());
+ $("signOutBtn").addEventListener("click",async()=>{
   const {error}=await authClient.auth.signOut();
   if(error) authMessage(error.message,true); else {isAdmin=false;$("adminNav").hidden=true;showAuthState(null);authMessage("Logout ho gaya.")}
  });
