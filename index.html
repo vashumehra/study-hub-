@@ -101,9 +101,61 @@ body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
  .grid{grid-template-columns:1fr}
 }
 
+
+/* WELCOME HOME SCREEN + STUDENT ONBOARDING */
+#welcomeScreen{position:fixed;inset:0;z-index:1000;overflow:auto;background:linear-gradient(125deg,#0b2118 0%,#123d2c 52%,#1b6042 100%);color:#fff;padding:22px clamp(18px,5vw,76px) 18px;display:flex;flex-direction:column}
+.welcome-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1400px;width:100%;margin:0 auto;color:#c8ddcf;font-size:.76rem;letter-spacing:2px;font-weight:800}
+.welcome-brand{font-size:1.35rem;letter-spacing:1px;color:#f4d28e}
+.welcome-layout{width:100%;max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(25px,6vw,90px);padding:35px 0}
+.welcome-copy{max-width:650px}
+.welcome-tag{display:inline-flex;padding:8px 14px;border:1px solid #ffffff35;background:#ffffff12;border-radius:30px;color:#f5d995;font-weight:800;font-size:.83rem}
+.welcome-copy h1{font-size:clamp(2.4rem,5.3vw,5rem);line-height:1.12;letter-spacing:-1.5px;margin:22px 0 18px;color:#fff}
+.welcome-copy h1 em{font-style:normal;color:#f2cd7c}
+.welcome-lead{max-width:590px;color:#d5e6da;font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.85}
+.welcome-points{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.welcome-points span{border:1px solid #ffffff38;background:#ffffff12;padding:8px 13px;border-radius:30px;font-size:.86rem;font-weight:750}
+.welcome-cta{background:linear-gradient(135deg,#f5d991,#dfa94b);color:#203526;border:0;border-radius:14px;padding:16px 23px;font-size:1.02rem;font-weight:900;box-shadow:0 12px 30px #0003}
+.welcome-cta b{font-size:1.2rem;margin-left:15px}
+.welcome-note{margin-top:17px;color:#b7cfbf;font-size:.85rem}
+.welcome-visual{position:relative;min-height:430px;display:flex;align-items:center;justify-content:center}
+.welcome-photo{width:min(100%,570px);height:430px;border:7px solid #ffffff18;border-radius:32px;background:linear-gradient(0deg,#0b211855,#0b211800 55%),url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85') center/cover;box-shadow:0 28px 65px #0005}
+.welcome-float{position:absolute;background:#fff;color:#173b2a;border-radius:15px;padding:13px 17px;box-shadow:0 12px 35px #0003;font-size:.9rem;font-weight:800}
+.welcome-float-top{top:35px;left:-22px}
+.welcome-float-bottom{bottom:28px;right:-18px;display:flex;flex-direction:column;gap:1px}
+.welcome-float-bottom strong{font-size:1.35rem;color:#1d6547}.welcome-float-bottom span{font-size:.76rem;color:#718078}
+.welcome-bottom{max-width:1400px;width:100%;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:15px;border-top:1px solid #ffffff25;color:#c4d8ca;font-size:.8rem}
+#signupForm h3,#loginForm h3{margin-top:0}
+#signupForm{border-top:3px solid #d7b66e}
+#loginForm{border-top:3px solid #1d6547}
+#signupForm button[type=submit],#loginForm button[type=submit]{width:100%;margin-top:14px;padding:13px}
+#signupForm label,#loginForm label{margin-top:10px}
+#studentAuth{scroll-margin-top:18px}
+@media(max-width:850px){.welcome-layout{grid-template-columns:1fr;gap:15px;padding:35px 0}.welcome-copy{max-width:720px}.welcome-visual{min-height:320px}.welcome-photo{height:320px;width:100%}.welcome-float-top{left:8px}.welcome-float-bottom{right:8px}}
+@media(max-width:560px){#welcomeScreen{padding:16px}.welcome-nav>span{font-size:.62rem;letter-spacing:1px}.welcome-layout{padding:30px 0 22px}.welcome-copy h1{font-size:2.5rem}.welcome-visual{min-height:250px}.welcome-photo{height:250px;border-width:4px;border-radius:22px}.welcome-float{padding:9px 11px;font-size:.75rem}.welcome-float-top{top:8px}.welcome-float-bottom{bottom:8px}.welcome-bottom{font-size:.72rem;display:grid;grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
+
+<section id="welcomeScreen" aria-label="STUDY HUB welcome">
+ <div class="welcome-nav"><div class="welcome-brand">📘 STUDY HUB</div><span>LEARN • GROW • SUCCEED</span></div>
+ <div class="welcome-layout">
+  <div class="welcome-copy">
+   <div class="welcome-tag">✨ A better way to learn</div>
+   <h1>सपने बड़े देखो,<br><em>शुरुआत आज से करो!</em></h1>
+   <p class="welcome-lead">हर दिन कुछ नया सीखो। अपनी कक्षा और बोर्ड के अनुसार Notes, Books, Videos और Practice Tests — सब एक ही जगह।</p>
+   <div class="welcome-points"><span>✓ MP Board</span><span>✓ UP Board</span><span>✓ CBSE</span></div>
+   <button class="welcome-cta" id="welcomeStart">अपनी पढ़ाई शुरू करें <b>→</b></button>
+   <div class="welcome-note">आपका लक्ष्य • आपकी मेहनत • आपकी सफलता</div>
+  </div>
+  <div class="welcome-visual">
+   <div class="welcome-photo"></div>
+   <div class="welcome-float welcome-float-top">📚 आज का लक्ष्य: सीखते रहो!</div>
+   <div class="welcome-float welcome-float-bottom"><strong>25 मिनट</strong><span>Focus Study Session</span></div>
+  </div>
+ </div>
+ <div class="welcome-bottom"><span>📖 Learn at your own pace</span><span>🎯 छोटे कदम, बड़ी सफलता</span><span>🌱 Your learning journey starts here</span></div>
+</section>
 <header><div class="nav">
  <div><div class="brand">📘 STUDY HUB</div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
  <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
@@ -118,8 +170,10 @@ body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
   <form id="signupForm" class="card" style="box-shadow:none">
    <h3>Create account</h3>
    <label>Full name</label><input id="signupName" required maxlength="80" autocomplete="name" placeholder="Your name">
-   <label>Email</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
-   <label>Password</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+   <label>Gmail / Email</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+   <label>अपनी कक्षा चुनें</label><select id="signupClass" required><option value="">Select Class</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select>
+   <label>अपना Board चुनें</label><select id="signupBoard" required><option value="">Select Board</option><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select>
+   <label>Password बनाएं</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
    <button class="green" type="submit">Create account</button>
   </form>
   <form id="loginForm" class="card" style="box-shadow:none">
@@ -147,7 +201,7 @@ body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
   <option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option>
   <option value="9" selected>Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College / UG / PG</option>
  </select>
- <select id="boardFilter"><option value="CBSE">CBSE / NCERT</option><option value="MP Board">MP Board</option><option value="Other">Other State Board / University</option></select>
+ <select id="boardFilter"><option value="CBSE">CBSE</option><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="Other">Other State Board / University</option></select>
  <select id="mediumFilter"><option value="Hindi">Hindi Medium</option><option value="English">English Medium</option></select>
  <select id="streamFilter"><option value="All">All Streams</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select>
  <input id="search" placeholder="🔎 Search subject, chapter, notes, paper..." aria-label="Search content">
@@ -300,7 +354,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";}
+ if(logged){$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
 }
 async function ensureStudentProfile(user){
  const {data,error}=await authClient.from("profiles").select("id").eq("id",user.id).maybeSingle();
@@ -363,8 +417,9 @@ async function refreshAdminAccess(user){
  });
  $("signupForm").addEventListener("submit",async e=>{
   e.preventDefault();authMessage("Account ban raha hai...");
-  const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value;
-  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name}}});
+  const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value,class_name=$("signupClass").value,board=$("signupBoard").value;
+  if(!class_name||!board){authMessage("Apni class aur board select karein.",true);return;}
+  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name,class_name,board}}});
   if(error){authMessage(error.message,true);return;}
   if(data.session?.user){try{await ensureStudentProfile(data.session.user)}catch(err){authMessage("Account bana, lekin profile save nahi hua: "+err.message,true);return}}
   authMessage("Registration request ho gayi. Email confirmation ON hai, isliye inbox mein Supabase ka confirmation email check karein. Confirm karne ke baad login karein.");
@@ -384,5 +439,6 @@ async function refreshAdminAccess(user){
 
 initStudentAuth();
 render();
+$("welcomeStart").addEventListener("click",()=>{$("welcomeScreen").style.display="none";$("studentAuth").scrollIntoView({behavior:"smooth",block:"start"});$("signupName").focus({preventScroll:true});});
 </script>
 </body></html>
