@@ -992,7 +992,7 @@ $("beginTest").onclick=async()=>{
  const btn=$("beginTest");btn.disabled=true;btn.textContent="AI questions bana raha hai...";$("quizArea").innerHTML='<p class="notice">📖 Book ke chapter ko padhkar MCQ taiyar kiye ja rahe hain. Thoda intezar karein...</p>';
  try{
   const {data,error}=await authClient.functions.invoke("generate-mcqs",{body:{chapter,subject:book.sub||"General",className:book.cls||$("classFilter").value,board:book.board||$("boardFilter").value,medium:book.med||$("mediumFilter").value,count,sourceText}});
-  if(error)throw new Error(data?.error||error.message||"AI request fail ho gayi.");if(data?.error)throw new Error(data.error);
+  if(error){let serverMessage=data?.error||error.message||"AI request fail ho gayi.";try{const body=await error.context?.clone?.().json();if(body?.error)serverMessage=body.error}catch(e){}throw new Error(serverMessage)}if(data?.error)throw new Error(data.error);
   questions=(data?.questions||[]).map(q=>({q:q.question,o:q.options,a:q.answerIndex,e:q.explanation}));
   if(!questions.length)throw new Error("AI ne valid MCQ nahi banaye. Dobara try karein.");
   qi=0;score=0;answered=false;testLeft=minutes*60;renderQuestion();
