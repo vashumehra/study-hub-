@@ -723,7 +723,7 @@ async function ensureStudentProfile(user){
  if(!data){
   const {error:insertError}=await authClient.from("profiles").insert({
    id:user.id, full_name:user.user_metadata?.full_name||"", class_name:user.user_metadata?.class_name||$("classFilter").value,
-   board:user.user_metadata?.board||$("boardFilter").value, medium:$("mediumFilter").value
+   board:user.user_metadata?.board||$("boardFilter").value, medium:user.user_metadata?.medium||$("mediumFilter").value
   });
   if(insertError) throw insertError;
  }
