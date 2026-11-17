@@ -489,7 +489,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
+ if(logged){$("welcomeScreen").style.display="none";$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
 }
 async function ensureStudentProfile(user){
  const {data,error}=await authClient.from("profiles").select("id").eq("id",user.id).maybeSingle();
@@ -564,7 +564,10 @@ async function refreshAdminAccess(user){
   e.preventDefault();authMessage("Login ho raha hai...");
   const {data,error}=await authClient.auth.signInWithPassword({email:$("loginEmail").value.trim(),password:$("loginPassword").value});
   if(error){authMessage(error.message,true);return;}
-  try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage(isAdmin?"Login successful! Admin access verified.":"Login successful! Lekin is account ko Admin permission nahi mili.");}catch(err){authMessage("Login ho gaya, lekin profile save nahi hua: "+err.message,true)}
+  $("welcomeScreen").style.display="none";
+  closeLoginPopup();
+  showAuthState(data.user);
+  try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage("Login successful! Dashboard khul gaya.");}catch(err){authMessage("Login ho gaya. Dashboard khul gaya, lekin profile save nahi hua: "+err.message,true)}
  });
  $("signOutBtn").addEventListener("click",async()=>{
   const {error}=await authClient.auth.signOut();
