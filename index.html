@@ -254,6 +254,7 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 #loginPopup #loginForm{display:block!important;width:100%;margin:0;background:#f5f8fb;border:1px solid #dce7ef;border-top:3px solid #6faed4;padding:18px}
 #loginPopup #loginForm h3{display:none}
 #loginPopup #authMessage{display:block!important;margin-top:12px!important}
+#signupSubjects{min-height:130px;padding:9px}#seniorSubjectFields small{display:block;margin-top:5px}
 @media(max-width:480px){#loginPopup .login-popup-card{padding:20px;border-radius:16px}}
 
 
@@ -492,6 +493,11 @@ body.student-authenticated>#loginPopup{display:none}
    <label>Gmail / Email</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
    <label>अपनी कक्षा चुनें</label><select id="signupClass" required><option value="">Select Class</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select>
    <label>अपना Board चुनें</label><select id="signupBoard" required><option value="">Select Board</option><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select>
+   <div id="seniorSubjectFields" hidden>
+    <label>अपनी Stream चुनें</label><select id="signupStream"><option value="">Select Stream</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select>
+    <label>अपने Subjects चुनें (एक से अधिक चुन सकते हैं)</label><select id="signupSubjects" multiple size="6" aria-label="Choose subjects"></select>
+    <small class="muted">Computer Science / Physical Education जैसे अतिरिक्त विषय भी चुन सकते हैं।</small>
+   </div>
    <label>अपना Password बनाएं</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
    <button class="green" type="submit">मेरा Account बनाएं</button>
   </form>
@@ -626,7 +632,8 @@ const starter=[
 let items=loadItems(),bookmarks=JSON.parse(localStorage.getItem("studyhub_v2_bookmarks")||"[]"),mistakes=JSON.parse(localStorage.getItem("studyhub_v2_mistakes")||"[]");
 function loadItems(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)?x:starter.slice()}catch{return starter.slice()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(items))}
-function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,m=$("mediumFilter").value,s=$("streamFilter").value,q=$("search").value.trim().toLowerCase();return allItems().filter(x=>x.type===type&&String(x.cls)===c&&x.board===b&&x.med===m&&(s==="All"||x.stream==="All"||x.stream===s)&&(!q||[x.title,x.sub,x.summary].some(v=>String(v||"").toLowerCase().includes(q))))}
+let studentSubjects=[];
+function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,m=$("mediumFilter").value,s=$("streamFilter").value,q=$("search").value.trim().toLowerCase();return allItems().filter(x=>x.type===type&&String(x.cls)===c&&x.board===b&&x.med===m&&(s==="All"||x.stream==="All"||x.stream===s)&&(!studentSubjects.length||studentSubjects.includes(x.sub)||x.sub==="All"||!x.sub)&&(!q||[x.title,x.sub,x.summary].some(v=>String(v||"").toLowerCase().includes(q))))}
 function cardHTML(x){const url=safeURL(x.url);return `<article class="card"><span class="pill">${escapeHTML(x.sub||"General")}</span><span class="pill">${escapeHTML(x.board)} • ${escapeHTML(x.med)}</span><h3>${escapeHTML(x.title)}</h3><p class="muted">${escapeHTML(x.summary||"")}</p><div class="actions">${x.type==="video"&&url?`<button class="green" data-watch="${x.id}">▶ Watch</button>`:""}${x.type==="live"&&url?`<a class="btn green" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Join class ↗</a>`:""}${url&&x.type!=="video"&&x.type!=="live"?`<a class="btn gold" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Open resource ↗</a>`:""}<button class="gold" data-detail="${x.id}">Read details</button><button class="outline" style="color:var(--text);border-color:var(--line)" data-bookmark="${x.id}">☆ Save</button></div></article>`}
 function renderList(type,id){const a=filtered(type);$(id).innerHTML=a.length?a.map(cardHTML).join(""):`<div class="empty">Is filter ke liye content nahi mila. Admin section se verified content add karein.</div>`}
 function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");$("bookCount").textContent=filtered("book").length;$("noteCount").textContent=filtered("note").length;$("videoCount").textContent=filtered("video").length;$("paperCount").textContent=filtered("paper").length;$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
@@ -701,7 +708,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;}
+ if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;studentSubjects=Array.isArray(meta.subjects)?meta.subjects:[];if(meta.stream&&$("streamFilter"))$("streamFilter").value=meta.stream;render();}
  else {$("welcomeScreen").style.display="flex";$("loginPopup").classList.remove("open");}
 }
 async function ensureStudentProfile(user){
@@ -763,11 +770,16 @@ async function refreshAdminAccess(user){
   history.replaceState({},document.title,location.pathname);
   authMessage("Password successfully update ho gaya. Ab naye password se login kar sakte hain.");
  });
+ const subjectOptions={Science:["Physics","Chemistry","Mathematics","Biology","Computer Science","Physical Education","English"],Commerce:["Accountancy","Business Studies","Economics","Mathematics","Informatics Practices","English"],Arts:["History","Political Science","Geography","Economics","Sociology","Psychology","English","Fine Arts"]};
+ function updateSignupSubjects(){const senior=["11","12"].includes($("signupClass").value);$("seniorSubjectFields").hidden=!senior;$("signupStream").required=senior;$("signupSubjects").required=senior;const opts=subjectOptions[$("signupStream").value]||[];$("signupSubjects").innerHTML=opts.map(v=>"<option value=\""+v+"\">"+v+"</option>").join("");}
+ $("signupClass").addEventListener("change",updateSignupSubjects);$("signupStream").addEventListener("change",updateSignupSubjects);updateSignupSubjects();
  $("signupForm").addEventListener("submit",async e=>{
   e.preventDefault();authMessage("Account ban raha hai...");
   const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value,class_name=$("signupClass").value,board=$("signupBoard").value;
+  const stream=$("signupStream").value,subjects=Array.from($("signupSubjects").selectedOptions).map(o=>o.value);
   if(!class_name||!board){authMessage("Apni class aur board select karein.",true);return;}
-  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name,class_name,board}}});
+  if(["11","12"].includes(class_name)&&(!stream||!subjects.length)){authMessage("Class 11–12 ke liye Stream aur kam se kam ek Subject select karein.",true);return;}
+  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name,class_name,board,stream:stream||"All",subjects}}});
   if(error){authMessage(error.message,true);return;}
   if(data.session?.user){try{await ensureStudentProfile(data.session.user)}catch(err){authMessage("Account bana, lekin profile save nahi hua: "+err.message,true);return}}
   authMessage("Registration request ho gayi. Email confirmation ON hai, isliye inbox mein Supabase ka confirmation email check karein. Confirm karne ke baad login karein.");
