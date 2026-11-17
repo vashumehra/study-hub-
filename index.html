@@ -842,7 +842,7 @@ const safeURL=s=>{try{const u=new URL(String(s));return ["https:","http:"].inclu
 const CLASS_LABEL=c=>c==="college"?"College":`Class ${c}`;
 const KEY="studyhub_v2_items";
 let cloudItems=[];
-function allItems(){return items.concat(cloudItems)}
+function allItems(){return items.concat(cloudItems,officialTextbookLinks)}
 const starter=[
 {id:1,type:"book",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"NCERT कक्षा 9 विज्ञान — आधिकारिक पुस्तक",url:"https://ncert.nic.in/textbook.php",summary:"NCERT की आधिकारिक पाठ्यपुस्तक वेबसाइट। सही कक्षा और पुस्तक चुनें।"},
 {id:2,type:"book",cls:"10",board:"MP Board",med:"Hindi",stream:"All",sub:"गणित",title:"MP Board कक्षा 10 गणित संसाधन",url:"https://mpbse.nic.in/",summary:"MPBSE की आधिकारिक वेबसाइट पर पाठ्यक्रम और शैक्षणिक जानकारी देखें।"},
@@ -852,6 +852,22 @@ const starter=[
 {id:6,type:"live",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"Live class schedule — demo entry",url:"",summary:"यह केवल नमूना प्रविष्टि है। Admin द्वारा वास्तविक तारीख, समय और meeting link जोड़ें।"},
 {id:7,type:"video",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"Video lecture link जोड़ना बाकी",url:"",summary:"यह नमूना कार्ड है। Admin वास्तविक शिक्षक/अध्याय का सत्यापित YouTube link जोड़ें।"}
 ];
+const officialTextbookLinks=(()=>{
+ const links=[
+  {board:"MP Board",url:"https://mptbc.mp.gov.in/web04/BookDetails.aspx",classes:[5,6,7,8,9,10,11,12],summary:"मध्य प्रदेश पाठ्यपुस्तक निगम का आधिकारिक Online Books पोर्टल। यहाँ कक्षा, माध्यम और विषय चुनकर उपलब्ध पुस्तकें देखें।"},
+  {board:"CBSE",url:"https://ncert.nic.in/textbook.php",classes:[5,6,7,8,9,10,11,12],summary:"NCERT का आधिकारिक Textbooks PDF पोर्टल। यहाँ कक्षा, विषय और भाषा चुनकर पुस्तक खोलें।"},
+  {board:"UP Board",url:"https://www.scert-up.in/home/EBook",classes:[5,6,7,8],summary:"उत्तर प्रदेश SCERT का आधिकारिक e-Book पोर्टल। उपलब्ध कक्षा और विषय की पुस्तकें यहाँ देखें।"},
+  {board:"UP Board",url:"https://upmsp.edu.in/",classes:[9,10,11,12],summary:"UPMSP का आधिकारिक छात्र पोर्टल। Student Links में 'पुस्तक 2026' चुनकर निर्धारित पाठ्यपुस्तकें देखें।"}
+ ];
+ const out=[];
+ links.forEach(group=>group.classes.forEach(cls=>["Hindi","English"].forEach(med=>out.push({
+  id:"official-book-"+group.board.replace(/\\s/g,"-")+"-"+cls+"-"+med,
+  type:"book",cls:String(cls),board:group.board,med,stream:"All",sub:"All",
+  title:"कक्षा "+cls+" — आधिकारिक पाठ्यपुस्तकें ("+group.board+")",
+  url:group.url,summary:group.summary+" यह लिंक PDF को मूल सरकारी/प्रकाशक पोर्टल से खोलता है।"
+ }))));
+ return out;
+})();
 function loadStoredArray(key){try{const value=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(value)?value:[]}catch(error){console.warn("Saved study data could not be read:",key);return []}}
 let items=loadItems(),bookmarks=loadStoredArray("studyhub_v2_bookmarks"),mistakes=loadStoredArray("studyhub_v2_mistakes");
 function loadItems(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)?x:starter.slice()}catch{return starter.slice()}}
