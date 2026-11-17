@@ -984,7 +984,7 @@ $("homeworkList").addEventListener("click",e=>{
  const edit=e.target.closest("[data-task-edit]")?.dataset.taskEdit;
  const del=e.target.closest("[data-task-delete]")?.dataset.taskDelete;
  if(complete){const t=homeworkItems.find(x=>x.id===complete);if(t){t.done=true;t.completedAt=new Date().toLocaleString("en-IN");saveHomework();renderHomework()}return}
- if(edit){const t=homeworkItems.find(x=>x.id===edit);if(!t)return;const nextText=prompt("Task ka naam badlein:",t.text);if(nextText===null)return;if(!nextText.trim()){alert("Task ka naam khaali nahi ho sakta.");return}const nextDate=prompt("Task ki date badlein (YYYY-MM-DD):",t.due||"");if(nextDate===null)return;if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(nextDate)){alert("Sahi date YYYY-MM-DD format mein daalein.");return}t.text=nextText.trim();t.due=nextDate;saveHomework();renderHomework();return}
+ if(edit){const t=homeworkItems.find(x=>x.id===edit);if(!t)return;const nextText=prompt("Task ka naam badlein:",t.text);if(nextText===null)return;if(!nextText.trim()){alert("Task ka naam khaali nahi ho sakta.");return}const nextDate=prompt("Task ki date badlein (YYYY-MM-DD):",t.due||"");if(nextDate===null)return;if(!/^\d{4}-\d{2}-\d{2}$/.test(nextDate)){alert("Sahi date YYYY-MM-DD format mein daalein.");return}t.text=nextText.trim();t.due=nextDate;saveHomework();renderHomework();return}
  if(del){if(!confirm("Kya aap is Task ko hamesha ke liye delete karna chahte hain?"))return;homeworkItems=homeworkItems.filter(x=>x.id!==del);saveHomework();renderHomework()}
 });
 let currentStudentUser = null;
