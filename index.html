@@ -437,7 +437,10 @@ body:not(.student-authenticated)>main{display:none!important}
 body.student-authenticated>#welcomeScreen{display:none!important}
 body.student-authenticated>#loginPopup{display:none}
 /* Students use the class saved in their account; no manual class dropdown. */
-body.student-authenticated #classFilter{display:none!important}
+body.student-authenticated #classFilter,
+body.student-authenticated #boardFilter,
+body.student-authenticated #mediumFilter,
+body.student-authenticated #streamFilter{display:none!important}
 #welcomeScreen{z-index:2000}
 #loginPopup{z-index:2100}
 </style>
@@ -495,6 +498,7 @@ body.student-authenticated #classFilter{display:none!important}
    <label>Gmail / Email</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
    <label>अपनी कक्षा चुनें</label><select id="signupClass" required><option value="">Select Class</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select>
    <label>अपना Board चुनें</label><select id="signupBoard" required><option value="">Select Board</option><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select>
+    <label>अपना Medium चुनें</label><select id="signupMedium" required><option value="">Select Medium</option><option value="Hindi">Hindi Medium</option><option value="English">English Medium</option></select>
    <div id="seniorSubjectFields" hidden>
     <label>अपनी Stream चुनें</label><select id="signupStream"><option value="">Select Stream</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select>
     <label>अपने Subjects चुनें (एक से अधिक चुन सकते हैं)</label><select id="signupSubjects" multiple size="6" aria-label="Choose subjects"></select>
@@ -710,7 +714,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;studentSubjects=Array.isArray(meta.subjects)?meta.subjects:[];if(meta.stream&&$("streamFilter"))$("streamFilter").value=meta.stream;render();}
+ if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email)+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;if(meta.medium&&$("mediumFilter"))$("mediumFilter").value=meta.medium;studentSubjects=Array.isArray(meta.subjects)?meta.subjects:[];if(meta.stream&&$("streamFilter"))$("streamFilter").value=meta.stream;render();}
  else {$("welcomeScreen").style.display="flex";$("loginPopup").classList.remove("open");}
 }
 async function ensureStudentProfile(user){
@@ -777,11 +781,11 @@ async function refreshAdminAccess(user){
  $("signupClass").addEventListener("change",updateSignupSubjects);$("signupStream").addEventListener("change",updateSignupSubjects);updateSignupSubjects();
  $("signupForm").addEventListener("submit",async e=>{
   e.preventDefault();authMessage("Account ban raha hai...");
-  const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value,class_name=$("signupClass").value,board=$("signupBoard").value;
+  const full_name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value,class_name=$("signupClass").value,board=$("signupBoard").value,medium=$("signupMedium").value;
   const stream=$("signupStream").value,subjects=Array.from($("signupSubjects").selectedOptions).map(o=>o.value);
-  if(!class_name||!board){authMessage("Apni class aur board select karein.",true);return;}
+  if(!class_name||!board||!medium){authMessage("Apni class, board aur medium select karein.",true);return;}
   if(["11","12"].includes(class_name)&&(!stream||!subjects.length)){authMessage("Class 11–12 ke liye Stream aur kam se kam ek Subject select karein.",true);return;}
-  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name,class_name,board,stream:stream||"All",subjects}}});
+  const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name,class_name,board,medium,stream:stream||"All",subjects}}});
   if(error){authMessage(error.message,true);return;}
   if(data.session?.user){try{await ensureStudentProfile(data.session.user)}catch(err){authMessage("Account bana, lekin profile save nahi hua: "+err.message,true);return}}
   authMessage("Registration request ho gayi. Email confirmation ON hai, isliye inbox mein Supabase ka confirmation email check karein. Confirm karne ke baad login karein.");
