@@ -356,7 +356,7 @@ body.dark .dashboard-welcome{background:linear-gradient(115deg,#203d4e,#29495a 5
 .hub-learning-card b{font-size:1.05rem}.hub-learning-card small{color:#748795}.hub-learning-card i{font-style:normal;font-size:.82rem;font-weight:850;color:#4d8bb2;margin-top:auto}
 .hub-learning-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px #476c8320;border-color:#a9cde1}
 .hub-plan{margin-top:27px;padding:20px;border:1px solid #e2e8e8;border-radius:21px;background:#fffefa}
-.hub-view-tools{background:#e7f2f9;color:#315c76}
+.hub-tools-intro{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.hub-tools-intro p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.hub-view-tools{white-space:nowrap}.hub-view-tools{background:#e7f2f9;color:#315c76}
 .hub-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
 .hub-tool{display:flex;gap:12px;padding:16px;border:1px solid #e1e9eb;border-radius:15px;background:#fff}
 .hub-tool>span{font-size:1.5rem}.hub-tool h3{margin:0 0 4px;color:#315d78}.hub-tool p{margin:4px 0;color:#748795;font-size:.87rem}
@@ -758,7 +758,7 @@ body{top:0!important}
   <button class="hub-learning-card hub-tests" data-page="tests"><span>🏆</span><b>Practice Tests</b><small>अपनी तैयारी जाँचें</small><i>Test शुरू करें →</i></button>
  </div>
  <div class="hub-plan">
-  <div class="hub-section-title"><div><span class="hub-eyebrow">SMALL STEPS, BIG RESULTS</span><h2>आपका Study Corner</h2><p>एक छोटा लक्ष्य चुनें और आज ही पूरा करें।</p></div><button class="hub-view-tools" type="button" data-page="tools">सभी Study Tools →</button></div>
+  <div class="hub-section-title"><div><span class="hub-eyebrow">SMALL STEPS, BIG RESULTS</span><h2>आपका Study Corner</h2><p>एक छोटा लक्ष्य चुनें और आज ही पूरा करें।</p></div><div class="hub-tools-intro"><p>⏱️ यहाँ आपको Focus Timer, Exam Countdown, Bookmarks और पढ़ाई में मदद करने वाले दूसरे टूल्स मिलेंगे।</p><button class="hub-view-tools" type="button" data-page="tools">सभी Study Tools देखें →</button></div></div>
   <div class="hub-tools-grid">
    <div class="hub-tool"><span>⏱️</span><div><h3>Focus Timer</h3><p>25 मिनट ध्यान से पढ़ो, फिर छोटा break लो।</p><div id="timer" class="timer-display">25:00</div><div class="actions"><button class="green" id="startTimer">Start Study</button><button class="gold" id="resetTimer">Reset</button></div></div></div>
    <div class="hub-tool"><span>📅</span><div><h3>Exam Countdown</h3><p>अपनी परीक्षा की तारीख चुनो।</p><label for="examDate">Exam date</label><input type="date" id="examDate"><p id="countdown">Exam date select karein.</p></div></div>
