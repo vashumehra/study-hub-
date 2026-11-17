@@ -6,329 +6,46 @@
 <meta name="theme-color" content="#163b2a">
 <title>STUDY HUB | Learning Portal</title>
 
-:root{
-  --green:#14532d;
-  --green2:#166534;
-  --gold:#eabf63;
-  --bg:#f4f7fb;
-  --card:#ffffff;
-  --text:#172b22;
-  --muted:#718096;
-  --line:#e2e8f0;
-  --red:#dc2626;
-  --blue:#2563eb;
-}
-body.dark{
-  --bg:#101827;
-  --card:#1c293b;
-  --text:#edf2f7;
-  --muted:#a0aec0;
-  --line:#344256;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-header{
-  background:#142d22;
-  color:white;
-  padding:16px 4%;
-  border-bottom:3px solid var(--gold);
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-.nav{
-  max-width:1250px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-}
-.brand{
-  font-size:1.6rem;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#f2cd83;
-}
-.sub{font-size:.8rem;color:#cbd5d0}
-button,.btn{
-  border:0;
-  border-radius:9px;
-  padding:10px 15px;
-  font-weight:700;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-block;
-  transition:.2s;
-}
-button:hover,.btn:hover{transform:translateY(-2px)}
-.gold{background:var(--gold);color:#183322}
-.green{background:var(--green2);color:white}
-.outline{background:transparent;border:1px solid var(--gold);color:white}
-input,select,textarea{
-  background:var(--card);
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:11px;
-  font:inherit;
-  min-width:0;
-  width:100%;
-}
-button:focus,input:focus,select:focus,textarea:focus{
-  outline:3px solid #eabf6370;
-}
-.filters{
-  background:var(--card);
-  border-bottom:1px solid var(--line);
-  padding:14px 4%;
-}
-.filterinner{
-  max-width:1250px;
-  margin:auto;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.filterinner select{flex:1;min-width:145px}
-.filterinner input{flex:2;min-width:200px}
-.tabs{
-  max-width:1250px;
-  margin:18px auto 0;
-  padding:0 16px;
-  display:flex;
-  gap:9px;
-  overflow-x:auto;
-}
-.tab{
-  white-space:nowrap;
-  background:var(--card);
-  color:var(--muted);
-  border:1px solid var(--line);
-  border-radius:10px;
-}
-.tab.active{
-  background:var(--green);
-  color:white;
-  border-color:var(--green);
-}
-main{
-  max-width:1250px;
-  margin:auto;
-  padding:22px 16px 55px;
-}
-.page{display:none}
-.page.active{display:block}
-.hero{
-  background:linear-gradient(120deg,#123b29,#24734b);
-  color:white;
-  border-radius:18px;
-  padding:28px;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-  margin-bottom:22px;
-  box-shadow:0 10px 30px #173d2b20;
-}
-.hero h1,.hero h2{color:white}
-.stats{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.stat{
-  background:#ffffff18;
-  border:1px solid #ffffff30;
-  padding:12px 17px;
-  border-radius:12px;
-  text-align:center;
-}
-.stat b{
-  display:block;
-  color:#ffdc91;
-  font-size:1.35rem;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:18px;
-}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:20px;
-  min-width:0;
-  box-shadow:0 4px 15px #172b2208;
-  transition:.2s;
-}
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 25px #172b2212;
-}
-.card h3{margin:4px 0 9px;color:var(--green2)}
-body.dark .card h3{color:#a7e4b8}
-.muted{color:var(--muted);font-size:.9rem}
-.pill{
-  display:inline-block;
-  background:#e7f5eb;
-  color:#166534;
-  border-radius:20px;
-  padding:3px 10px;
-  font-size:.75rem;
-  margin:2px;
-}
-body.dark .pill{background:#294334;color:#dceee0}
-.actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:13px;
-}
-.empty{
-  padding:25px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed var(--line);
-  border-radius:12px;
-}
-label{
-  display:block;
-  font-size:.85rem;
-  font-weight:700;
-  color:var(--muted);
-  margin:7px 0 4px;
-}
-.formgrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:13px;
-}
-.formgrid>div{min-width:0}
-.full{grid-column:1/-1}
+<style>
+:root{--green:#123d2c;--green2:#1d6547;--gold:#e7bd69;--bg:#f3f6f4;--card:#fff;--text:#1b2b23;--muted:#718078;--line:#dfe8e2}
+body.dark{--green:#102c22;--green2:#286c4c;--gold:#e7bd69;--bg:#0d1712;--card:#17251d;--text:#edf5ef;--muted:#a6b5aa;--line:#2c4034}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 10% 0%,#e4f0e8 0,transparent 32%),var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+body.dark{background:radial-gradient(circle at 10% 0%,#183326 0,transparent 32%),var(--bg)}
+header{background:linear-gradient(115deg,#102b20,#1b563b 70%,#26704b);color:#fff;padding:17px 4%;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:5;box-shadow:0 8px 28px #102b201c}
+.nav{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.brand{font-size:1.55rem;font-weight:900;letter-spacing:1.4px;color:#f4d28e}.sub{font-size:.82rem;color:#d5e5da}
+button,.btn{border:0;border-radius:11px;padding:10px 15px;font-weight:750;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s}
+button:hover,.btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px #102b5020}
+.gold{background:linear-gradient(135deg,#f1d28d,#dfad4f);color:#263426}.green{background:linear-gradient(135deg,#1d6547,#2b8059);color:#fff}.outline{background:transparent;border:1px solid #c9ddce;color:inherit}
+input,select,textarea{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;min-width:0;width:100%}
+button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #e7bd6955}
+#studentAuth{max-width:1280px!important;margin:18px auto!important;padding:20px!important;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:18px;background:var(--card);box-shadow:0 10px 30px #173d2b0c}
+#studentAuth .card{border-radius:14px;background:var(--bg)}
+.filters{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 4%;box-shadow:0 5px 20px #173d2b08}
+.filterinner{max-width:1280px;margin:auto;display:flex;gap:10px;flex-wrap:wrap}.filterinner select{flex:1;min-width:145px}.filterinner input{flex:2;min-width:200px}
+.tabs{max-width:1280px;margin:18px auto 0;padding:0 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin}
+.tab{white-space:nowrap;background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:10px 15px}
+.tab.active{background:linear-gradient(135deg,#123d2c,#28734f);color:#fff;border-color:transparent;box-shadow:0 5px 14px #174b3228}
+main{max-width:1280px;margin:auto;padding:22px 16px 55px}.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(115deg,#102f22,#1d6041 65%,#2b8058);color:#fff;border:1px solid #d2b36e;border-radius:21px;padding:30px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px;box-shadow:0 15px 35px #173d2b20}
+.hero h1,.hero h2{color:white;font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#ffffff16;border:1px solid #ffffff35;padding:12px 17px;border-radius:13px;text-align:center;min-width:82px}.stat b{display:block;color:#ffdc91;font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:17px}
+.card{background:var(--card);border:1px solid var(--line);border-top:3px solid #d7b66e;border-radius:16px;padding:20px;min-width:0;box-shadow:0 5px 20px #172b2209;transition:.2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 28px #172b2214}.card h3{margin:4px 0 9px;color:var(--green2)}body.dark .card h3{color:#a7e4b8}
+.muted{color:var(--muted);font-size:.9rem}.pill{display:inline-block;background:#e7f2ea;color:#1b6545;border-radius:20px;padding:3px 10px;font-size:.75rem;margin:2px;font-weight:700}body.dark .pill{background:#294334;color:#dceee0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+label{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin:7px 0 4px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}.formgrid>div{min-width:0}.full{grid-column:1/-1}
 hr{border:0;border-top:1px solid var(--line);margin:18px 0}
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000b;
-  z-index:10;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-.modal.open{display:flex}
-.modalbox{
-  width:min(760px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:var(--card);
-  color:var(--text);
-  border-radius:16px;
-  padding:20px;
-}
-.modalhead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid var(--line);
-  padding-bottom:12px;
-  margin-bottom:14px;
-}
-.option{
-  display:block;
-  width:100%;
-  text-align:left;
-  background:var(--card);
-  border:1px solid var(--line);
-  color:var(--text);
-  margin:8px 0;
-}
-.option.correct{background:#dcfce7;color:#14532d}
-.option.wrong{background:#fee2e2;color:#7f1d1d}
-.notice{
-  background:#fff7e6;
-  border-left:4px solid var(--gold);
-  padding:12px;
-  border-radius:7px;
-  color:#513d19;
-}
-body.dark .notice{background:#382f1d;color:#f4dfae}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}
+.modalbox{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--card);color:var(--text);border:1px solid var(--gold);border-radius:18px;padding:20px;box-shadow:0 24px 70px #0005}
+.modalhead{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}
+.option{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);color:var(--text);margin:8px 0}.option.correct{background:#dcfce7;color:#14532d}.option.wrong{background:#fee2e2;color:#7f1d1d}
+.notice{background:#fdf5e5;border-left:4px solid var(--gold);padding:12px;border-radius:7px;color:#62491d}body.dark .notice{background:#382f1d;color:#f4dfae}
 iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px}
-footer{
-  text-align:center;
-  color:var(--muted);
-  padding:25px;
-  font-size:.85rem;
-}
-#studentAuth{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:20px;
-  margin:18px auto;
-}
-#studentAuth label{display:block;margin:8px 0 4px}
-#studentAuth input{width:100%;margin-bottom:5px}
-#studentAuth form button{margin-top:10px}
-@media(max-width:700px){
-  header{position:relative}
-  .brand{font-size:1.3rem}
-  .hero{padding:20px}
-  .tabs{margin-top:10px}
-  main{padding:15px 12px 40px}
-  .grid{grid-template-columns:1fr}
-}
-
-
-/* STUDY HUB modern visual refresh — keeps the existing Supabase/auth features */
-:root{--green:#173b75;--green2:#2456a6;--gold:#55c7e8;--bg:#f4f7fc;--card:#fff;--text:#17243b;--muted:#64748b;--line:#e1e8f2;--red:#b42318;--blue:#245b91}
-body.dark{--green:#12284d;--green2:#2e65b7;--gold:#55c7e8;--bg:#0b1424;--card:#121f33;--text:#e8f0fb;--muted:#a8b7cc;--line:#263954}
-body{background:radial-gradient(ellipse at 10% 0%,#e6f4ff 0,transparent 35%),var(--bg);letter-spacing:.005em}
-body.dark{background:radial-gradient(ellipse at 10% 0%,#142c4a 0,transparent 35%),var(--bg)}
-header{background:linear-gradient(115deg,#0b1c38,#173b75 65%,#2456a6);border-bottom:3px solid #55c7e8;box-shadow:0 8px 28px #102b501f}
-.brand{font-size:1.55rem;letter-spacing:1.5px;color:#8ce4fa}
-.sub{font-size:.82rem;color:#d8eaff}
-button,.btn{border-radius:11px;padding:10px 15px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
-button:hover,.btn:hover{transform:translateY(-1px);box-shadow:0 7px 18px #102b5020}
-.gold{background:linear-gradient(135deg,#62d5ed,#38a9d2);color:#09243b}
-.green{background:linear-gradient(135deg,#2456a6,#3479cb);color:#fff}
-.outline{border-color:#7bdcf3;color:#eafaff}
-.filters{background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);box-shadow:0 5px 20px #102b5008}
-.filterinner select,.filterinner input{border-radius:11px;padding:11px 13px}
-.tabs{padding-top:4px;padding-bottom:4px;scrollbar-width:thin}
-.tab{border-radius:999px;padding:10px 16px;font-size:.9rem}
-.tab.active{background:linear-gradient(135deg,#173b75,#3479cb);color:#fff;border-color:transparent;box-shadow:0 5px 15px #2456a633}
-main{padding-top:22px}
-.hero{background:linear-gradient(115deg,#102b55,#1d5599 65%,#2582b4);border:1px solid #6bd8ef;border-radius:20px;padding:27px;box-shadow:0 14px 35px #173b7522}
-.hero h2{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.025em}
-.stat{background:#ffffff16;border:1px solid #ffffff35;border-radius:13px;padding:10px 15px}
-.stat b{color:#8ce4fa}
-.grid{gap:17px}
-.card{border:1px solid var(--line);border-top:3px solid #55c7e8;border-radius:16px;padding:19px;box-shadow:0 6px 22px #1a37600a;transition:transform .18s ease,box-shadow .18s ease}
-.card:hover{box-shadow:0 12px 28px #1a376014}
-.card h3{color:var(--green2);letter-spacing:-.01em}
-body.dark .card h3{color:#8ce4fa}
-#studentAuth{box-shadow:0 12px 32px #173b7510!important;border-top:3px solid #55c7e8}
-#studentAuth .card{background:linear-gradient(160deg,var(--card),color-mix(in srgb,var(--card) 92%,#dff5ff));}
-input,select,textarea{border-radius:10px;padding:10px 12px}
-input:focus,select:focus,textarea:focus{border-color:#43b9df;box-shadow:0 0 0 3px #43b9df20}
-.pill{background:#e5f6fc;color:#15517b;font-weight:650}
-body.dark .pill{background:#173d59;color:#bdeeff}
-.modalbox{border:1px solid #55c7e8;border-radius:18px;box-shadow:0 24px 70px #0005}
-.notice{background:#eaf7ff;border-left-color:#38a9d2;color:#17466d}
-body.dark .notice{background:#18324b;color:#d2ecff}
-footer{border-top:1px solid var(--line);margin-top:25px}
-@media(max-width:600px){.brand{font-size:1.25rem}.hero{padding:18px;border-radius:15px}.stat{flex:1;min-width:75px}.tabs{padding-left:12px;padding-right:12px}.tab{padding:9px 13px}}
-
+footer{text-align:center;color:var(--muted);padding:25px;font-size:.85rem;border-top:1px solid var(--line);margin-top:25px}
+@media(max-width:700px){header{position:relative}.brand{font-size:1.3rem}.hero{padding:20px}.tabs{margin-top:10px}.tabs .tab{padding:9px 13px}main{padding:15px 12px 40px}.grid{grid-template-columns:1fr}#studentAuth{margin:12px!important}.stat{flex:1;min-width:72px}}
 </style>
 </head>
 <body>
