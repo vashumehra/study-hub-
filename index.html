@@ -238,6 +238,19 @@ body.dark #welcomeScreen .welcome-copy h1{color:#0F172A}
 body.dark #welcomeScreen .welcome-copy h1 em{color:#F59E0B}
 body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 
+
+/* LOGIN-ONLY POPUP */
+#loginPopup{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:18px;background:#14253699;backdrop-filter:blur(5px)}
+#loginPopup.open{display:flex}
+#loginPopup .login-popup-card{position:relative;width:min(100%,440px);max-height:90vh;overflow:auto;background:#fffefa;color:#263746;border:1px solid #dce7ef;border-radius:20px;padding:26px;box-shadow:0 24px 80px #10253645}
+#loginPopup .login-popup-card h2{margin:0 38px 8px 0;color:#263746}
+#loginPopup .login-popup-sub{margin:0 0 18px;color:#718394}
+#loginPopup .login-popup-close{position:absolute;right:16px;top:14px;width:36px;height:36px;border:0;border-radius:50%;background:#eaf4fa;color:#31566f;font-size:22px;cursor:pointer}
+#loginPopup #loginForm{display:block!important;width:100%;margin:0;background:#f5f8fb;border:1px solid #dce7ef;border-top:3px solid #6faed4;padding:18px}
+#loginPopup #loginForm h3{display:none}
+#loginPopup #authMessage{display:block!important;margin-top:12px!important}
+@media(max-width:480px){#loginPopup .login-popup-card{padding:20px;border-radius:16px}}
+
 </style>
 </head>
 <body>
@@ -261,6 +274,16 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
  </div>
  <div class="welcome-bottom"><span>📖 Learn at your own pace</span><span>🎯 छोटे कदम, बड़ी सफलता</span><span>🌱 Your learning journey starts here</span></div>
 </section>
+<div id="loginPopup" role="dialog" aria-modal="true" aria-labelledby="loginPopupTitle">
+ <div class="login-popup-card">
+  <button type="button" class="login-popup-close" id="closeLoginPopup" aria-label="Close">×</button>
+  <h2 id="loginPopupTitle">Student Login</h2>
+  <p class="login-popup-sub">Apni padhai jaari rakhne ke liye login karein.</p>
+  <div id="loginPopupFormSlot"></div>
+  <div id="loginPopupMessageSlot"></div>
+ </div>
+</div>
+<span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand">📘 STUDY HUB</div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
  <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
@@ -544,6 +567,27 @@ async function refreshAdminAccess(user){
 
 initStudentAuth();
 render();
-$("welcomeStart").addEventListener("click",()=>{$("welcomeScreen").style.display="none";$("studentAuth").scrollIntoView({behavior:"smooth",block:"start"});$("signupName").focus({preventScroll:true});});
+
+const loginFormHome=$("loginForm").parentNode;
+const loginFormHomeAnchor=document.createElement("span");loginFormHomeAnchor.id="loginFormHomeAnchor";
+$("loginForm").parentNode.insertBefore(loginFormHomeAnchor,$("loginForm"));
+const authMessageHomeAnchor=document.createElement("span");authMessageHomeAnchor.id="authMessageHomeAnchor";
+$("authMessage").parentNode.insertBefore(authMessageHomeAnchor,$("authMessage"));
+function openLoginPopup(){
+ $("loginPopupFormSlot").appendChild($("loginForm"));
+ $("loginPopupMessageSlot").appendChild($("authMessage"));
+ $("loginPopup").classList.add("open");
+ $("loginEmail").focus();
+}
+function closeLoginPopup(){
+ $("loginPopup").classList.remove("open");
+ loginFormHomeAnchor.parentNode.insertBefore($("loginForm"),loginFormHomeAnchor.nextSibling);
+ authMessageHomeAnchor.parentNode.insertBefore($("authMessage"),authMessageHomeAnchor.nextSibling);
+}
+$("welcomeStart").addEventListener("click",openLoginPopup);
+$("closeLoginPopup").addEventListener("click",closeLoginPopup);
+$("loginPopup").addEventListener("click",e=>{if(e.target===$("loginPopup"))closeLoginPopup()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("loginPopup").classList.contains("open"))closeLoginPopup()});
+
 </script>
 </body></html>
