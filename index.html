@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#163b2a">
 <title>STUDY HUB | Learning Portal</title>
+<link rel="icon" type="image/webp" href="study-hub-logo.webp">
+<link rel="apple-touch-icon" href="study-hub-logo.webp">
 
 <style>
 :root{--green:#123d2c;--green2:#1d6547;--gold:#e7bd69;--bg:#f3f6f4;--card:#fff;--text:#1b2b23;--muted:#718078;--line:#dfe8e2}
@@ -14,7 +16,7 @@ body{margin:0;background:radial-gradient(circle at 10% 0%,#e4f0e8 0,transparent 
 body.dark{background:radial-gradient(circle at 10% 0%,#183326 0,transparent 32%),var(--bg)}
 header{background:linear-gradient(115deg,#102b20,#1b563b 70%,#26704b);color:#fff;padding:17px 4%;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:5;box-shadow:0 8px 28px #102b201c}
 .nav{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.brand{font-size:1.55rem;font-weight:900;letter-spacing:1.4px;color:#f4d28e}.sub{font-size:.82rem;color:#d5e5da}
+.brand{display:flex;align-items:center;gap:10px;font-size:1.55rem;font-weight:900;letter-spacing:1.4px;color:#f4d28e}.brand-logo{width:48px;height:48px;object-fit:contain;border-radius:50%;background:#fff;box-shadow:0 3px 12px #0002}.sub{font-size:.82rem;color:#d5e5da}
 button,.btn{border:0;border-radius:11px;padding:10px 15px;font-weight:750;cursor:pointer;text-decoration:none;display:inline-block;transition:.18s}
 button:hover,.btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px #102b5020}
 .gold{background:linear-gradient(135deg,#f1d28d,#dfad4f);color:#263426}.green{background:linear-gradient(135deg,#1d6547,#2b8059);color:#fff}.outline{background:transparent;border:1px solid #c9ddce;color:inherit}
@@ -94,7 +96,7 @@ body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
  .nav{align-items:flex-start}
  .nav>.actions{width:100%;justify-content:flex-start}
  .nav>.actions button{padding:8px 10px;font-size:.8rem}
- #studentAuth{padding:14px!important}
+ #studentAuth{padding:14px!important}.brand-logo{width:40px;height:40px}.welcome-brand img{width:48px;height:48px}
  .hero{padding:22px 18px}
  .stats{width:100%}
  .stat{flex:1;min-width:70px;padding:10px 8px}
@@ -105,7 +107,7 @@ body.dark .filterinner select,body.dark .filterinner input{background:#17251d}
 /* WELCOME HOME SCREEN + STUDENT ONBOARDING */
 #welcomeScreen{position:fixed;inset:0;z-index:1000;overflow:auto;background:linear-gradient(125deg,#0b2118 0%,#123d2c 52%,#1b6042 100%);color:#fff;padding:22px clamp(18px,5vw,76px) 18px;display:flex;flex-direction:column}
 .welcome-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1400px;width:100%;margin:0 auto;color:#c8ddcf;font-size:.76rem;letter-spacing:2px;font-weight:800}
-.welcome-brand{font-size:1.35rem;letter-spacing:1px;color:#f4d28e}
+.welcome-brand{display:flex;align-items:center;gap:11px;font-size:1.35rem;letter-spacing:1px;color:#f4d28e}.welcome-brand img{width:58px;height:58px;object-fit:contain;border-radius:50%;background:#fff;box-shadow:0 4px 18px #0003}
 .welcome-layout{width:100%;max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(25px,6vw,90px);padding:35px 0}
 .welcome-copy{max-width:650px}
 .welcome-tag{display:inline-flex;padding:8px 14px;border:1px solid #ffffff35;background:#ffffff12;border-radius:30px;color:#f5d995;font-weight:800;font-size:.83rem}
@@ -256,7 +258,7 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 <body>
 
 <section id="welcomeScreen" aria-label="STUDY HUB welcome">
- <div class="welcome-nav"><div class="welcome-brand">📘 STUDY HUB</div><span>LEARN • GROW • SUCCEED</span></div>
+ <div class="welcome-nav"><div class="welcome-brand"><img src="study-hub-logo.webp" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><span>LEARN • GROW • SUCCEED</span></div>
  <div class="welcome-layout">
   <div class="welcome-copy">
    <div class="welcome-tag">✨ A better way to learn</div>
@@ -290,7 +292,7 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 </div>
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
- <div><div class="brand">📘 STUDY HUB</div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
+ <div><div class="brand"><img class="brand-logo" src="study-hub-logo.webp" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
  <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
 
