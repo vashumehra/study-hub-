@@ -896,13 +896,13 @@ function checkpointStudyTimer(){
 }
 function renderStudyTimer(){
  if(!$("studySessionClock"))return;
- $("studySessionClock").textContent=formatStudyTime(studyState.sessionMs);
+ $("studySessionClock").textContent=formatStudyTime(studyState.sessionMs);$("dashboardTimerClock").textContent=formatStudyTime(studyState.sessionMs);$("dashboardTimerHint").textContent=studyState.running?"● Timer चल रहा है — पढ़ाई जारी रखें":(studyState.sessionMs?"Timer paused — फिर से शुरू करें":"Timer तैयार है — पढ़ना शुरू करें");
  const today=studyDateKey(),todayMs=studyState.daily[today]||0;
  $("studyTodayTotal").textContent=formatStudyShort(todayMs);
  $("studyAllTotal").textContent=formatStudyShort(studyState.totalMs);
  $("studySessionsCount").textContent=studyState.sessions[today]||0;
  $("studyTimerStatus").textContent=studyState.running?"● Study Timer चल रहा है":"Timer रुका हुआ है";
- $("studyStartBtn").disabled=studyState.running;
+ $("studyStartBtn").disabled=studyState.running;$("dashboardTimerStart").disabled=studyState.running;$("dashboardTimerPause").disabled=!studyState.running;$("dashboardTimerFinish").disabled=studyState.sessionMs===0;
  $("studyPauseBtn").disabled=!studyState.running;
  $("studyFinishBtn").disabled=studyState.sessionMs===0;
  $("studyStartBtn").textContent=studyState.sessionMs?"▶ Resume Study":"▶ Start Study";
@@ -914,7 +914,6 @@ function setStudyUser(user){
  if(nextKey===studyUserKey){renderStudyTimer();loadHomework();return}
  if(studyUserKey&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}
  studyUserKey=nextKey;
- if(!studyUserKey){studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};renderStudyTimer();return}
  try{const saved=JSON.parse(localStorage.getItem(studyStorageKey())||"null");studyState=saved&&typeof saved==="object"?{totalMs:saved.totalMs||0,daily:saved.daily||{},sessions:saved.sessions||{},sessionMs:saved.sessionMs||0,running:false,lastTick:0}:{totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}catch{studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}
  renderStudyTimer();loadHomework();
 }
