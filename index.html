@@ -635,6 +635,19 @@ body{top:0!important}
 .goog-tooltip,.goog-tooltip:hover{display:none!important}
 .goog-text-highlight{background:transparent!important;box-shadow:none!important}
 @media(max-width:560px){.translate-control{right:12px;bottom:12px;max-width:145px;min-height:40px}.translate-control .goog-te-combo{max-width:125px;font-size:11px}}
+
+/* DIKSHA-inspired digital learning library */
+.hub-library-head{padding:22px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(130deg,var(--card),#eaf4ed);margin-bottom:18px}
+body.dark .hub-library-head{background:linear-gradient(130deg,var(--card),#1c392a)}
+.hub-library-head h2{margin:5px 0;font-size:clamp(1.45rem,3vw,2rem)}.hub-library-head>p{margin:5px 0 16px}
+.hub-library-search{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:850px}.hub-library-search label{display:block;font-weight:750;font-size:.86rem;margin-bottom:5px}
+.hub-library-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.hub-library-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;min-width:0;box-shadow:0 7px 20px #153b2410}
+.hub-library-card h3{margin:8px 0 5px}.hub-library-card p{color:var(--muted);margin:0 0 14px}.hub-library-icon{font-size:1.8rem;display:inline-flex;margin-bottom:5px}
+.hub-library-feature{grid-column:span 2;display:flex;gap:17px;align-items:flex-start;background:linear-gradient(125deg,#153f2c,#28704c);color:#fff;border:0}.hub-library-feature p{color:#e1eee5}.hub-library-feature .hub-eyebrow{color:#f0d28e}.hub-library-feature .hub-library-icon{font-size:2.4rem}
+.hub-library-actions{display:flex;gap:8px;flex-wrap:wrap}.hub-library-note{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+@media(max-width:760px){.hub-library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-library-feature{grid-column:span 2}}
+@media(max-width:520px){.hub-library-grid,.hub-library-search{grid-template-columns:1fr}.hub-library-feature{grid-column:auto}.hub-library-feature{flex-direction:column}.hub-library-head{padding:16px}}
 </style>
 <style>#page-tests .formgrid{margin-top:12px}#page-tests .option{padding:13px 15px;border-radius:10px}#page-tests .option:disabled{opacity:1}#page-tests #quizClock{font-weight:800;color:#b45309;font-variant-numeric:tabular-nums}</style>
 </head>
@@ -769,19 +782,28 @@ body{top:0!important}
  <div class="hub-motivation"><span>🌟</span><div><b>तुम कर सकते हो!</b><p>हर दिन थोड़ा सीखो, खुद पर भरोसा रखो और अपने सपनों की ओर बढ़ते रहो।</p></div></div>
 </section>
 <section class="page" id="page-books">
- <h2>📚 कक्षा 1 से 12 तक की पढ़ाई की सामग्री</h2>
- <p class="muted">अपनी कक्षा और बोर्ड के अनुसार किताबें चुनें। आधिकारिक पुस्तकें संबंधित सरकारी पोर्टल से खुलेंगी; STUDY HUB की अपनी notes और practice सामग्री नीचे दिखाई देगी।</p>
- <div class="card" style="margin:14px 0">
-  <h3>🏛️ आधिकारिक पाठ्यपुस्तकें</h3>
-  <p class="muted">किताबें सीधे आधिकारिक स्रोत से खोलें। इससे पुरानी या गलत PDF के बजाय उपलब्ध नवीनतम संस्करण देखने में मदद मिलेगी।</p>
-  <div class="grid">
-   <div class="card"><h3>मध्य प्रदेश बोर्ड (MP Board)</h3><p class="muted">मध्य प्रदेश पाठ्यपुस्तक निगम का पुस्तक पोर्टल।</p><a class="btn gold" href="https://mptbc.mp.gov.in/web04/BookDetails.aspx" target="_blank" rel="noopener noreferrer">MP Board किताबें खोलें ↗</a></div>
-   <div class="card"><h3>NCERT / CBSE</h3><p class="muted">कक्षा 1 से 12 तक NCERT की आधिकारिक ऑनलाइन पाठ्यपुस्तकें।</p><a class="btn gold" href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener noreferrer">NCERT किताबें खोलें ↗</a></div>
-   <div class="card"><h3>ePathshala</h3><p class="muted">NCERT की डिजिटल किताबें और ई-सामग्री।</p><a class="btn gold" href="https://epathshala.nic.in/" target="_blank" rel="noopener noreferrer">ePathshala खोलें ↗</a></div>
-   <div class="card"><h3>DIKSHA</h3><p class="muted">स्कूल शिक्षा के लिए डिजिटल पाठ्य सामग्री।</p><a class="btn gold" href="https://diksha.gov.in/" target="_blank" rel="noopener noreferrer">DIKSHA खोलें ↗</a></div>
+ <div class="hub-library-head">
+  <span class="hub-eyebrow">STUDY HUB DIGITAL LEARNING LIBRARY</span>
+  <h2>📚 आपकी पूरी पढ़ाई — एक ही जगह</h2>
+  <p class="muted">कक्षा 1–12 और कॉलेज के विद्यार्थियों के लिए किताबें, वीडियो, इंटरैक्टिव पाठ, कोर्स और अभ्यास सामग्री खोजें।</p>
+  <div class="hub-library-search">
+   <div><label for="libraryClass">अपनी कक्षा चुनें</label><select id="libraryClass"><option value="all">सभी कक्षाएँ</option><option value="1">कक्षा 1</option><option value="2">कक्षा 2</option><option value="3">कक्षा 3</option><option value="4">कक्षा 4</option><option value="5">कक्षा 5</option><option value="6">कक्षा 6</option><option value="7">कक्षा 7</option><option value="8">कक्षा 8</option><option value="9">कक्षा 9</option><option value="10">कक्षा 10</option><option value="11">कक्षा 11</option><option value="12">कक्षा 12</option><option value="college">कॉलेज</option></select></div>
+   <div><label for="libraryBoard">बोर्ड चुनें</label><select id="libraryBoard"><option value="all">सभी बोर्ड</option><option>MP Board</option><option>CBSE / NCERT</option><option>अन्य राज्य बोर्ड</option></select></div>
+   <div><label for="libraryMedium">माध्यम</label><select id="libraryMedium"><option value="all">सभी माध्यम</option><option>हिंदी</option><option>English</option></select></div>
   </div>
-  <p class="muted" style="margin-top:12px">नोट: आधिकारिक किताबों की PDF को STUDY HUB पर कॉपी करके होस्ट नहीं किया जा रहा है। लिंक संबंधित स्रोत पर ले जाते हैं।</p>
  </div>
+ <div class="hub-library-grid">
+  <article class="hub-library-card hub-library-feature">
+   <span class="hub-library-icon">🌐</span><div><span class="hub-eyebrow">NATIONAL DIGITAL PLATFORM</span><h3>DIKSHA Learning Library</h3><p>स्कूल की किताबें, वीडियो, इंटरैक्टिव सामग्री और कोर्स एक ही डिजिटल लाइब्रेरी में खोजें।</p><a class="btn gold" href="https://diksha.gov.in/" target="_blank" rel="noopener noreferrer">DIKSHA लाइब्रेरी खोलें ↗</a></div>
+  </article>
+  <article class="hub-library-card"><span class="hub-library-icon">📖</span><h3>Textbooks & PDFs</h3><p>NCERT और MP Board की आधिकारिक पाठ्यपुस्तकें।</p><div class="hub-library-actions"><a class="btn gold" href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener noreferrer">NCERT किताबें ↗</a><a class="btn outline" href="https://mptbc.mp.gov.in/web04/BookDetails.aspx" target="_blank" rel="noopener noreferrer">MP Board किताबें ↗</a></div></article>
+  <article class="hub-library-card"><span class="hub-library-icon">🎬</span><h3>Video Lessons</h3><p>अध्याय समझने के लिए डिजिटल वीडियो पाठ खोजें।</p><a class="btn gold" href="https://diksha.gov.in/" target="_blank" rel="noopener noreferrer">वीडियो सामग्री खोजें ↗</a></article>
+  <article class="hub-library-card"><span class="hub-library-icon">🧩</span><h3>Interactive Content</h3><p>गतिविधियाँ, अभ्यास और इंटरैक्टिव सीखने की सामग्री।</p><a class="btn gold" href="https://diksha.gov.in/" target="_blank" rel="noopener noreferrer">इंटरैक्टिव सामग्री ↗</a></article>
+  <article class="hub-library-card"><span class="hub-library-icon">🎓</span><h3>Courses & Learning</h3><p>अपनी पढ़ाई के अनुसार डिजिटल कोर्स और सीखने के संसाधन।</p><a class="btn gold" href="https://diksha.gov.in/" target="_blank" rel="noopener noreferrer">कोर्स खोजें ↗</a></article>
+  <article class="hub-library-card"><span class="hub-library-icon">📱</span><h3>ePathshala</h3><p>NCERT की डिजिटल किताबें और ई-संसाधन।</p><a class="btn gold" href="https://epathshala.nic.in/" target="_blank" rel="noopener noreferrer">ePathshala खोलें ↗</a></article>
+ </div>
+ <div class="hub-library-note"><b>📌 जरूरी जानकारी:</b> सरकारी पोर्टल की सामग्री उसके मूल स्रोत पर खुलेगी। जिन PDF/संसाधनों की लाइसेंस अनुमति होगी, उन्हें ही STUDY HUB पर अलग से होस्ट किया जा सकता है। आपकी वेबसाइट पर Admin द्वारा अपलोड की गई सामग्री नीचे दिखाई देगी।</div>
+ <div class="hub-section-title" style="margin-top:28px"><div><span class="hub-eyebrow">YOUR STUDY HUB CONTENT</span><h2>STUDY HUB पर उपलब्ध किताबें</h2><p class="muted">यहाँ वेबसाइट पर अपलोड की गई PDF और पुस्तकें दिखाई देंगी।</p></div></div>
  <div id="booksList" class="grid"></div>
 </section>
 <section class="page" id="page-notes"><h2>📝 Chapter Notes & Revision Capsules</h2><div id="notesList" class="grid"></div></section>
