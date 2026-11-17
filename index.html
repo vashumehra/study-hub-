@@ -534,6 +534,15 @@ main{width:100%;max-width:1360px;margin-left:auto!important;margin-right:auto!im
  footer{margin-left:0!important}
 }
 @media(min-width:1151px){.tabs{width:230px;max-width:230px}main{margin-left:240px;padding-left:22px;padding-right:22px}}
+
+/* Collapsible student navigation: hidden until the Menu button is opened. */
+.menu-toggle{display:inline-flex;align-items:center;gap:8px;margin:12px 18px 0;padding:10px 16px;border:1px solid #c9dce8;border-radius:11px;background:#eaf4fa;color:#244c65;font-weight:800;cursor:pointer}
+#mainNavigation{display:none!important}
+body.menu-open #mainNavigation{display:flex!important}
+@media(min-width:851px){body.menu-open #mainNavigation{position:fixed!important;top:76px;left:0;bottom:0;width:250px;max-width:250px;height:auto;flex-direction:column;overflow-y:auto;overflow-x:hidden;z-index:30;margin:0;padding:22px 14px;background:#fff;border-right:1px solid #dce8f0;box-shadow:5px 0 24px #173d2b08}body.menu-open main{margin-left:0!important}}
+@media(max-width:850px){body.menu-open #mainNavigation{position:relative!important;top:auto;left:auto;bottom:auto;width:100%;max-width:none;height:auto;flex-direction:row;flex-wrap:wrap;overflow:visible;margin:8px 0 0;padding:10px 12px;border:1px solid #dce8f0;border-radius:12px;background:#fff}}
+.menu-toggle:focus-visible{outline:3px solid #8bc4e5;outline-offset:2px}
+
 </style>
 </head>
 <body>
@@ -629,7 +638,8 @@ main{width:100%;max-width:1360px;margin-left:auto!important;margin-right:auto!im
  <select id="streamFilter"><option value="All">All Streams</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select>
  <div class="search-wrap"><input id="search" list="chapterSuggestions" placeholder="🔎 Search subject, chapter, notes, paper..." aria-label="Search content"><datalist id="chapterSuggestions"></datalist><span class="search-shortcut">Ctrl + K /</span></div>
 </div></div>
-<nav class="tabs" aria-label="Main navigation">
+<button type="button" id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNavigation">☰ Menu</button>
+<nav class="tabs" id="mainNavigation" aria-label="Main navigation">
  <button class="tab active" data-page="dashboard">🏠 Dashboard</button><button class="tab" data-page="books">📚 Textbooks</button><button class="tab" data-page="notes">📝 Notes</button><button class="tab" data-page="videos">🎬 Videos</button><button class="tab" data-page="live">🔴 Live Classes</button><button class="tab" data-page="papers">📄 PYQ / Papers</button><button class="tab" data-page="tests">✍️ Mock Tests</button><button class="tab" data-page="studytime">⏱️ Study Time</button><button class="tab" data-page="tools">🧮 Study Tools</button>
 </nav>
 <main>
@@ -730,7 +740,23 @@ main{width:100%;max-width:1360px;margin-left:auto!important;margin-right:auto!im
 
 <div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Details</h3><button class="gold" id="closeModal">Close ✕</button></div><div id="modalContent"></div></div></div>
 <div class="modal" id="profileModal"><div class="modalbox profile-box"><div class="modalhead"><div><h3>👤 Student Profile</h3><p class="muted" style="margin:2px 0 0">Apni account details dekhein aur edit karein</p></div><button class="gold" id="closeProfile">Close ✕</button></div><form id="profileEditForm"><div class="profile-grid"><label class="profile-item">Full Name<input id="editProfileName" required maxlength="80"></label><label class="profile-item">Email / Gmail<input id="editProfileEmail" type="email" readonly disabled></label><label class="profile-item">Class<select id="editProfileClass" required><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></label><label class="profile-item">Board<select id="editProfileBoard" required><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select></label><label class="profile-item">Medium<select id="editProfileMedium" required><option value="Hindi">Hindi Medium</option><option value="English">English Medium</option></select></label><label class="profile-item" id="profileStreamField" hidden>Stream<select id="editProfileStream"><option value="">Select Stream</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select></label></div><div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px"><button class="green" id="saveProfileBtn" type="submit">Save Changes</button></div><p id="profileEditMessage" class="muted" role="status"></p></form></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+const menuToggle=document.getElementById("menuToggle");
+const mainNavigation=document.getElementById("mainNavigation");
+menuToggle.addEventListener("click",()=>{
+ const opened=document.body.classList.toggle("menu-open");
+ menuToggle.setAttribute("aria-expanded",String(opened));
+ menuToggle.textContent=opened?"✕ Close Menu":"☰ Menu";
+});
+mainNavigation.addEventListener("click",e=>{
+ if(e.target.closest(".tab")||e.target.closest("[data-page]")){
+  document.body.classList.remove("menu-open");
+  menuToggle.setAttribute("aria-expanded","false");
+  menuToggle.textContent="☰ Menu";
+ }
+});
+
+</script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
