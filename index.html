@@ -543,6 +543,38 @@ body.menu-open #mainNavigation{display:flex!important}
 @media(max-width:850px){body.menu-open #mainNavigation{position:relative!important;top:auto;left:auto;bottom:auto;width:100%;max-width:none;height:auto;flex-direction:row;flex-wrap:wrap;overflow:visible;margin:8px 0 0;padding:10px 12px;border:1px solid #dce8f0;border-radius:12px;background:#fff}}
 .menu-toggle:focus-visible{outline:3px solid #8bc4e5;outline-offset:2px}
 
+
+/* PREMIUM LMS SHELL — light blue and off-white */
+header{background:#fff!important;border-bottom:1px solid #dce9f1!important;box-shadow:0 5px 22px #31566b0b}
+.topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.top-search{display:flex;align-items:center;gap:8px;width:min(310px,28vw);padding:0 13px;border:1px solid #d8e6ef;border-radius:12px;background:#f5f9fc;color:#6d8ba0}
+.top-search input{width:100%;border:0!important;outline:0;background:transparent!important;padding:10px 0!important;box-shadow:none!important}
+.top-icon{width:40px;height:40px;border:1px solid #d8e6ef;border-radius:12px;background:#f5f9fc;color:#416c86;font-size:1.2rem;cursor:pointer}
+.menu-toggle{display:inline-flex;align-items:center;gap:8px;margin:12px 18px 0;padding:10px 16px;border:1px solid #c9dce8;border-radius:11px;background:#eaf4fa;color:#244c65;font-weight:800;cursor:pointer}
+#mainNavigation{display:none!important}
+body.menu-open #mainNavigation{display:flex!important}
+#mainNavigation{background:#fff;border-right:1px solid #dce8f0;box-shadow:8px 0 30px #23475c0d}
+.sidebar-label{padding:8px 13px 5px;color:#8aa2b2;font-size:.68rem;font-weight:900;letter-spacing:1.5px}
+#mainNavigation .tab{border-radius:11px;color:#526e80;background:transparent;font-weight:700;text-align:left}
+#mainNavigation .tab:hover{background:#eef6fb;color:#245b7b}
+#mainNavigation .tab.active{background:linear-gradient(110deg,#3d83ad,#65a6ca);color:#fff;box-shadow:0 6px 16px #3d83ad25}
+#mainNavigation .sidebar-logout{margin-top:auto;color:#a64d4d;border-top:1px solid #edf1f4}
+body.menu-open #mainNavigation{position:fixed!important;top:76px;left:0;bottom:0;width:250px;max-width:250px;flex-direction:column;overflow-y:auto;overflow-x:hidden;z-index:35;margin:0;padding:18px 13px;background:#fff}
+body.menu-open main{margin-left:0!important}
+.page-heading{margin:5px 0 20px}.page-heading h2{margin:6px 0;color:#294d63}
+.progress-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.progress-overview .card{display:flex;flex-direction:column;gap:8px;padding:20px;border-top:0;border-left:4px solid #8fc2df}
+.progress-overview .card span{font-size:1.4rem}.progress-overview .card b{font-size:1.8rem;color:#397fa8}.progress-overview .card small{color:#70899a}
+body.dark header{background:#1c3342!important}
+body.dark .top-search,body.dark .top-icon{background:#223d4d;border-color:#405b6c;color:#d6e8f2}
+body.dark #mainNavigation{background:#1c3342;border-color:#405b6c}
+body.dark #mainNavigation .tab{color:#c0d2de}
+body.dark #mainNavigation .tab:hover{background:#294354}
+body.dark .progress-overview .card{background:#1d303c;border-color:#405765}
+@media(min-width:851px){body.menu-open main{margin-left:270px!important}body.menu-open footer{margin-left:270px!important}}
+@media(max-width:850px){.topbar-actions{width:100%;justify-content:flex-start;margin-top:10px}.top-search{width:min(100%,360px)}body.menu-open #mainNavigation{position:relative!important;top:auto;left:auto;bottom:auto;width:100%;max-width:none;height:auto;flex-direction:column;margin:8px 12px;padding:12px;border:1px solid #dce8f0;border-radius:14px;box-shadow:0 8px 24px #23475c10}.progress-overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.progress-overview{grid-template-columns:1fr 1fr}.topbar-actions .outline{padding:8px 10px}}
+
 </style>
 </head>
 <body>
@@ -583,7 +615,7 @@ body.menu-open #mainNavigation{display:flex!important}
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><label class="top-search">⌕ <input id="topSearch" type="search" placeholder="Search books, notes, videos..." aria-label="Search all study content"></label><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -640,7 +672,7 @@ body.menu-open #mainNavigation{display:flex!important}
 </div></div>
 <button type="button" id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNavigation">☰ Menu</button>
 <nav class="tabs" id="mainNavigation" aria-label="Main navigation">
- <button class="tab active" data-page="dashboard">🏠 Dashboard</button><button class="tab" data-page="books">📚 Textbooks</button><button class="tab" data-page="notes">📝 Notes</button><button class="tab" data-page="videos">🎬 Videos</button><button class="tab" data-page="live">🔴 Live Classes</button><button class="tab" data-page="papers">📄 PYQ / Papers</button><button class="tab" data-page="tests">✍️ Mock Tests</button><button class="tab" data-page="studytime">⏱️ Study Time</button><button class="tab" data-page="tools">🧮 Study Tools</button>
+ <div class="sidebar-label">LEARNING MENU</div><button class="tab active" data-page="dashboard">⌂ &nbsp; Dashboard</button><button class="tab" data-page="books">▣ &nbsp; My Courses</button><button class="tab" data-page="books">📚 &nbsp; Textbooks</button><button class="tab" data-page="notes">▤ &nbsp; Notes</button><button class="tab" data-page="videos">▷ &nbsp; Video Lectures</button><button class="tab" data-page="live">◉ &nbsp; Live Classes</button><button class="tab" data-page="papers">▧ &nbsp; PYQ / Previous Papers</button><button class="tab" data-page="tests">✎ &nbsp; Mock Tests</button><button class="tab" data-page="studytime">◷ &nbsp; Study Timer</button><button class="tab" data-page="myprogress">▥ &nbsp; My Progress</button><button class="tab" data-page="tools">⌘ &nbsp; Study Tools</button><button class="tab" data-page="settings">⚙ &nbsp; Settings</button><button class="tab sidebar-logout" id="sidebarLogout" type="button">⇥ &nbsp; Logout</button>
 </nav>
 <main>
 <section class="page active" id="page-dashboard">
@@ -718,6 +750,8 @@ body.menu-open #mainNavigation{display:flex!important}
  </div>
  <div class="card" style="margin-top:14px"><h3>🤖 Doubt Assistant</h3><p class="notice">Is offline version mein real AI connected nahi hai. API key ko browser code mein rakhna unsafe hota hai. Real AI ke liye secure backend/API connection zaroori hai.</p><label>Your question</label><textarea id="doubtQuestion" rows="3" style="width:100%" placeholder="Apna sawal likhein..."></textarea><button class="green" id="doubtBtn">Show guidance</button><p id="doubtAnswer"></p></div>
 </section>
+<section class="page" id="page-myprogress"><div class="page-heading"><span class="hub-eyebrow">YOUR LEARNING JOURNEY</span><h2>📊 My Progress</h2><p class="muted">आपकी पढ़ाई और उपलब्ध study material का सारांश।</p></div><div class="progress-overview"><div class="card"><span>📚</span><b id="progressBooks">0</b><small>Books available</small></div><div class="card"><span>📝</span><b id="progressNotes">0</b><small>Notes available</small></div><div class="card"><span>🎬</span><b id="progressVideos">0</b><small>Videos available</small></div><div class="card"><span>⏱️</span><b id="progressStudyTime">0 min</b><small>Total study time</small></div></div><div class="card" style="margin-top:18px"><h3>⭐ Saved Bookmarks</h3><div id="progressBookmarks" class="muted">अभी कोई bookmark नहीं है।</div></div><p class="notice" style="margin-top:14px">नोट: अभी उपलब्ध सामग्री और saved study time दिखाया जा रहा है। Chapter completion tracking को अलग से जोड़ना होगा।</p></section>
+<section class="page" id="page-settings"><div class="page-heading"><span class="hub-eyebrow">PERSONAL PREFERENCES</span><h2>⚙️ Settings</h2><p class="muted">अपने STUDY HUB account और display को manage करें।</p></div><div class="grid"><div class="card"><h3>👤 Student Profile</h3><p class="muted">अपना नाम, कक्षा, बोर्ड और medium अपडेट करें।</p><button class="green" type="button" id="settingsProfileBtn">Edit Profile</button></div><div class="card"><h3>🌓 Appearance</h3><p class="muted">Light और dark mode बदलें।</p><button class="outline" type="button" id="settingsThemeBtn">Change Theme</button></div><div class="card"><h3>🔖 Saved Learning</h3><p class="muted">अपने saved notes और chapters देखें।</p><button class="gold" type="button" data-page="myprogress">View Bookmarks</button></div></div></section>
 <section class="page" id="page-admin">
  <div class="card"><h2>⚙️ Admin Dashboard</h2><p class="notice">Yahan se PDF, Notes aur Video links publish honge. Publish hone ke baad students apni Class, Board, Medium aur Subject filter se content dekh sakenge.</p>
  <div class="formgrid" style="margin-top:12px">
@@ -740,25 +774,19 @@ body.menu-open #mainNavigation{display:flex!important}
 
 <div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Details</h3><button class="gold" id="closeModal">Close ✕</button></div><div id="modalContent"></div></div></div>
 <div class="modal" id="profileModal"><div class="modalbox profile-box"><div class="modalhead"><div><h3>👤 Student Profile</h3><p class="muted" style="margin:2px 0 0">Apni account details dekhein aur edit karein</p></div><button class="gold" id="closeProfile">Close ✕</button></div><form id="profileEditForm"><div class="profile-grid"><label class="profile-item">Full Name<input id="editProfileName" required maxlength="80"></label><label class="profile-item">Email / Gmail<input id="editProfileEmail" type="email" readonly disabled></label><label class="profile-item">Class<select id="editProfileClass" required><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option><option value="college">College</option></select></label><label class="profile-item">Board<select id="editProfileBoard" required><option value="MP Board">MP Board</option><option value="UP Board">UP Board</option><option value="CBSE">CBSE</option></select></label><label class="profile-item">Medium<select id="editProfileMedium" required><option value="Hindi">Hindi Medium</option><option value="English">English Medium</option></select></label><label class="profile-item" id="profileStreamField" hidden>Stream<select id="editProfileStream"><option value="">Select Stream</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select></label></div><div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px"><button class="green" id="saveProfileBtn" type="submit">Save Changes</button></div><p id="profileEditMessage" class="muted" role="status"></p></form></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-const menuToggle=document.getElementById("menuToggle");
-const mainNavigation=document.getElementById("mainNavigation");
-menuToggle.addEventListener("click",()=>{
- const opened=document.body.classList.toggle("menu-open");
- menuToggle.setAttribute("aria-expanded",String(opened));
- menuToggle.textContent=opened?"✕ Close Menu":"☰ Menu";
-});
-mainNavigation.addEventListener("click",e=>{
- if(e.target.closest(".tab")||e.target.closest("[data-page]")){
-  document.body.classList.remove("menu-open");
-  menuToggle.setAttribute("aria-expanded","false");
-  menuToggle.textContent="☰ Menu";
- }
-});
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 "use strict";
+
+const menuToggle=document.getElementById("menuToggle"),mainNavigation=document.getElementById("mainNavigation");
+menuToggle.addEventListener("click",()=>{const opened=document.body.classList.toggle("menu-open");menuToggle.setAttribute("aria-expanded",String(opened));menuToggle.textContent=opened?"✕ Close Menu":"☰ Menu"});
+mainNavigation.addEventListener("click",e=>{if(e.target.closest(".tab")||e.target.closest("[data-page]")){document.body.classList.remove("menu-open");menuToggle.setAttribute("aria-expanded","false");menuToggle.textContent="☰ Menu"}});
+document.getElementById("topSearch").addEventListener("input",e=>{document.getElementById("search").value=e.target.value;document.getElementById("search").dispatchEvent(new Event("input",{bubbles:true}))});
+document.getElementById("notificationBtn").addEventListener("click",()=>alert("अभी कोई नई notification नहीं है।"));
+document.getElementById("sidebarLogout").addEventListener("click",()=>document.getElementById("headerLogout").click());
+document.getElementById("settingsProfileBtn").addEventListener("click",()=>document.getElementById("profileBtn").click());
+document.getElementById("settingsThemeBtn").addEventListener("click",()=>document.getElementById("themeBtn").click());
+
 const $=id=>document.getElementById(id);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>{try{const u=new URL(String(s));return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return ""}};
@@ -783,7 +811,7 @@ function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,
 function updateChapterSuggestions(){const dl=$("chapterSuggestions");if(!dl)return;const q=$("search").value.trim().toLowerCase();const matches=allItems().filter(x=>String(x.cls)===$("classFilter").value&&x.board===$("boardFilter").value&&x.med===$("mediumFilter").value&&(!q||String(x.title||"").toLowerCase().includes(q)||String(x.sub||"").toLowerCase().includes(q))).slice(0,12);dl.innerHTML=matches.map(x=>`<option value="${String(x.title||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;")}">${String(x.sub||"")}</option>`).join("")}
 function cardHTML(x){const url=safeURL(x.url);return `<article class="card"><span class="pill">${escapeHTML(x.sub||"General")}</span><span class="pill">${escapeHTML(x.board)} • ${escapeHTML(x.med)}</span><h3>${escapeHTML(x.title)}</h3><p class="muted">${escapeHTML(x.summary||"")}</p><div class="actions">${x.type==="video"&&url?`<button class="green" data-watch="${x.id}">▶ Watch</button>`:""}${x.type==="live"&&url?`<a class="btn green" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Join class ↗</a>`:""}${url&&x.type!=="video"&&x.type!=="live"?`<a class="btn gold" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Open resource ↗</a>`:""}<button class="gold" data-detail="${x.id}">Read details</button><button class="outline" style="color:var(--text);border-color:var(--line)" data-bookmark="${x.id}">☆ Save</button></div></article>`}
 function renderList(type,id){const a=filtered(type);$(id).innerHTML=a.length?a.map(cardHTML).join(""):`<div class="empty">Is filter ke liye content nahi mila. Admin section se verified content add karein.</div>`}
-function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");const progressStats=[["book",10,"bookCount","bookProgress"],["note",20,"noteCount","noteProgress"],["video",12,"videoCount","videoProgress"],["paper",5,"paperCount","paperProgress"]];progressStats.forEach(([type,goal,countId,barId])=>{const count=filtered(type).length;$(countId).textContent=count;$(barId).style.width=Math.min(100,Math.round(count/goal*100))+"%"});$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
+function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");$("progressBooks").textContent=filtered("book").length;$("progressNotes").textContent=filtered("note").length;$("progressVideos").textContent=filtered("video").length;$("progressBookmarks").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>☆ ${escapeHTML(x.title)}</div>`).join(""):"अभी कोई bookmark नहीं है।";$("progressStudyTime").textContent=$("studyAllTotal")?.textContent||"0 min";const progressStats=[["book",10,"bookCount","bookProgress"],["note",20,"noteCount","noteProgress"],["video",12,"videoCount","videoProgress"],["paper",5,"paperCount","paperProgress"]];progressStats.forEach(([type,goal,countId,barId])=>{const count=filtered(type).length;$(countId).textContent=count;$(barId).style.width=Math.min(100,Math.round(count/goal*100))+"%"});$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
 function showPage(p){if(p==="admin"&&!isAdmin){authMessage("Admin permission nahi hai. Sirf authorized admin dashboard khol sakta hai.",true);return;}document.body.classList.toggle("dashboard-view",p==="dashboard");document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
 ["classFilter","boardFilter","mediumFilter","streamFilter","search"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",()=>{if(id==="search")updateChapterSuggestions();render()}));
