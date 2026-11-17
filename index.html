@@ -547,7 +547,7 @@ body.student-authenticated #streamFilter{display:none!important}
  <input id="search" placeholder="🔎 Search subject, chapter, notes, paper..." aria-label="Search content">
 </div></div>
 <nav class="tabs" aria-label="Main navigation">
- <button class="tab active" data-page="dashboard">🏠 Dashboard</button><button class="tab" data-page="books">📚 Textbooks</button><button class="tab" data-page="notes">📝 Notes</button><button class="tab" data-page="videos">🎬 Videos</button><button class="tab" data-page="live">🔴 Live Classes</button><button class="tab" data-page="papers">📄 PYQ / Papers</button><button class="tab" data-page="tests">✍️ Mock Tests</button><button class="tab" data-page="tools">🧮 Study Tools</button><button class="tab" data-page="admin">⚙️ Admin</button>
+ <button class="tab active" data-page="dashboard">🏠 Dashboard</button><button class="tab" data-page="books">📚 Textbooks</button><button class="tab" data-page="notes">📝 Notes</button><button class="tab" data-page="videos">🎬 Videos</button><button class="tab" data-page="live">🔴 Live Classes</button><button class="tab" data-page="papers">📄 PYQ / Papers</button><button class="tab" data-page="tests">✍️ Mock Tests</button><button class="tab" data-page="studytime">⏱️ Study Time</button><button class="tab" data-page="tools">🧮 Study Tools</button><button class="tab" data-page="admin">⚙️ Admin</button>
 </nav>
 <main>
 <section class="page active" id="page-dashboard">
@@ -593,6 +593,23 @@ body.student-authenticated #streamFilter{display:none!important}
 <section class="page" id="page-tests">
  <div class="grid"><div class="card"><h3>Timed MCQ Practice Test</h3><p class="muted">Demo question bank. Apne syllabus ke hisaab se admin se aur questions add karwayein.</p><div class="actions"><label>Time limit (minutes) <input type="number" id="testMinutes" min="1" max="180" value="10" style="width:90px"></label><button class="green" id="beginTest">Start Test</button></div><div id="quizArea" style="margin-top:12px"></div></div>
  <div class="card"><h3>📒 Mistakes Notebook</h3><div id="mistakesList" class="muted">Galat answers yahan save honge.</div><button class="gold" id="clearMistakes">Clear mistakes</button></div></div>
+</section>
+<section class="page" id="page-studytime">
+ <div class="card" style="max-width:850px;margin:auto">
+  <div class="hub-section-title"><div><span class="hub-eyebrow">YOUR LEARNING JOURNEY</span><h2>⏱️ आपका Study Time</h2><p>Timer Start करें और अपनी पढ़ाई का समय रिकॉर्ड करें।</p></div></div>
+  <div style="text-align:center;padding:18px 8px">
+   <div class="muted">इस Session का समय</div><div id="studySessionClock" style="font-size:clamp(2.5rem,8vw,4.5rem);font-weight:900;letter-spacing:2px;color:var(--green2);font-variant-numeric:tabular-nums">00:00:00</div>
+   <div id="studyTimerStatus" class="pill">Timer रुका हुआ है</div>
+   <div class="actions" style="justify-content:center;margin-top:18px"><button class="green" id="studyStartBtn">▶ Start Study</button><button class="gold" id="studyPauseBtn" disabled>⏸ Pause</button><button class="outline" id="studyFinishBtn" disabled>✓ Finish Session</button></div>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:14px">
+   <div class="hub-stat"><span>📅</span><div><b id="studyTodayTotal">0 min</b><small>आज की पढ़ाई</small></div></div>
+   <div class="hub-stat"><span>🏆</span><div><b id="studyAllTotal">0 min</b><small>कुल पढ़ाई</small></div></div>
+   <div class="hub-stat"><span>📖</span><div><b id="studySessionsCount">0</b><small>आज के Sessions</small></div></div>
+  </div>
+  <div style="margin-top:22px"><h3>📊 Daily Study History</h3><div id="studyHistory" class="muted">अभी कोई रिकॉर्ड नहीं है।</div></div>
+  <p class="muted" style="font-size:.82rem;margin-top:18px">नोट: पढ़ाई का समय आपके इसी browser और device में save होगा। Timer चलाने के लिए Start Study दबाएँ।</p>
+ </div>
 </section>
 <section class="page" id="page-tools">
  <div class="grid">
@@ -713,6 +730,48 @@ $("clearMistakes").onclick=()=>{if(confirm("Mistakes clear karein?")){mistakes=[
 const SUPABASE_URL = "https://zwzuhtscqlmqvczhvvln.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BHhN5NP6ZRFOljNrteA3CA_a7P8oSMN";
 let authClient = null;
+let studyUserKey = null;
+let studyState = {totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};
+let studyTickHandle = null;
+const studyDateKey = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function studyStorageKey(){return studyUserKey?"studyhub_time_v1_"+studyUserKey:null}
+function saveStudyState(){const k=studyStorageKey();if(k)localStorage.setItem(k,JSON.stringify(studyState))}
+function formatStudyTime(ms){const sec=Math.max(0,Math.floor(ms/1000)),h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return [h,m,s].map(v=>String(v).padStart(2,"0")).join(":")}
+function formatStudyShort(ms){const min=Math.floor(ms/60000);if(min<60)return min+" min";return Math.floor(min/60)+" hr "+(min%60)+" min"}
+function checkpointStudyTimer(){
+ if(!studyState.running||!studyState.lastTick)return;
+ const now=Date.now();let cursor=studyState.lastTick;
+ while(cursor<now){const d=new Date(cursor),key=studyDateKey(d),midnight=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),end=Math.min(now,midnight),delta=Math.max(0,end-cursor);studyState.daily[key]=(studyState.daily[key]||0)+delta;studyState.totalMs+=delta;studyState.sessionMs+=delta;cursor=end}
+ studyState.lastTick=now;saveStudyState();renderStudyTimer();
+}
+function renderStudyTimer(){
+ if(!$("studySessionClock"))return;
+ $("studySessionClock").textContent=formatStudyTime(studyState.sessionMs);
+ const today=studyDateKey(),todayMs=studyState.daily[today]||0;
+ $("studyTodayTotal").textContent=formatStudyShort(todayMs);
+ $("studyAllTotal").textContent=formatStudyShort(studyState.totalMs);
+ $("studySessionsCount").textContent=studyState.sessions[today]||0;
+ $("studyTimerStatus").textContent=studyState.running?"● Study Timer चल रहा है":"Timer रुका हुआ है";
+ $("studyStartBtn").disabled=studyState.running;
+ $("studyPauseBtn").disabled=!studyState.running;
+ $("studyFinishBtn").disabled=studyState.sessionMs===0;
+ $("studyStartBtn").textContent=studyState.sessionMs?"▶ Resume Study":"▶ Start Study";
+ const days=Object.keys(studyState.daily).sort().reverse().slice(0,14);
+ $("studyHistory").innerHTML=days.length?days.map(k=>'<div style="display:flex;justify-content:space-between;gap:12px;padding:9px 2px;border-bottom:1px solid var(--line)"><span>'+k+'</span><b>'+formatStudyShort(studyState.daily[k])+'</b></div>').join(""):"अभी कोई रिकॉर्ड नहीं है।";
+}
+function setStudyUser(user){
+ const nextKey=user?.id||null;
+ if(studyUserKey&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}
+ studyUserKey=nextKey;
+ if(!studyUserKey){studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};renderStudyTimer();return}
+ try{const saved=JSON.parse(localStorage.getItem(studyStorageKey())||"null");studyState=saved&&typeof saved==="object"?{totalMs:saved.totalMs||0,daily:saved.daily||{},sessions:saved.sessions||{},sessionMs:saved.sessionMs||0,running:false,lastTick:0}:{totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}catch{studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0}}
+ renderStudyTimer();
+}
+$("studyStartBtn").addEventListener("click",()=>{if(!studyUserKey){alert("Pehle student account mein login karein.");return}if(studyState.running)return;studyState.running=true;studyState.lastTick=Date.now();saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);studyTickHandle=setInterval(checkpointStudyTimer,1000);renderStudyTimer()});
+$("studyPauseBtn").addEventListener("click",()=>{checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()});
+$("studyFinishBtn").addEventListener("click",()=>{if(studyState.running)checkpointStudyTimer();if(studyState.sessionMs>0){const k=studyDateKey();studyState.sessions[k]=(studyState.sessions[k]||0)+1}studyState.running=false;studyState.lastTick=0;studyState.sessionMs=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState();if(studyTickHandle)clearInterval(studyTickHandle);renderStudyTimer()}});
+window.addEventListener("beforeunload",()=>{if(studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}});
 let currentStudentUser = null;
 let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
