@@ -453,6 +453,62 @@ body.student-authenticated #streamFilter{display:none!important}
 .profile-subjects{grid-column:1/-1}
 @media(max-width:520px){.profile-box{padding:15px}.profile-grid{grid-template-columns:1fr;gap:9px}.profile-subjects{grid-column:auto}}
 .hub-hero-sub{max-width:560px;width:100%;text-wrap:balance}.search-wrap{position:relative;display:flex;align-items:center;min-width:240px;flex:1}.search-wrap input{width:100%;padding-right:86px}.search-shortcut{position:absolute;right:12px;font-size:.72rem;color:#8293a0;pointer-events:none;white-space:nowrap}@media(max-width:600px){.search-shortcut{display:none}}
+
+/* COMPACT ONE-SCREEN STUDENT DASHBOARD */
+.hub-dash-hero{grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:18px;padding:20px 24px;min-height:235px}
+.hub-dash-copy h2{font-size:clamp(1.45rem,2.2vw,2.1rem);margin:8px 0}
+.hub-dash-copy h3{font-size:1.12rem;margin:12px 0 4px}
+.hub-dash-copy>p{font-size:.9rem;margin:5px 0}
+.hub-hero-sub{max-width:520px}
+.hub-main-cta{padding:10px 16px;margin-top:8px}
+.hub-dash-side{display:grid;grid-template-columns:minmax(110px,.72fr) minmax(230px,1.28fr);align-items:center;gap:8px;min-width:0}
+.hub-dash-photo{min-height:0;display:flex;align-items:center;justify-content:center}
+.hub-dash-photo img{width:100%;height:205px;object-fit:contain;filter:drop-shadow(0 12px 12px #315d7820)}
+.hub-stat-panel{min-width:0}
+.hub-stat-heading{display:block;font-size:.76rem;font-weight:850;color:#527f99;margin:0 0 8px}
+.hub-stat-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0}
+.hub-stat{display:block;min-width:0;padding:10px 11px;border-radius:13px}
+.hub-stat-top{display:flex;align-items:center;justify-content:space-between;gap:7px}
+.hub-stat-top>span{font-size:1.05rem}
+.hub-stat b{font-size:1.35rem}
+.hub-stat small{display:block;font-size:.72rem;line-height:1.25;margin:3px 0 7px}
+.hub-progress{height:5px;background:#e9f0f4;border-radius:99px;overflow:hidden}
+.hub-progress i{display:block;height:100%;border-radius:99px;background:#62a7ce;transition:width .25s}
+.hub-stat-books{border:1px solid #9ac8e2!important;background:#f1f8fc!important}
+.hub-stat-notes{border:1px solid #a8d8c4!important;background:#f1faf5!important}
+.hub-stat-notes .hub-progress i{background:#55aa83}
+.hub-stat-videos{border:1px solid #c4b4e8!important;background:#f7f4fc!important}
+.hub-stat-videos .hub-progress i{background:#9678c8}
+.hub-stat-papers{border:1px solid #efc99d!important;background:#fff8ef!important}
+.hub-stat-papers .hub-progress i{background:#dc9a4d}
+.hub-section-title{margin:12px 0 9px}
+.hub-section-title h2{font-size:1.25rem}
+.hub-section-title p{font-size:.82rem}
+.hub-learning-grid{gap:11px}
+.hub-learning-card{min-height:122px;padding:13px 15px;gap:5px;border-width:1px}
+.hub-learning-card>span{width:36px;height:36px;font-size:1.2rem}
+.hub-learning-card b{font-size:.96rem}
+.hub-learning-card small{font-size:.76rem}
+.hub-learning-card i{font-size:.75rem}
+.hub-learning-card.hub-books{border:1.5px solid #83b9dc;background:#f3f9fd}
+.hub-learning-card.hub-notes{border:1.5px solid #83c5a6;background:#f3faf6}
+.hub-learning-card.hub-videos{border:1.5px solid #b5a0df;background:#f8f5fd}
+.hub-learning-card.hub-tests{border:1.5px solid #e7b77f;background:#fff8ef}
+body.dark .hub-stat-books,body.dark .hub-stat-notes,body.dark .hub-stat-videos,body.dark .hub-stat-papers,body.dark .hub-learning-card.hub-books,body.dark .hub-learning-card.hub-notes,body.dark .hub-learning-card.hub-videos,body.dark .hub-learning-card.hub-tests{background:#263d4b!important;border-color:#52758a!important}
+body.dark .hub-progress{background:#405765}
+body.dark .hub-stat-heading{color:#b4d6e8}
+body.student-authenticated.dashboard-view{overflow:hidden}
+body.student-authenticated.dashboard-view main{height:calc(100vh - 74px);overflow:hidden;padding:12px 20px 14px}
+body.student-authenticated.dashboard-view #page-dashboard{height:100%;display:flex!important;flex-direction:column;gap:0;overflow:hidden}
+body.student-authenticated.dashboard-view #page-dashboard .hub-plan,body.student-authenticated.dashboard-view #page-dashboard .hub-motivation{display:none}
+body.student-authenticated.dashboard-view #page-dashboard .hub-dash-hero{flex:1 1 auto;min-height:205px;max-height:310px}
+body.student-authenticated.dashboard-view #page-dashboard .hub-section-title{flex:0 0 auto}
+body.student-authenticated.dashboard-view #page-dashboard .hub-learning-grid{flex:0 0 auto}
+@media(max-width:1050px) and (min-width:851px){.hub-dash-hero{grid-template-columns:1fr}.hub-dash-side{grid-template-columns:150px 1fr}.hub-dash-photo img{height:135px}}
+@media(max-height:760px) and (min-width:851px){body.student-authenticated.dashboard-view main{height:calc(100vh - 68px);padding-top:8px}.hub-dash-hero{min-height:185px;padding:14px 20px}.hub-dash-photo img{height:165px}.hub-learning-card{min-height:105px;padding:10px 13px}.hub-section-title{margin:8px 0 6px}}
+@media(max-width:850px){body.student-authenticated.dashboard-view{overflow:auto}body.student-authenticated.dashboard-view main{height:auto;overflow:visible;padding:18px 14px 42px}body.student-authenticated.dashboard-view #page-dashboard{height:auto;overflow:visible;display:block!important}body.student-authenticated.dashboard-view #page-dashboard .hub-plan,body.student-authenticated.dashboard-view #page-dashboard .hub-motivation{display:block}.hub-dash-hero{grid-template-columns:1fr}.hub-dash-side{grid-template-columns:minmax(100px,.65fr) minmax(0,1.35fr)}.hub-dash-photo img{height:165px}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.hub-dash-side{grid-template-columns:1fr}.hub-dash-photo img{height:160px}.hub-stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-learning-card{min-height:120px}}
+
 </style>
 </head>
 <body>
@@ -555,19 +611,24 @@ body.student-authenticated #streamFilter{display:none!important}
  <div class="hub-dash-hero">
   <div class="hub-dash-copy">
    <span class="hub-eyebrow">✦ YOUR PERSONAL LEARNING SPACE</span>
-   <h2 id="welcome">Welcome to STUDY HUB!</h2>
+   <h2 id="welcome">स्वागत है, Student!</h2>
    <p id="profileSummary">Aaj ka target: thoda-thoda roz padhna.</p>
    <h3>आज की मेहनत, कल की सफलता।</h3>
    <p class="hub-hero-sub">अपनी पसंद का विषय चुनो, सीखो और हर दिन एक कदम आगे बढ़ो।</p>
    <button class="hub-main-cta" type="button" data-page="books">अपनी पढ़ाई जारी रखें <span>→</span></button>
   </div>
-  <div class="hub-dash-photo"><img src="https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1000&q=85" alt="Indian student studying with books"><div class="hub-photo-chip">📖 आज कुछ नया सीखें</div></div>
- </div>
- <div class="hub-stat-row">
-  <div class="hub-stat"><span>📚</span><div><b id="bookCount">0</b><small>Books</small></div></div>
-  <div class="hub-stat"><span>📝</span><div><b id="noteCount">0</b><small>Notes</small></div></div>
-  <div class="hub-stat"><span>🎬</span><div><b id="videoCount">0</b><small>Videos</small></div></div>
-  <div class="hub-stat"><span>🧠</span><div><b id="paperCount">0</b><small>Practice Papers</small></div></div>
+  <div class="hub-dash-side">
+   <div class="hub-dash-photo"><img src="student-learning-illustration.svg" alt="लैपटॉप पर पढ़ाई करता हुआ विद्यार्थी"></div>
+   <div class="hub-stat-panel">
+    <span class="hub-stat-heading">आपकी पढ़ाई की प्रगति</span>
+    <div class="hub-stat-row">
+     <div class="hub-stat hub-stat-books"><div class="hub-stat-top"><span>📚</span><b id="bookCount">5</b></div><small>Books पढ़ीं</small><div class="hub-progress"><i id="bookProgress" style="width:50%"></i></div></div>
+     <div class="hub-stat hub-stat-notes"><div class="hub-stat-top"><span>📝</span><b id="noteCount">12</b></div><small>Notes जोड़े</small><div class="hub-progress"><i id="noteProgress" style="width:60%"></i></div></div>
+     <div class="hub-stat hub-stat-videos"><div class="hub-stat-top"><span>🎬</span><b id="videoCount">8</b></div><small>Videos देखे</small><div class="hub-progress"><i id="videoProgress" style="width:67%"></i></div></div>
+     <div class="hub-stat hub-stat-papers"><div class="hub-stat-top"><span>🧠</span><b id="paperCount">3</b></div><small>Practice Papers हल किए</small><div class="hub-progress"><i id="paperProgress" style="width:60%"></i></div></div>
+    </div>
+   </div>
+  </div>
  </div>
  <div class="hub-section-title"><div><span class="hub-eyebrow">CHOOSE YOUR NEXT STEP</span><h2>आज क्या पढ़ना चाहोगे?</h2><p>अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
  <div class="hub-learning-grid">
@@ -670,8 +731,8 @@ function filtered(type){const c=$("classFilter").value,b=$("boardFilter").value,
 function updateChapterSuggestions(){const dl=$("chapterSuggestions");if(!dl)return;const q=$("search").value.trim().toLowerCase();const matches=allItems().filter(x=>String(x.cls)===$("classFilter").value&&x.board===$("boardFilter").value&&x.med===$("mediumFilter").value&&(!q||String(x.title||"").toLowerCase().includes(q)||String(x.sub||"").toLowerCase().includes(q))).slice(0,12);dl.innerHTML=matches.map(x=>`<option value="${String(x.title||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;")}">${String(x.sub||"")}</option>`).join("")}
 function cardHTML(x){const url=safeURL(x.url);return `<article class="card"><span class="pill">${escapeHTML(x.sub||"General")}</span><span class="pill">${escapeHTML(x.board)} • ${escapeHTML(x.med)}</span><h3>${escapeHTML(x.title)}</h3><p class="muted">${escapeHTML(x.summary||"")}</p><div class="actions">${x.type==="video"&&url?`<button class="green" data-watch="${x.id}">▶ Watch</button>`:""}${x.type==="live"&&url?`<a class="btn green" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Join class ↗</a>`:""}${url&&x.type!=="video"&&x.type!=="live"?`<a class="btn gold" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">Open resource ↗</a>`:""}<button class="gold" data-detail="${x.id}">Read details</button><button class="outline" style="color:var(--text);border-color:var(--line)" data-bookmark="${x.id}">☆ Save</button></div></article>`}
 function renderList(type,id){const a=filtered(type);$(id).innerHTML=a.length?a.map(cardHTML).join(""):`<div class="empty">Is filter ke liye content nahi mila. Admin section se verified content add karein.</div>`}
-function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");$("bookCount").textContent=filtered("book").length;$("noteCount").textContent=filtered("note").length;$("videoCount").textContent=filtered("video").length;$("paperCount").textContent=filtered("paper").length;$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
-function showPage(p){if(p==="admin"&&!isAdmin){authMessage("Admin permission nahi hai. Sirf authorized admin dashboard khol sakta hai.",true);return;}document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
+function render(){renderList("book","booksList");renderList("note","notesList");renderList("video","videosList");renderList("live","liveList");renderList("paper","papersList");const progressStats=[["book",5,10,"bookCount","bookProgress"],["note",12,20,"noteCount","noteProgress"],["video",8,12,"videoCount","videoProgress"],["paper",3,5,"paperCount","paperProgress"]];progressStats.forEach(([type,example,goal,countId,barId])=>{const count=Math.max(filtered(type).length,example);$(countId).textContent=count;$(barId).style.width=Math.min(100,Math.round(count/goal*100))+"%"});$("profileSummary").textContent=`${CLASS_LABEL($("classFilter").value)} • ${$("boardFilter").value} • ${$("mediumFilter").value} Medium`;$("bookmarkList").innerHTML=bookmarks.length?bookmarks.map(x=>`<div>${escapeHTML(x.title)}</div>`).join(""):"Abhi koi bookmark nahi.";renderMistakes();renderManage()}
+function showPage(p){if(p==="admin"&&!isAdmin){authMessage("Admin permission nahi hai. Sirf authorized admin dashboard khol sakta hai.",true);return;}document.body.classList.toggle("dashboard-view",p==="dashboard");document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+p));document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p))}
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
 ["classFilter","boardFilter","mediumFilter","streamFilter","search"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",()=>{if(id==="search")updateChapterSuggestions();render()}));
 updateChapterSuggestions();
@@ -790,7 +851,7 @@ function showAuthState(user){
  $("authForms").hidden=logged;
  $("signedInPanel").hidden=!logged;
  $("signedInEmail").textContent=logged?user.email:"";
- if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="Welcome, "+(user.user_metadata?.full_name||user.email).toLocaleLowerCase().replace(/\b\p{L}/gu,c=>c.toLocaleUpperCase())+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;if(meta.medium&&$("mediumFilter"))$("mediumFilter").value=meta.medium;studentSubjects=Array.isArray(meta.subjects)?meta.subjects:[];if(meta.stream&&$("streamFilter"))$("streamFilter").value=meta.stream;render();}
+ if(logged){$("welcomeScreen").style.display="none";$("loginPopup").classList.remove("open");showPage("dashboard");$("welcome").textContent="स्वागत है, "+(user.user_metadata?.full_name||user.email.split("@")[0]).toLocaleLowerCase().replace(/\b\p{L}/gu,c=>c.toLocaleUpperCase())+"!";const meta=user.user_metadata||{};if(meta.class_name&&$("classFilter"))$("classFilter").value=meta.class_name;if(meta.board&&$("boardFilter"))$("boardFilter").value=meta.board;if(meta.medium&&$("mediumFilter"))$("mediumFilter").value=meta.medium;studentSubjects=Array.isArray(meta.subjects)?meta.subjects:[];if(meta.stream&&$("streamFilter"))$("streamFilter").value=meta.stream;render();}
  else {$("welcomeScreen").style.display="flex";$("loginPopup").classList.remove("open");}
 }
 async function ensureStudentProfile(user){
