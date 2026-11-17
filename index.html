@@ -516,6 +516,15 @@ body.student-authenticated.dashboard-view main{height:auto!important;min-height:
 body.student-authenticated.dashboard-view #page-dashboard{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}
 body.student-authenticated.dashboard-view #page-dashboard .hub-plan,body.student-authenticated.dashboard-view #page-dashboard .hub-motivation{display:block!important}
 body.student-authenticated.dashboard-view #page-dashboard .hub-dash-hero{max-height:none!important;flex:none}
+
+/* Comfortable page scale and responsive width at normal browser zoom. */
+html{font-size:15px!important;-webkit-text-size-adjust:100%}
+body{width:100%;max-width:100%;overflow-x:hidden}
+header>.nav, .nav{width:100%;max-width:1360px}
+main{width:100%;max-width:1360px;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(12px,2vw,26px)!important;padding-right:clamp(12px,2vw,26px)!important}
+.site-footer{width:calc(100% - 32px);max-width:1312px;margin:10px auto 8px;padding:10px 18px;box-sizing:border-box;line-height:1.45}
+.site-description{max-width:900px}
+@media(max-width:850px){html{font-size:14px!important}.site-footer{width:calc(100% - 24px);margin:8px 12px;padding:10px 12px}}
 </style>
 </head>
 <body>
@@ -558,7 +567,7 @@ body.student-authenticated.dashboard-view #page-dashboard .hub-dash-hero{max-hei
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
  <div class="actions" style="margin:0"><button class="outline" id="themeBtn">🌓 Theme</button><button class="outline" id="profileBtn">👤 Student Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
 </div></header>
-<div class="site-footer"><strong>STUDY HUB</strong><span class="site-tagline">आपकी पढ़ाई, आपकी सफलता।</span><span class="site-description">कक्षा 5 से 12 और कॉलेज तक — किताबें, आसान नोट्स, वीडियो लेक्चर, प्रैक्टिस पेपर और ऑनलाइन टेस्ट। पढ़ाई की हर ज़रूरत, अब एक ही जगह।</span><span class="site-motto">सीखें • अभ्यास करें • सफलता की ओर बढ़ें</span></div>
+<div class="site-footer"><strong>STUDY HUB</strong><span class="site-tagline">आपकी पढ़ाई, आपकी सफलता</span><span class="site-description">कक्षा 5 से 12 और कॉलेज के विद्यार्थियों के लिए किताबें, नोट्स, वीडियो लेक्चर और ऑनलाइन टेस्ट। पढ़ाई की सभी ज़रूरी सामग्री एक ही जगह।</span><span class="site-motto">सीखें | अभ्यास करें | आगे बढ़ें</span></div>
 
 <section class="card" id="studentAuth" style="max-width:1200px;margin:16px auto;padding:18px">
  <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
