@@ -636,6 +636,7 @@ body{top:0!important}
 .goog-text-highlight{background:transparent!important;box-shadow:none!important}
 @media(max-width:560px){.translate-control{right:12px;bottom:12px;max-width:145px;min-height:40px}.translate-control .goog-te-combo{max-width:125px;font-size:11px}}
 </style>
+<style>#page-tests .formgrid{margin-top:12px}#page-tests .option{padding:13px 15px;border-radius:10px}#page-tests .option:disabled{opacity:1}#page-tests #quizClock{font-weight:800;color:#b45309;font-variant-numeric:tabular-nums}</style>
 </head>
 <body>
 
@@ -773,8 +774,20 @@ body{top:0!important}
 <section class="page" id="page-live"><h2>🔴 Live Class Schedule</h2><div id="liveList" class="grid"></div></section>
 <section class="page" id="page-papers"><h2>📄 Previous Year Questions & Model Papers</h2><div id="papersList" class="grid"></div></section>
 <section class="page" id="page-tests">
- <div class="grid"><div class="card"><h3>Timed MCQ Practice Test</h3><p class="muted">Demo question bank. Apne syllabus ke hisaab se admin se aur questions add karwayein.</p><div class="actions"><label>Time limit (minutes) <input type="number" id="testMinutes" min="1" max="180" value="10" style="width:90px"></label><button class="green" id="beginTest">Start Test</button></div><div id="quizArea" style="margin-top:12px"></div></div>
- <div class="card"><h3>📒 Mistakes Notebook</h3><div id="mistakesList" class="muted">Galat answers yahan save honge.</div><button class="gold" id="clearMistakes">Clear mistakes</button></div></div>
+ <div class="card" style="max-width:1050px;margin:0 auto 18px">
+  <div class="hub-section-title"><div><span class="hub-eyebrow">AI POWERED PRACTICE</span><h2>🧠 Timed MCQ Practice Test</h2><p class="muted">Uploaded textbook select karein, chapter chunein aur AI se apne hisaab ke MCQ banwayein.</p></div></div>
+  <div class="formgrid">
+   <div><label for="testBookSelect">1. Book / PDF select karein</label><select id="testBookSelect"><option value="">Books load ho rahi hain...</option></select></div>
+   <div><label for="testChapterSelect">2. Chapter select karein</label><select id="testChapterSelect" disabled><option value="">Pehle book select karein</option></select></div>
+   <div><label for="testChapterCustom">Ya chapter ka naam likhein (agar list na mile)</label><input id="testChapterCustom" placeholder="Jaise: Chapter 1 - The Family"></div>
+   <div><label for="testCount">3. Kitne MCQ chahiye?</label><input type="number" id="testCount" min="1" max="50" value="10"></div>
+   <div><label for="testMinutes">4. Time limit (minutes)</label><input type="number" id="testMinutes" min="1" max="180" value="10"></div>
+  </div>
+  <p id="testBookStatus" class="muted" style="margin:10px 0">Uploaded PDF select karne ke baad chapters ki list taiyar hogi.</p>
+  <div class="actions"><button class="green" id="beginTest">✨ Generate MCQ & Start Test</button></div>
+  <div id="quizArea" style="margin-top:16px"></div>
+ </div>
+ <div class="card" style="max-width:1050px;margin:auto"><h3>📒 Mistakes Notebook</h3><div id="mistakesList" class="muted">Galat answers yahan save honge.</div><button class="gold" id="clearMistakes">Clear mistakes</button></div>
 </section>
 <section class="page" id="page-studytime">
  <div class="card" style="max-width:850px;margin:auto">
@@ -901,7 +914,7 @@ async function loadCloudContent(){
  const {data,error}=await authClient.from("study_content").select("*").order("created_at",{ascending:false});
  if(error){console.warn("Cloud content load:",error.message);return}
  cloudItems=(data||[]).map(r=>{const fileUrl=r.file_path?authClient.storage.from("study-content").getPublicUrl(r.file_path).data.publicUrl:"";return {id:r.id,type:r.content_type==="pdf"?"book":r.content_type,cls:r.class_name,board:r.board,med:r.medium,stream:r.stream,sub:r.subject,title:r.title,url:r.video_url||fileUrl,summary:r.description||"",file_path:r.file_path,cloud:true}});
- render();
+ render();updateTestBookOptions();
 }
 $("newType").addEventListener("change",()=>{const video=$("newType").value==="video";$("fileUploadWrap").hidden=video;$("videoUrlWrap").hidden=!video});
 $("addContent").onclick=async()=>{
@@ -931,13 +944,71 @@ $("gstBtn").onclick=()=>{const a=Number($("gstAmount").value),r=Number($("gstRat
 $("interestBtn").onclick=()=>{const p=Number($("principal").value),r=Number($("interestRate").value),t=Number($("interestTime").value);$("interestResult").textContent=p>=0&&r>=0&&t>=0?`Simple Interest: ₹${(p*r*t/100).toFixed(2)} | Total: ₹${(p+p*r*t/100).toFixed(2)}`:"Valid values dalein."};
 $("convertBtn").onclick=()=>{const v=Number($("unitValue").value),k=$("unitType").value,fn={"km-mi":x=>x*.621371,"mi-km":x=>x/0.621371,"kg-g":x=>x*1000,"g-kg":x=>x/1000,"c-f":x=>x*9/5+32,"f-c":x=>(x-32)*5/9}[k];$("unitResult").textContent=Number.isFinite(v)?fn(v).toFixed(4):"Value dalein."};
 $("doubtBtn").onclick=()=>{$("doubtAnswer").textContent=$("doubtQuestion").value.trim()?"Yeh offline demo hai; real AI jawab ke liye secure server par AI API integrate karni hogi. Apna sawal teacher/verified textbook se bhi check karein.":"Pehle apna sawal likhein."};
-const questions=[{q:"विद्युत धारा का SI मात्रक क्या है?",o:["वोल्ट","एम्पियर","ओम","वाट"],a:1,e:"विद्युत धारा का SI मात्रक एम्पियर है।"},{q:"परमाणु के केंद्र को क्या कहते हैं?",o:["कोशिका","नाभिक","अणु","कक्षा"],a:1,e:"परमाणु के केंद्र में नाभिक होता है।"},{q:"भारत का संविधान कब लागू हुआ?",o:["15 अगस्त 1947","26 जनवरी 1950","2 अक्टूबर 1950","26 नवंबर 1949"],a:1,e:"भारत का संविधान 26 जनवरी 1950 को लागू हुआ।"}];let qi=0,score=0,testTimer=null,testLeft=0,answered=false;
-$("beginTest").onclick=()=>{clearInterval(testTimer);qi=0;score=0;testLeft=Math.max(1,Math.min(180,Number($("testMinutes").value)||10))*60;renderQuestion();testTimer=setInterval(()=>{testLeft--;$("quizClock").textContent=`Time left: ${Math.floor(testLeft/60)}:${String(testLeft%60).padStart(2,"0")}`;if(testLeft<=0)finishTest()},1000)};
-function renderQuestion(){if(qi>=questions.length){finishTest();return}answered=false;const q=questions[qi];$("quizArea").innerHTML=`<p id="quizClock" class="muted">Time left: ${Math.floor(testLeft/60)}:${String(testLeft%60).padStart(2,"0")}</p><p><b>Q${qi+1}/${questions.length}. ${escapeHTML(q.q)}</b></p>${q.o.map((o,i)=>`<button class="option" data-answer="${i}">${escapeHTML(o)}</button>`).join("")}<p id="explain" class="muted"></p><button class="gold" id="nextQuestion" disabled>Next</button>`;$("quizArea").querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const a=Number(b.dataset.answer);if(a===q.a){score++;b.classList.add("correct")}else{b.classList.add("wrong");$("quizArea").querySelector(`[data-answer="${q.a}"]`).classList.add("correct");if(!mistakes.some(x=>x.q===q.q)){mistakes.push({q:q.q,ans:q.o[q.a],exp:q.e});localStorage.setItem("studyhub_v2_mistakes",JSON.stringify(mistakes))}}$("explain").textContent=q.e;$("quizArea").querySelectorAll("[data-answer]").forEach(x=>x.disabled=true);$("nextQuestion").disabled=false;renderMistakes()});$("nextQuestion").onclick=()=>{qi++;renderQuestion()}}
-function finishTest(){clearInterval(testTimer);testTimer=null;$("quizArea").innerHTML=`<h3>Test complete</h3><p>Your score: <b>${score}/${questions.length}</b></p><button class="green" id="restartTest">Try again</button>`;$("restartTest").onclick=()=>$("beginTest").click()}
-function renderMistakes(){$("mistakesList").innerHTML=mistakes.length?mistakes.map(x=>`<div style="padding:8px;border-bottom:1px solid var(--line)"><b>${escapeHTML(x.q)}</b><br><span class="muted">Correct: ${escapeHTML(x.ans)} — ${escapeHTML(x.exp)}</span></div>`).join(""):"Abhi tak koi galti save nahi hui."}
+let questions=[],qi=0,score=0,testTimer=null,testLeft=0,answered=false;
+let testPdfPages=[],testPdfHeadings=[],testCurrentBook=null;
+function updateTestBookOptions(){
+ const el=$("testBookSelect");if(!el)return;
+ const cls=$("classFilter")?.value||"",board=$("boardFilter")?.value||"",medium=$("mediumFilter")?.value||"";
+ const books=cloudItems.filter(x=>x.type==="book"&&/\.pdf(?:$|[?#])/i.test(x.url||"")&&(!cls||String(x.cls)===String(cls))&&(!board||x.board===board)&&(!medium||x.med===medium));
+ el.innerHTML=books.length?'<option value="">Book select karein</option>'+books.map(x=>'<option value="'+escapeHTML(String(x.id))+'">'+escapeHTML(x.title)+' · '+escapeHTML(x.sub||"Subject")+'</option>').join(""):'<option value="">Is class/board/medium ki PDF book abhi upload nahi hai</option>';
+}
+function isChapterHeading(line){const s=String(line||"").trim();return s.length>2&&s.length<130&&(/^(chapter|unit|lesson)\s*([0-9०-९ivx.-]*)/i.test(s)||/^(अध्याय|पाठ|इकाई)\s*[0-9०-९]*/i.test(s))}
+async function loadTestBook(){
+ const id=$("testBookSelect").value,book=cloudItems.find(x=>String(x.id)===String(id));testCurrentBook=book||null;testPdfPages=[];testPdfHeadings=[];
+ $("testChapterSelect").disabled=true;$("testChapterSelect").innerHTML='<option value="">Chapters load ho rahe hain...</option>';$("testBookStatus").textContent="PDF se chapter list nikali ja rahi hai...";
+ if(!book){$("testChapterSelect").innerHTML='<option value="">Pehle book select karein</option>';$("testBookStatus").textContent="Uploaded PDF select karein.";return}
+ try{
+  if(!window.pdfjsLib)throw new Error("PDF reader load nahi hua. Refresh karke try karein.");
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const pdf=await pdfjsLib.getDocument({url:book.url}).promise;
+  for(let p=1;p<=pdf.numPages;p++){const page=await pdf.getPage(p),content=await page.getTextContent();let line="",lines=[];
+   for(const item of content.items){if(!("str" in item))continue;line+=(item.str||"")+" ";if(item.hasEOL){if(line.trim())lines.push(line.trim());line=""}}
+   if(line.trim())lines.push(line.trim());testPdfPages.push(lines);
+   lines.forEach((v,i)=>{if(isChapterHeading(v))testPdfHeadings.push({title:v,page:p-1,line:i})});
+  }
+  if(testPdfHeadings.length){$("testChapterSelect").innerHTML='<option value="">Chapter select karein</option>'+testPdfHeadings.map((x,i)=>'<option value="'+i+'">'+escapeHTML(x.title)+'</option>').join("");$("testChapterSelect").disabled=false;$("testBookStatus").textContent=pdf.numPages+" pages read hue. "+testPdfHeadings.length+" chapter headings mile."}
+  else{$("testChapterSelect").innerHTML='<option value="">Auto chapter list nahi mili</option>';$("testBookStatus").textContent="PDF read ho gayi, lekin chapter headings nahi mili. Chapter ka naam upar type karein."}
+ }catch(e){$("testChapterSelect").innerHTML='<option value="">Chapter list unavailable</option>';$("testBookStatus").textContent="PDF read nahi hui: "+(e.message||e)+". Text-based PDF chahiye; scanned PDF mein OCR zaroori hai."}
+}
+function getSelectedChapterText(){
+ const ix=$("testChapterSelect").value,custom=$("testChapterCustom").value.trim();
+ if(ix!==""&&testPdfHeadings[Number(ix)]){const cur=testPdfHeadings[Number(ix)],next=testPdfHeadings[Number(ix)+1],parts=[];
+  for(let p=cur.page;p<testPdfPages.length&&(next?p<=next.page:true);p++){let lines=testPdfPages[p];if(p===cur.page)lines=lines.slice(cur.line);if(next&&p===next.page)lines=lines.slice(0,next.line);parts.push(lines.join("\n"))}
+  return {chapter:custom||cur.title,sourceText:parts.join("\n").slice(0,28000)};
+ }
+ return {chapter:custom,sourceText:testPdfPages.map(p=>p.join("\n")).join("\n").slice(0,28000)};
+}
+$("testBookSelect").addEventListener("change",loadTestBook);
+["classFilter","boardFilter","mediumFilter"].forEach(id=>$(id)?.addEventListener("change",updateTestBookOptions));
+$("beginTest").onclick=async()=>{
+ clearInterval(testTimer);testTimer=null;
+ if(!currentStudentUser||!authClient){$("quizArea").textContent="AI test ke liye pehle Student account se login karein.";return}
+ const book=testCurrentBook||cloudItems.find(x=>String(x.id)===$("testBookSelect").value);
+ if(!book){$("quizArea").textContent="Pehle uploaded textbook PDF select karein.";return}
+ const {chapter,sourceText}=getSelectedChapterText();
+ if(!chapter){$("testChapterCustom").focus();$("quizArea").textContent="Chapter select karein ya chapter ka naam type karein.";return}
+ if(sourceText.trim().length<120){$("quizArea").textContent="Is chapter ka text nahi mila. Dusra chapter select karein.";return}
+ const count=Math.max(1,Math.min(50,Number($("testCount").value)||10)),minutes=Math.max(1,Math.min(180,Number($("testMinutes").value)||10));
+ const btn=$("beginTest");btn.disabled=true;btn.textContent="AI questions bana raha hai...";$("quizArea").innerHTML='<p class="notice">📖 Book ke chapter ko padhkar MCQ taiyar kiye ja rahe hain. Thoda intezar karein...</p>';
+ try{
+  const {data,error}=await authClient.functions.invoke("generate-mcqs",{body:{chapter,subject:book.sub||"General",className:book.cls||$("classFilter").value,board:book.board||$("boardFilter").value,medium:book.med||$("mediumFilter").value,count,sourceText}});
+  if(error)throw new Error(data?.error||error.message||"AI request fail ho gayi.");if(data?.error)throw new Error(data.error);
+  questions=(data?.questions||[]).map(q=>({q:q.question,o:q.options,a:q.answerIndex,e:q.explanation}));
+  if(!questions.length)throw new Error("AI ne valid MCQ nahi banaye. Dobara try karein.");
+  qi=0;score=0;answered=false;testLeft=minutes*60;renderQuestion();
+  testTimer=setInterval(()=>{testLeft--;const c=$("quizClock");if(c)c.textContent="Time left: "+Math.floor(testLeft/60)+":"+String(testLeft%60).padStart(2,"0");if(testLeft<=0)finishTest()},1000);
+ }catch(e){const msg=e.message||String(e);$("quizArea").innerHTML='<p class="notice">'+escapeHTML(msg.includes("AI_SETUP_REQUIRED")?"AI abhi connect nahi hai. Admin ko Supabase mein OPENAI_API_KEY set karni hogi.":msg)+'</p>'}
+ finally{btn.disabled=false;btn.textContent="✨ Generate MCQ & Start Test"}
+};
+function renderQuestion(){
+ if(qi>=questions.length){finishTest();return}answered=false;const q=questions[qi];
+ $("quizArea").innerHTML='<p id="quizClock" class="muted">Time left: '+Math.floor(testLeft/60)+':'+String(testLeft%60).padStart(2,"0")+'</p><p class="muted">Question '+(qi+1)+' of '+questions.length+'</p><p><b>Q'+(qi+1)+'. '+escapeHTML(q.q)+'</b></p>'+q.o.map((o,i)=>'<button class="option" data-answer="'+i+'">'+escapeHTML(o)+'</button>').join("")+'<p id="explain" class="muted"></p><button class="gold" id="nextQuestion" disabled>'+(qi===questions.length-1?"Finish Test":"Next Question")+'</button>';
+ $("quizArea").querySelectorAll("[data-answer]").forEach(btn=>btn.onclick=()=>{if(answered)return;answered=true;const v=Number(btn.dataset.answer);if(v===q.a){score++;btn.classList.add("correct")}else{btn.classList.add("wrong");$("quizArea").querySelector('[data-answer="'+q.a+'"]')?.classList.add("correct");if(!mistakes.some(x=>x.q===q.q)){mistakes.push({q:q.q,ans:q.o[q.a],exp:q.e});localStorage.setItem("studyhub_v2_mistakes",JSON.stringify(mistakes))}}$("explain").textContent=q.e;$("quizArea").querySelectorAll("[data-answer]").forEach(x=>x.disabled=true);$("nextQuestion").disabled=false;renderMistakes()});
+ $("nextQuestion").onclick=()=>{qi++;renderQuestion()};
+}
+function finishTest(){clearInterval(testTimer);testTimer=null;if(!$("quizArea"))return;$("quizArea").innerHTML='<h3>Test complete</h3><p>Your score: <b>'+score+'/'+questions.length+'</b></p><p class="muted">'+(testLeft<=0?"Time over.":"Test submit ho gaya.")+'</p><button class="green" id="restartTest">New Test</button>';$("restartTest").onclick=()=>$("beginTest").click()}
+function renderMistakes(){$("mistakesList").innerHTML=mistakes.length?mistakes.map(x=>'<div style="padding:8px;border-bottom:1px solid var(--line)"><b>'+escapeHTML(x.q)+'</b><br><span class="muted">Correct: '+escapeHTML(x.ans)+' — '+escapeHTML(x.exp)+'</span></div>').join(""):"Abhi tak koi galti save nahi hui."}
 $("clearMistakes").onclick=()=>{if(confirm("Mistakes clear karein?")){mistakes=[];localStorage.setItem("studyhub_v2_mistakes","[]");renderMistakes()}}
-
 const SUPABASE_URL = "https://zwzuhtscqlmqvczhvvln.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BHhN5NP6ZRFOljNrteA3CA_a7P8oSMN";
 let authClient = null;
@@ -1212,5 +1283,6 @@ window.googleTranslateElementInit=function(){
 // Render only after the START STUDY and popup handlers are ready.
 render();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body></html>
