@@ -761,6 +761,7 @@ function renderStudyTimer(){
 }
 function setStudyUser(user){
  const nextKey=user?.id||null;
+ if(nextKey===studyUserKey){renderStudyTimer();return}
  if(studyUserKey&&studyState.running){checkpointStudyTimer();studyState.running=false;studyState.lastTick=0;saveStudyState()}
  studyUserKey=nextKey;
  if(!studyUserKey){studyState={totalMs:0,daily:{},sessions:{},sessionMs:0,running:false,lastTick:0};renderStudyTimer();return}
