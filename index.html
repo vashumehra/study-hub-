@@ -625,7 +625,17 @@ body.student-authenticated.dashboard-view #page-dashboard{height:auto!important;
 body.student-authenticated.dashboard-view #page-dashboard>*{flex-shrink:0}
 body.student-authenticated.dashboard-view .site-footer{position:relative!important}
 
-.task-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.task-actions button{border:0;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:750;cursor:pointer}.task-complete{background:#e1f4e9;color:#216844}.task-edit{background:#e7f1f8;color:#285e7d}.task-delete{background:#fff0f0;color:#a33b3b}.task-history-label{font-size:.75rem;color:#278054;font-weight:800}.homework-item{align-items:flex-start;flex-wrap:wrap}.homework-task{flex:1 1 220px}.task-actions{flex:0 1 auto}body.dark .task-complete{background:#254b39;color:#b8f0cf}body.dark .task-edit{background:#29485a;color:#c9e8fa}body.dark .task-delete{background:#563434;color:#ffd0d0}@media(max-width:650px){.task-actions{width:100%;padding-left:0}.homework-item{gap:8px}}</style>
+.task-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.task-actions button{border:0;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:750;cursor:pointer}.task-complete{background:#e1f4e9;color:#216844}.task-edit{background:#e7f1f8;color:#285e7d}.task-delete{background:#fff0f0;color:#a33b3b}.task-history-label{font-size:.75rem;color:#278054;font-weight:800}.homework-item{align-items:flex-start;flex-wrap:wrap}.homework-task{flex:1 1 220px}.task-actions{flex:0 1 auto}body.dark .task-complete{background:#254b39;color:#b8f0cf}body.dark .task-edit{background:#29485a;color:#c9e8fa}body.dark .task-delete{background:#563434;color:#ffd0d0}@media(max-width:650px){.task-actions{width:100%;padding-left:0}.homework-item{gap:8px}}/* FULL WEBSITE LANGUAGE TRANSLATOR */
+.translate-control{display:inline-flex;align-items:center;min-height:38px;padding:3px 8px;background:#fffdf8;border:1px solid #b9cbd4;border-radius:10px;color:#344653;max-width:190px;overflow:hidden}
+.translate-control .goog-te-gadget{font:700 12px system-ui,sans-serif!important;color:#344653!important;white-space:nowrap}
+.translate-control .goog-te-gadget span{display:none!important}
+.translate-control .goog-te-combo{max-width:165px;margin:0!important;padding:7px 24px 7px 8px;border:0;border-radius:7px;background:#fffdf8;color:#344653;font:700 12px system-ui,sans-serif;cursor:pointer}
+.goog-te-banner-frame,.skiptranslate iframe{display:none!important}
+body{top:0!important}
+.goog-tooltip,.goog-tooltip:hover{display:none!important}
+.goog-text-highlight{background:transparent!important;box-shadow:none!important}
+@media(max-width:560px){.translate-control{max-width:145px}.translate-control .goog-te-combo{max-width:125px;font-size:11px}}
+</style>
 </head>
 <body>
 
@@ -665,7 +675,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" type="button" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><div id="google_translate_element" class="translate-control" aria-label="Translate website"></div><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" type="button" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -1164,7 +1174,14 @@ $("popupLoginTab").addEventListener("click",()=>{
 $("loginPopup").addEventListener("click",e=>{if(e.target===$("loginPopup"))closeLoginPopup()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("loginPopup").classList.contains("open"))closeLoginPopup()});
 
+// Google Translate: translates the visible website into the selected language.
+window.googleTranslateElementInit=function(){
+ if(!window.google?.translate?.TranslateElement)return;
+ new google.translate.TranslateElement({pageLanguage:"hi",autoDisplay:false,multilanguagePage:true},"google_translate_element");
+};
+
 // Render only after the START STUDY and popup handlers are ready.
 render();
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body></html>
