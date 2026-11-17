@@ -5,39 +5,289 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#163b2a">
 <title>STUDY HUB | Learning Portal</title>
-<style>
-:root{--green:#173d2b;--green2:#24583d;--gold:#d5ad62;--bg:#f3f6f1;--card:#fff;--text:#1c2b22;--muted:#647368;--line:#dce5dc;--red:#b42318;--blue:#245b91}
-body.dark{--bg:#101a14;--card:#19271e;--text:#edf4ee;--muted:#afbeb2;--line:#304438}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:linear-gradient(120deg,#10291d,var(--green));color:white;padding:15px 4%;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:5}
-.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px;color:#f0d18e;font-size:1.35rem}.sub{font-size:.78rem;color:#d8e3da}
-button,.btn{border:0;border-radius:8px;padding:9px 13px;font-weight:650;cursor:pointer;text-decoration:none;display:inline-block}
-button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #d5ad6270;outline-offset:1px}
-.gold{background:var(--gold);color:#17291d}.green{background:var(--green2);color:white}.outline{background:transparent;border:1px solid var(--gold);color:white}
-.filters{background:var(--card);border-bottom:1px solid var(--line);padding:12px 4%}.filterinner{max-width:1200px;margin:auto;display:flex;gap:9px;flex-wrap:wrap}
-input,select,textarea{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit;min-width:0}
-.filterinner select{flex:1;min-width:145px}.filterinner input{flex:2;min-width:210px}
-.tabs{max-width:1200px;margin:15px auto 0;padding:0 16px;display:flex;gap:7px;overflow:auto}
-.tab{white-space:nowrap;background:var(--card);color:var(--muted);border:1px solid var(--line)}.tab.active{background:var(--green);color:#f0d18e}
-main{max-width:1200px;margin:auto;padding:18px 16px 55px}.page{display:none}.page.active{display:block}
-.hero{background:linear-gradient(120deg,#153b29,#2b6042);color:white;border:2px solid var(--gold);border-radius:14px;padding:20px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:17px}
-.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#ffffff18;border:1px solid #d5ad6270;padding:8px 13px;border-radius:9px;text-align:center}.stat b{display:block;color:#f0d18e;font-size:1.2rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:16px;min-width:0}.card h3{margin:4px 0 8px;color:var(--green2)}body.dark .card h3{color:#f0d18e}
-.muted{color:var(--muted);font-size:.88rem}.pill{display:inline-block;background:#e7f0e8;color:#24583d;border-radius:20px;padding:2px 8px;font-size:.75rem;margin:2px}body.dark .pill{background:#294334;color:#dceee0}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
-label{display:block;font-size:.82rem;font-weight:650;color:var(--muted);margin:5px 0}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.formgrid>div{min-width:0}.full{grid-column:1/-1}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.modalbox{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--card);color:var(--text);border:2px solid var(--gold);border-radius:14px;padding:18px}
-.modalhead{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}
-.option{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);color:var(--text);margin:7px 0}.option.correct{background:#dcfce7;color:#14532d;border-color:#16a34a}.option.wrong{background:#fee2e2;color:#7f1d1d;border-color:#dc2626}
-.notice{background:#fff7e6;border-left:4px solid var(--gold);padding:10px;border-radius:6px;color:#513d19;font-size:.88rem}body.dark .notice{background:#382f1d;color:#f4dfae}
-iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:9px}
-footer{text-align:center;color:var(--muted);padding:20px;font-size:.8rem}
-@media(max-width:600px){header{position:static}.brand{font-size:1.15rem}.hero{padding:15px}.tabs{margin-top:8px}}
 
-#studentAuth label{display:block;margin:7px 0 3px;font-weight:650}
-#studentAuth input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:5px}
+:root{
+  --green:#14532d;
+  --green2:#166534;
+  --gold:#eabf63;
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --text:#172b22;
+  --muted:#718096;
+  --line:#e2e8f0;
+  --red:#dc2626;
+  --blue:#2563eb;
+}
+body.dark{
+  --bg:#101827;
+  --card:#1c293b;
+  --text:#edf2f7;
+  --muted:#a0aec0;
+  --line:#344256;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+header{
+  background:#142d22;
+  color:white;
+  padding:16px 4%;
+  border-bottom:3px solid var(--gold);
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.nav{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.brand{
+  font-size:1.6rem;
+  font-weight:900;
+  letter-spacing:1px;
+  color:#f2cd83;
+}
+.sub{font-size:.8rem;color:#cbd5d0}
+button,.btn{
+  border:0;
+  border-radius:9px;
+  padding:10px 15px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition:.2s;
+}
+button:hover,.btn:hover{transform:translateY(-2px)}
+.gold{background:var(--gold);color:#183322}
+.green{background:var(--green2);color:white}
+.outline{background:transparent;border:1px solid var(--gold);color:white}
+input,select,textarea{
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:11px;
+  font:inherit;
+  min-width:0;
+  width:100%;
+}
+button:focus,input:focus,select:focus,textarea:focus{
+  outline:3px solid #eabf6370;
+}
+.filters{
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  padding:14px 4%;
+}
+.filterinner{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.filterinner select{flex:1;min-width:145px}
+.filterinner input{flex:2;min-width:200px}
+.tabs{
+  max-width:1250px;
+  margin:18px auto 0;
+  padding:0 16px;
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+}
+.tab{
+  white-space:nowrap;
+  background:var(--card);
+  color:var(--muted);
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+.tab.active{
+  background:var(--green);
+  color:white;
+  border-color:var(--green);
+}
+main{
+  max-width:1250px;
+  margin:auto;
+  padding:22px 16px 55px;
+}
+.page{display:none}
+.page.active{display:block}
+.hero{
+  background:linear-gradient(120deg,#123b29,#24734b);
+  color:white;
+  border-radius:18px;
+  padding:28px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+  box-shadow:0 10px 30px #173d2b20;
+}
+.hero h1,.hero h2{color:white}
+.stats{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.stat{
+  background:#ffffff18;
+  border:1px solid #ffffff30;
+  padding:12px 17px;
+  border-radius:12px;
+  text-align:center;
+}
+.stat b{
+  display:block;
+  color:#ffdc91;
+  font-size:1.35rem;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:20px;
+  min-width:0;
+  box-shadow:0 4px 15px #172b2208;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px #172b2212;
+}
+.card h3{margin:4px 0 9px;color:var(--green2)}
+body.dark .card h3{color:#a7e4b8}
+.muted{color:var(--muted);font-size:.9rem}
+.pill{
+  display:inline-block;
+  background:#e7f5eb;
+  color:#166534;
+  border-radius:20px;
+  padding:3px 10px;
+  font-size:.75rem;
+  margin:2px;
+}
+body.dark .pill{background:#294334;color:#dceee0}
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:13px;
+}
+.empty{
+  padding:25px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed var(--line);
+  border-radius:12px;
+}
+label{
+  display:block;
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--muted);
+  margin:7px 0 4px;
+}
+.formgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:13px;
+}
+.formgrid>div{min-width:0}
+.full{grid-column:1/-1}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:10;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+.modal.open{display:flex}
+.modalbox{
+  width:min(760px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--card);
+  color:var(--text);
+  border-radius:16px;
+  padding:20px;
+}
+.modalhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:12px;
+  margin-bottom:14px;
+}
+.option{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:var(--card);
+  border:1px solid var(--line);
+  color:var(--text);
+  margin:8px 0;
+}
+.option.correct{background:#dcfce7;color:#14532d}
+.option.wrong{background:#fee2e2;color:#7f1d1d}
+.notice{
+  background:#fff7e6;
+  border-left:4px solid var(--gold);
+  padding:12px;
+  border-radius:7px;
+  color:#513d19;
+}
+body.dark .notice{background:#382f1d;color:#f4dfae}
+iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px}
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+  font-size:.85rem;
+}
+#studentAuth{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:20px;
+  margin:18px auto;
+}
+#studentAuth label{display:block;margin:8px 0 4px}
+#studentAuth input{width:100%;margin-bottom:5px}
 #studentAuth form button{margin-top:10px}
+@media(max-width:700px){
+  header{position:relative}
+  .brand{font-size:1.3rem}
+  .hero{padding:20px}
+  .tabs{margin-top:10px}
+  main{padding:15px 12px 40px}
+  .grid{grid-template-columns:1fr}
+}
+
 
 /* STUDY HUB modern visual refresh — keeps the existing Supabase/auth features */
 :root{--green:#173b75;--green2:#2456a6;--gold:#55c7e8;--bg:#f4f7fc;--card:#fff;--text:#17243b;--muted:#64748b;--line:#e1e8f2;--red:#b42318;--blue:#245b91}
