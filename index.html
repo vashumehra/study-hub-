@@ -778,6 +778,7 @@ let isAdmin = false;
 function authMessage(message, isError=false){const el=$("authMessage");if(el){el.textContent=message;el.style.color=isError?"#b42318":"var(--muted)"}}
 function showAuthState(user){
  currentStudentUser=user||null;
+ setStudyUser(user||null);
  const logged=!!user;
  document.body.classList.toggle("student-authenticated",logged);
  $("headerLogout").hidden=!logged;
