@@ -817,7 +817,8 @@ const starter=[
 {id:6,type:"live",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"Live class schedule — demo entry",url:"",summary:"यह केवल नमूना प्रविष्टि है। Admin द्वारा वास्तविक तारीख, समय और meeting link जोड़ें।"},
 {id:7,type:"video",cls:"9",board:"CBSE",med:"Hindi",stream:"All",sub:"विज्ञान",title:"Video lecture link जोड़ना बाकी",url:"",summary:"यह नमूना कार्ड है। Admin वास्तविक शिक्षक/अध्याय का सत्यापित YouTube link जोड़ें।"}
 ];
-let items=loadItems(),bookmarks=JSON.parse(localStorage.getItem("studyhub_v2_bookmarks")||"[]"),mistakes=JSON.parse(localStorage.getItem("studyhub_v2_mistakes")||"[]");
+function loadStoredArray(key){try{const value=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(value)?value:[]}catch(error){console.warn("Saved study data could not be read:",key);return []}}
+let items=loadItems(),bookmarks=loadStoredArray("studyhub_v2_bookmarks"),mistakes=loadStoredArray("studyhub_v2_mistakes");
 function loadItems(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)?x:starter.slice()}catch{return starter.slice()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(items))}
 let studentSubjects=[];
