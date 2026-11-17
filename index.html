@@ -256,6 +256,48 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 #loginPopup #authMessage{display:block!important;margin-top:12px!important}
 @media(max-width:480px){#loginPopup .login-popup-card{padding:20px;border-radius:16px}}
 
+
+/* STUDY HUB DASHBOARD REFRESH — LIGHT BLUE & OFF-WHITE */
+.dashboard-hero{background:linear-gradient(120deg,#e5f3fb 0%,#d4eaf6 58%,#f7f2e9 100%);border:1px solid #b8d6e7;color:#263e50;min-height:210px;padding:30px 34px}
+.dashboard-hero h2{color:#173b55;font-size:clamp(1.7rem,3vw,2.4rem)}
+.dashboard-hero-copy{max-width:620px}
+.dashboard-kicker{display:inline-block;color:#5790b1;font-size:.72rem;font-weight:900;letter-spacing:1.8px;margin-bottom:7px}
+.dashboard-motto{margin:12px 0 0;color:#557184;font-weight:700}
+.dashboard-hero .stat{background:#ffffffb8;border:1px solid #c5deeb;color:#456276}
+.dashboard-hero .stat b{color:#397fa8}
+.dashboard-section-head{display:flex;align-items:end;justify-content:space-between;margin:25px 0 13px}
+.dashboard-section-head h2{margin:0;color:#29485d;font-size:1.35rem}
+.dashboard-section-head p{margin:4px 0 0}
+.dashboard-shortcuts{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dashboard-shortcut{appearance:none;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:175px;padding:20px;background:#fffefa;color:#344653;border:1px solid #dce7ef;border-radius:17px;cursor:pointer}
+.dashboard-shortcut:hover{border-color:#9bc9e8;background:#fafdff}
+.dashboard-shortcut strong{font-size:1.05rem;color:#315d78}
+.dashboard-shortcut small{font-size:.83rem;color:#718394}
+.shortcut-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:#e8f3f9;font-size:1.45rem}
+.shortcut-link{margin-top:auto;color:#5794b8;font-size:.82rem;font-weight:850}
+.dashboard-tools-head{margin-top:30px}
+.dashboard-tools{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dashboard-tool-card{display:flex;gap:15px;align-items:flex-start;border-top:1px solid #dce7ef;padding:20px}
+.dashboard-tool-card h3{margin:0 0 5px}
+.dashboard-tool-card .muted{margin:0 0 10px}
+.tool-icon{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:14px;background:#edf5fa;font-size:1.4rem}
+.timer-display{font-size:2rem;font-weight:900;color:#397fa8;letter-spacing:1px}
+.countdown-result{font-weight:750;color:#5794b8}
+.dashboard-encouragement{display:flex;gap:14px;align-items:center;margin-top:18px;padding:18px 20px;border:1px solid #d7e7ef;border-radius:16px;background:linear-gradient(100deg,#eef7fb,#fffaf2);color:#496477}
+.dashboard-encouragement>span{font-size:2rem}
+.dashboard-encouragement strong{color:#315d78}
+.dashboard-encouragement p{margin:3px 0 0;font-size:.88rem;color:#718394}
+body.dark .dashboard-hero{background:linear-gradient(120deg,#203d4e,#29495a 58%,#3b3b35);border-color:#526d7c;color:#edf5fa}
+body.dark .dashboard-hero h2,body.dark .dashboard-section-head h2{color:#edf5fa}
+body.dark .dashboard-motto,body.dark .dashboard-hero .stat{color:#d4e3eb}
+body.dark .dashboard-shortcut{background:#22333c;border-color:#40515a;color:#edf3f5}
+body.dark .dashboard-shortcut strong,body.dark .dashboard-encouragement strong{color:#b9dced}
+body.dark .shortcut-icon,body.dark .tool-icon{background:#304653}
+body.dark .dashboard-encouragement{background:#22333c;border-color:#40515a;color:#d4e3eb}
+body.dark .dashboard-encouragement p{color:#b2c0c6}
+@media(max-width:900px){.dashboard-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-tools{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.dashboard-hero{padding:22px 18px}.dashboard-shortcuts,.dashboard-tools{grid-template-columns:1fr}.dashboard-shortcut{min-height:145px}.dashboard-tool-card{padding:17px}.dashboard-section-head h2{font-size:1.15rem}}
+
 </style>
 </head>
 <body>
@@ -349,13 +391,21 @@ body.dark #welcomeScreen .welcome-cta{background:#F59E0B;color:#0F172A}
 </nav>
 <main>
 <section class="page active" id="page-dashboard">
- <div class="hero"><div><h2 id="welcome">Welcome to STUDY HUB!</h2><div id="profileSummary">Aaj ka target: thoda-thoda roz padhna.</div></div><div class="stats"><div class="stat"><b id="bookCount">0</b>Books</div><div class="stat"><b id="noteCount">0</b>Notes</div><div class="stat"><b id="videoCount">0</b>Videos</div><div class="stat"><b id="paperCount">0</b>Papers</div></div></div>
- <div class="grid">
-  <div class="card"><h3>⏱️ Focus Timer</h3><div id="timer" style="font-size:2rem;font-weight:800">25:00</div><div class="actions"><button class="green" id="startTimer">Start</button><button class="gold" id="resetTimer">Reset</button></div><p class="muted">25 minute padhai, phir chhota break.</p></div>
-  <div class="card"><h3>📅 Exam Countdown</h3><label for="examDate">Exam date</label><input type="date" id="examDate"><p id="countdown" class="muted">Exam date select karein.</p></div>
-  <div class="card"><h3>⭐ Bookmarks</h3><div id="bookmarkList" class="muted">Abhi koi bookmark nahi.</div></div>
+ <div class="hero dashboard-hero"><div class="dashboard-hero-copy"><span class="dashboard-kicker">YOUR LEARNING SPACE</span><h2 id="welcome">Welcome to STUDY HUB!</h2><div id="profileSummary">Aaj ka target: thoda-thoda roz padhna.</div><p class="dashboard-motto">हर दिन की छोटी मेहनत, कल की बड़ी सफलता।</p></div><div class="stats"><div class="stat"><b id="bookCount">0</b>Books</div><div class="stat"><b id="noteCount">0</b>Notes</div><div class="stat"><b id="videoCount">0</b>Videos</div><div class="stat"><b id="paperCount">0</b>Papers</div></div></div>
+ <div class="dashboard-section-head"><div><span class="dashboard-kicker">LET'S GET STARTED</span><h2>आज क्या पढ़ना चाहोगे?</h2><p class="muted">अपनी कक्षा और बोर्ड के अनुसार पढ़ाई शुरू करो।</p></div></div>
+ <div class="grid dashboard-shortcuts">
+  <button class="card dashboard-shortcut" data-page="books"><span class="shortcut-icon">📚</span><strong>Textbooks</strong><small>अपनी किताबें पढ़ें</small><span class="shortcut-link">किताबें खोलें →</span></button>
+  <button class="card dashboard-shortcut" data-page="notes"><span class="shortcut-icon">📝</span><strong>Smart Notes</strong><small>जल्दी revision करें</small><span class="shortcut-link">Notes देखें →</span></button>
+  <button class="card dashboard-shortcut" data-page="videos"><span class="shortcut-icon">🎬</span><strong>Video Classes</strong><small>देखकर और समझकर सीखें</small><span class="shortcut-link">Videos देखें →</span></button>
+  <button class="card dashboard-shortcut" data-page="tests"><span class="shortcut-icon">✍️</span><strong>Practice Tests</strong><small>अपनी तैयारी जाँचें</small><span class="shortcut-link">Test शुरू करें →</span></button>
  </div>
- <div class="card" style="margin-top:14px"><h3>Shuru kaise karein?</h3><p class="muted">Upar apni class, board aur medium chunein. Phir Textbooks, Notes, Videos, Live Classes ya Papers tab kholein. Naya content Admin section se add kar sakte hain.</p></div>
+ <div class="dashboard-section-head dashboard-tools-head"><div><span class="dashboard-kicker">BUILD A DAILY HABIT</span><h2>तैयारी को रोज़ आगे बढ़ाओ</h2></div></div>
+ <div class="grid dashboard-tools">
+  <div class="card dashboard-tool-card"><div class="tool-icon">⏱️</div><div><h3>Focus Timer</h3><p class="muted">25 मिनट ध्यान से पढ़ो, फिर छोटा break लो।</p><div id="timer" class="timer-display">25:00</div><div class="actions"><button class="green" id="startTimer">Start Study</button><button class="gold" id="resetTimer">Reset</button></div></div></div>
+  <div class="card dashboard-tool-card"><div class="tool-icon">📅</div><div><h3>Exam Countdown</h3><p class="muted">अपनी परीक्षा की तारीख चुनो।</p><label for="examDate">Exam date</label><input type="date" id="examDate"><p id="countdown" class="countdown-result">Exam date select karein.</p></div></div>
+  <div class="card dashboard-tool-card"><div class="tool-icon">⭐</div><div><h3>Saved Bookmarks</h3><p class="muted">आपकी पसंद की study सामग्री।</p><div id="bookmarkList" class="muted">Abhi koi bookmark nahi.</div></div></div>
+ </div>
+ <div class="dashboard-encouragement"><span>🌱</span><div><strong>याद रखो: रोज़ थोड़ा पढ़ना भी बहुत बड़ी शुरुआत है!</strong><p>अपना लक्ष्य तय करो, ध्यान से पढ़ो और हर दिन खुद को बेहतर बनाओ।</p></div></div>
 </section>
 <section class="page" id="page-books"><h2>📚 Textbooks & Official Resources</h2><p class="muted">Official textbook link admin ke dwara add karein. Sample entries sirf portal ka demo dikhati hain.</p><div id="booksList" class="grid"></div></section>
 <section class="page" id="page-notes"><h2>📝 Chapter Notes & Revision Capsules</h2><div id="notesList" class="grid"></div></section>
