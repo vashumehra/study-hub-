@@ -598,6 +598,17 @@ body.dark #mainNavigation{background:#1c3342!important;border-color:#405b6c!impo
 @media(max-width:850px){#mainNavigation{position:relative!important;top:auto!important;left:auto!important;bottom:auto!important;width:100%!important;max-width:none!important;height:auto!important;flex-direction:row!important;flex-wrap:wrap!important;overflow:visible!important;margin:8px 0!important;padding:10px!important;border:1px solid #dce8f0!important;border-radius:14px!important}#mainNavigation .tab{flex:1 1 145px!important;text-align:left!important}body.student-authenticated main{margin-left:0!important}}
 .welcome-photo{background-image:linear-gradient(0deg,#142d3b33,#142d3b00 55%),url('https://images.unsplash.com/photo-1692269725827-699e04a11cdf?auto=format&fit=crop&w=1400&q=85')!important;background-position:center!important;background-size:cover!important}
 
+
+/* Navigation as a single horizontal top menu line */
+#mainNavigation{display:flex!important;position:sticky!important;top:0!important;left:auto!important;bottom:auto!important;width:100%!important;max-width:1360px!important;height:auto!important;min-height:54px!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:6px!important;overflow-x:auto!important;overflow-y:hidden!important;z-index:40!important;margin:0 auto 14px!important;padding:8px 16px!important;background:#fff!important;border:0!important;border-bottom:1px solid #dce8f0!important;border-radius:0!important;box-shadow:0 4px 14px #23475c0a!important;scrollbar-width:thin!important}
+#mainNavigation .sidebar-label{display:none!important}
+#mainNavigation .tab{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important;padding:10px 13px!important;border-radius:9px!important;text-align:center!important}
+#mainNavigation .sidebar-logout{margin:0 0 0 auto!important;border-top:0!important;border-left:1px solid #edf1f4!important;padding-left:18px!important}
+body.dark #mainNavigation{background:#1c3342!important;border-color:#405b6c!important}
+body.dark #mainNavigation .sidebar-logout{border-color:#405b6c!important}
+@media(min-width:851px){body.student-authenticated.dashboard-view main,body.student-authenticated main{margin-left:auto!important}body.student-authenticated.dashboard-view footer,body.student-authenticated footer{margin-left:auto!important}}
+@media(max-width:850px){#mainNavigation{width:100%!important;margin:0 0 12px!important;padding:7px 10px!important;gap:4px!important}#mainNavigation .tab{padding:9px 11px!important;font-size:.82rem!important}#mainNavigation .sidebar-logout{margin-left:0!important}}
+
 /* FINAL SCROLL FIX: keep the full student dashboard page scrollable. */
 html,body{min-height:100%!important;height:auto!important}
 body.student-authenticated.dashboard-view{height:auto!important;min-height:100vh!important;overflow-y:scroll!important;overflow-x:hidden!important;position:relative!important}
