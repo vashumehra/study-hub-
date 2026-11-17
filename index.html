@@ -665,7 +665,7 @@ body.student-authenticated.dashboard-view .site-footer{position:relative!importa
 <span id="loginFormHome" hidden></span><span id="authMessageHome" hidden></span>
 <header><div class="nav">
  <div><div class="brand"><img class="brand-logo" src="study-hub-logo.svg" alt="STUDY HUB logo"> <span>STUDY HUB</span></div><div class="sub">Class 5 to 12 • College • Learning Portal</div></div>
- <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" data-go="admin" hidden>Admin / Content Manager</button></div>
+ <div class="topbar-actions"><button class="top-icon" id="notificationBtn" type="button" aria-label="Notifications" title="Notifications">♧</button><button class="outline" id="themeBtn">☼ Theme</button><button class="outline" id="profileBtn">👤 Profile</button><button class="outline" id="headerLogout" type="button" hidden>Logout</button><button class="gold" id="adminNav" type="button" hidden>Admin / Content Manager</button></div>
 </div></header>
 
 
@@ -1067,10 +1067,24 @@ async function refreshAdminAccess(user){
   showAuthState(data.user);
   try{await ensureStudentProfile(data.user);await refreshAdminAccess(data.user);authMessage("Login successful! Dashboard khul gaya.");}catch(err){authMessage("Login ho gaya. Dashboard khul gaya, lekin profile save nahi hua: "+err.message,true)}
  });
- $("headerLogout").addEventListener("click",()=>$("signOutBtn").click());
- $("signOutBtn").addEventListener("click",async()=>{
+ async function performStudentLogout(){
+  if(!authClient){authMessage("Login service load nahi hui. Page refresh karke dobara try karein.",true);return;}
+  $("headerLogout").disabled=true;
   const {error}=await authClient.auth.signOut();
-  if(error) authMessage(error.message,true); else {isAdmin=false;$("adminNav").hidden=true;showAuthState(null);authMessage("Logout ho gaya.")}
+  $("headerLogout").disabled=false;
+  if(error){authMessage("Logout nahi ho saka: "+error.message,true);return;}
+  isAdmin=false;
+  $("adminNav").hidden=true;
+  showAuthState(null);
+  authMessage("Logout ho gaya.");
+ }
+ $("headerLogout").addEventListener("click",performStudentLogout);
+ $("signOutBtn").addEventListener("click",performStudentLogout);
+ $("adminNav").addEventListener("click",async()=>{
+  if(!currentStudentUser){authMessage("Admin dashboard ke liye pehle login karein.",true);return;}
+  await refreshAdminAccess(currentStudentUser);
+  if(isAdmin)showPage("admin");
+  else authMessage("Is account ko Admin permission nahi mili hai. admin_users table mein is user ki entry check karein.",true);
  });
 }
 
